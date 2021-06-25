@@ -23,6 +23,7 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     // this.buildAddress(this.user)
     this.buildUserForm()
+    // console.log(this.addressList())
     console.log("vall ",this.editForm.value.addressList)
   }
 
@@ -35,6 +36,7 @@ export class UserComponent implements OnInit {
       // console.log(this.buildAddress(user))
 
     if (this.updateAdress) {
+      this.buildUserForm()
       // this.usersService.updateTodo(user)
     }
   }
@@ -51,6 +53,12 @@ export class UserComponent implements OnInit {
   //
   // }
   //
+  get addressList() {
+    return this.editForm.get('addressList') as FormArray;
+  }
+  addAlias() {
+    this.addressList.push(this.fb.control(''));
+  }
   buildUserForm(address?: FormGroup): FormGroup {
 
     return this.editForm = this.fb.group({
@@ -72,7 +80,7 @@ export class UserComponent implements OnInit {
       ],
       addressList: this.fb.array(
           this.user.addressList?.map((el:Adress, i:number) => {
-            console.log("ellll",el)
+            // console.log("ellll",el)
             return  this.fb.group({
               id: [
                 el.id || this.user.addressList[i].id ,

@@ -66,33 +66,34 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor=" let addressInfo of user.addressList, let idx = index" >
+    <tr *ngFor=" let addressInfo of user.addressList, let idx = index"  [formGroupName]="idx">
 
       <td>{{(!updateAdress) ? addressInfo.addressType : '' }}
         <input
           *ngIf="updateAdress && idx===idx "
           formControlName="addressType"
           type="text"
-          value={{addressInfo.addressType}}></td>
+         ></td>
       <td>
         {{(!updateAdress) ? addressInfo.address : '' }}
         <input *ngIf="updateAdress && idx===idx"
                formControlName="address"
                type="text"
-               value={{addressInfo.address}}>
+               >
       </td>
       <td>
         {{(!updateAdress) ? addressInfo.city : '' }}
         <input *ngIf="updateAdress && idx===idx"
                formControlName="city"
                type="text"
-               value={{addressInfo.city}}></td>
+               ></td>
       <td>
         {{(!updateAdress) ? addressInfo.postalCode : '' }}
         <input
+          *ngIf="updateAdress && idx===idx"
           formControlName="postalCode"
           type="text"
-          value={{addressInfo.postalCode}}></td>
+          ></td>
 
       <td>
         <button (click)="updateAddsress(user, idx)"
