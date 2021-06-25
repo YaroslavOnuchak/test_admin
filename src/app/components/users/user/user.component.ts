@@ -21,9 +21,9 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.buildUserForm(this.buildAddress(this.user))
-    console.log("vall ",this.editForm.value)
+    // this.buildAddress(this.user)
+    this.buildUserForm()
+    console.log("vall ",this.editForm.value.addressList)
   }
 
   updateContactInfo(user: User): void {
@@ -32,7 +32,7 @@ export class UserComponent implements OnInit {
 
   updateAddsress(user: User, i: number): void {
     this.updateAdress = !this.updateAdress;
-      console.log(this.buildAddress(user))
+      // console.log(this.buildAddress(user))
 
     if (this.updateAdress) {
       // this.usersService.updateTodo(user)
@@ -51,7 +51,7 @@ export class UserComponent implements OnInit {
   //
   // }
   //
-  buildUserForm(address: FormGroup): FormGroup {
+  buildUserForm(address?: FormGroup): FormGroup {
 
     return this.editForm = this.fb.group({
       id: [
@@ -97,11 +97,11 @@ export class UserComponent implements OnInit {
   }
 
 
-  buildAddress(user?: User, length?: number): any {
-    // user?.addressList.forEach()
-    // console.log("user",this.user)
-   return
-  }
+  // buildAddress(user?: User, length?: number): any {
+  //   // user?.addressList.forEach()
+  //   // console.log("user",this.user)
+  //  return
+  // }
 
 }
 

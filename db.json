@@ -12,10 +12,10 @@
       "addressList": [
         {
           "id": 1,
-          "addressType": "bbbbb",
-          "address": "bbbbbb",
-          "city": "bbbbbb",
-          "postalCode": "bbbbbbb"
+          "addressType": "c",
+          "address": "ccc",
+          "city": "cc",
+          "postalCode": "ccccc"
         }]
     },
     {
@@ -30,17 +30,17 @@
       "addressList": [
         {
           "id": 1,
-          "addressType": "bbbbb",
-          "address": "bbbbbb",
-          "city": "bbbbbb",
-          "postalCode": "bbbbbbb"
+          "addressType": "b",
+          "address": "bb",
+          "city": "bbbb",
+          "postalCode": "bbbbb"
         },
         {
           "id": 2,
-          "addressType": "aaaa",
-          "address": "aaaaa",
-          "city": "aaaaa",
-          "postalCode": "aaaaa"
+          "addressType": "a",
+          "address": "aa",
+          "city": "aaa",
+          "postalCode": "aaaa"
         }
       ]
     },
