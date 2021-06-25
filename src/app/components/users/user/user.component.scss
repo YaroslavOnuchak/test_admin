@@ -1,0 +1,13 @@
+:host{
+  table + table{
+  box-shadow:  1rem 2rem 1rem darkgrey ;
+    margin-bottom: 5rem;
+  }
+  input{
+    width: 50%;
+    margin: 0;
+  }
+  button{
+    transition: color 0.5s;
+  }
+}

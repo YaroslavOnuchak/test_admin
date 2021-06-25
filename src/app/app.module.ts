@@ -18,6 +18,7 @@ import { LogInComponent } from './pages/log-in/log-in.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersComponent } from './components/users/users.component';
 import { SearchFilterPipe } from './shared/pipe/search-filter.pipe';
+import { UserComponent } from './components/users/user/user.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { SearchFilterPipe } from './shared/pipe/search-filter.pipe';
     FooterComponent,
     LogInComponent,
     UsersComponent,
-    SearchFilterPipe
+    SearchFilterPipe,
+    UserComponent
   ],
   imports: [
     ReactiveFormsModule,

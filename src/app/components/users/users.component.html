@@ -1,29 +1,8 @@
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">First</th>
-    <th scope="col">Last</th>
-    <th scope="col">username</th>
-    <th scope="col">mail</th>
-    <th scope="col">phone</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor=" let user of usersList | searchFilter:'firstName':  searchFirst
-  | searchFilter: 'lastName':  searchLast
+
+  <app-user *ngFor=" let user of usersList | searchFilter:'firstName':  searchFirst
+ |searchFilter: 'lastName':  searchLast
  |searchFilter: 'username' : searchUser
  |searchFilter: 'mail' : searchMail
- |searchFilter: 'phone' : searchPhone">
-    <th scope="row">{{user.id}}</th>
-    <td>{{user.firstName}}</td>
-    <td>{{user.lastName}}</td>
-    <td>{{user.username}}</td>
-    <td>{{user.mail}}</td>
-    <td>{{user.phone}}</td>
-    <td><button type="button" class="btn btn-outline-info mr-1">update</button></td>
-    <td><button type="button" class="btn btn-outline-info ">del</button></td>
+ |searchFilter: 'phone' : searchPhone"
+  [user]="user" class=""></app-user>
 
-  </tr>
-  </tbody>
-</table>

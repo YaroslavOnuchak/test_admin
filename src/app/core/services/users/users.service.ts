@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 import {environment} from '../../../../environments/environment';
-import {User} from '../../interfaces';
+import {Adress, User} from '../../interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,7 @@ export class UsersService {
     return this.http.get<any>(`${environment.apiUrl}/users`).pipe(map(users => {
       console.log(users)
       return users.filter((elem: User) => {
-         return elem.firstName.toLowerCase().indexOf(firstName.toLocaleLowerCase()) > -1
+        return elem.firstName.toLowerCase().indexOf(firstName.toLocaleLowerCase()) > -1
         // elem.firstName === firstName || elem.lastName === lastName ||
         // elem.username === username || elem.mail === mail ||
         // elem.phone === phone
@@ -35,5 +35,18 @@ export class UsersService {
       });
 
     }));
+  }
+
+  updateTodo(user: User) {
+    return this.http.put<any>(`${environment.apiUrl}/users/${user.id}/`, user)
+  }
+
+  test() {
+    return this.http.get<any>(`${environment.apiUrl}/users/${1}/` )
+  }
+
+  addTodo(data: Adress) {
+    //  return this.http.post<any>(`${this.url}`, data)
+
   }
 }
