@@ -1,0 +1,32 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "firstName": "user",
+      "lastName": "user",
+      "username": "user",
+      "password": "user",
+      "mail": "mail1",
+      "phone": "555555",
+      "token": "token"
+    }, {
+      "id": 2,
+      "firstName": "firstName3",
+      "lastName": "last3",
+      "username": "user3",
+      "password": "user222222222",
+      "mail": "mail222",
+      "phone": "33333",
+      "token": "token"
+    }, {
+      "id": 3,
+      "firstName": "firstName44",
+      "lastName": "last44",
+      "username": "user44",
+      "password": "user333333333",
+      "mail": "mail",
+      "phone": "998677",
+      "token": "token"
+    }
+  ]
+}

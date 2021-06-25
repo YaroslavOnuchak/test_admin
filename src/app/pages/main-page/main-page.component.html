@@ -1,0 +1,11 @@
+<div class="card" style="width: 18rem;">
+  <div class="m-b-25 d-flex"><img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius"
+                                  alt="User-Profile-Image">  <h5
+    class="card-title"><span>firstName:</span> {{user.firstName}} <span>lastName:</span> {{user.lastName}}</h5></div>
+  <div class="card-body">
+
+    <p class="card-text">username: {{user.username}}</p>
+    <p class="card-text">phone: {{user.phone}}</p>
+    <a [href]="'mailto:'+user.mail" class="link-info">mail: {{user.mail}}</a>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+:host{
+  width: 15%;
+  .list-group-item.active{
+background: darkgreen;
+  }
+  a{
+    color: inherit;
+    cursor: pointer;
+  }
+}
