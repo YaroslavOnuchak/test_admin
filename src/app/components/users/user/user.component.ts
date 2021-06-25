@@ -73,9 +73,9 @@ export class UserComponent implements OnInit {
       addressList: this.fb.array(
           this.user.addressList?.map((el:Adress, i:number) => {
             console.log("ellll",el)
-             this.fb.group({
+            return  this.fb.group({
               id: [
-                el.id || this.user.addressList[i].id ||null,
+                el.id || this.user.addressList[i].id ,
               ],
               addressType: [
                 el.addressType || this.user.addressList[i].addressType || 'home'
