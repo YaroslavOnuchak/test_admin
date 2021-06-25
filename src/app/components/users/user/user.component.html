@@ -68,29 +68,29 @@
     <tbody>
     <tr *ngFor=" let addressInfo of user.addressList, let idx = index"  [formGroupName]="idx">
 
-      <td>{{(!updateAdress) ? addressInfo.addressType : '' }}
+      <td>{{(!statusAddress) ? addressInfo.addressType : '' }}
         <input
-          *ngIf="updateAdress && idx===idx "
+          *ngIf="statusAddress && idx===idx "
           formControlName="addressType"
           type="text"
          ></td>
       <td>
-        {{(!updateAdress) ? addressInfo.address : '' }}
-        <input *ngIf="updateAdress && idx===idx"
+        {{(!statusAddress) ? addressInfo.address : '' }}
+        <input *ngIf="statusAddress && idx===idx"
                formControlName="address"
                type="text"
                >
       </td>
       <td>
-        {{(!updateAdress) ? addressInfo.city : '' }}
-        <input *ngIf="updateAdress && idx===idx"
+        {{(!statusAddress) ? addressInfo.city : '' }}
+        <input *ngIf="statusAddress && idx===idx"
                formControlName="city"
                type="text"
                ></td>
       <td>
-        {{(!updateAdress) ? addressInfo.postalCode : '' }}
+        {{(!statusAddress) ? addressInfo.postalCode : '' }}
         <input
-          *ngIf="updateAdress && idx===idx"
+          *ngIf="statusAddress && idx===idx"
           formControlName="postalCode"
           type="text"
           ></td>
@@ -98,7 +98,7 @@
       <td>
         <button (click)="updateAddsress(user, idx)"
                 type="button"
-                class="btn btn-outline-info mr-1">{{(!updateAdress &&
+                class="btn btn-outline-info mr-1">{{(!statusAddress &&
           idx === idx) ? "update" : "save"}}</button>
       </td>
       <td>

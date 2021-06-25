@@ -11,7 +11,8 @@ import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 })
 export class UserComponent implements OnInit {
   @Input() user: User
-  updateAdress: boolean = false;
+  // updateAdress: boolean = false;
+  statusAddress: boolean = false;
   updateInfo: boolean = false;
   test = 12356;
   editForm: FormGroup;
@@ -32,10 +33,10 @@ export class UserComponent implements OnInit {
   }
 
   updateAddsress(user: User, i: number): void {
-    this.updateAdress = !this.updateAdress;
-      // console.log(this.buildAddress(user))
+    this.statusAddress = !this.statusAddress;
+      console.log("==>>>",i)
 
-    if (this.updateAdress) {
+    if (this.statusAddress) {
       this.buildUserForm()
       // this.usersService.updateTodo(user)
     }
