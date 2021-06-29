@@ -20,7 +20,7 @@
           "id": 2,
           "addressType": "9",
           "address": "aa",
-          "city": "aaa",
+          "city": "aaa2",
           "postalCode": "a",
           "editStatus": false
         }
@@ -40,6 +40,14 @@
           "address": "str",
           "city": "stri",
           "postalCode": "132456",
+          "editStatus": false
+        },
+        {
+          "id": 2,
+          "addressType": "test",
+          "address": " test",
+          "city": " test",
+          "postalCode": " 99837",
           "editStatus": false
         }
       ]
