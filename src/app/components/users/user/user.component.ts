@@ -1,15 +1,20 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit,Output, EventEmitter ,OnChanges} from '@angular/core';
 import {Adress, User} from "../../../core/interfaces";
 import {take} from "rxjs/operators";
 import {UsersService} from "../../../core/services/users/users.service";
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators'
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
+  private unsubscribe = new Subject();
+  @Output() save = new EventEmitter<string>();
+
   @Input() user: User
   // updateAdress: boolean = false;
   statusAddress: boolean = false;
@@ -25,20 +30,36 @@ export class UserComponent implements OnInit {
     // this.buildAddress(this.user)
     this.buildUserForm()
     // console.log(this.addressList())
-    console.log("vall ",this.editForm.value.addressList)
+    // console.log("vall ",this.editForm.value.addressList)
   }
-
+  ngOnChanges():void{
+    console.log(`chenge` )
+  }
+  
   updateContactInfo(user: User): void {
     this.updateInfo = !this.updateInfo;
   }
-
+  
   updateAddsress(user: User, i: number): void {
-    this.statusAddress = !this.statusAddress;
+    // this.statusAddress = !this.statusAddress;
+    user.addressList[i].editStatus = !user.addressList[i].editStatus
+    
+    if ( user.addressList[i].editStatus ) {
       console.log("==>>>",i)
+    }else{
+      console.log("vall ",this.editForm.value.addressList[i])
+      this.usersService.updateTodo(this.editForm.value) .pipe(takeUntil(this.unsubscribe))
+      .subscribe(() => {
+        // this.getTodos()
+      })
+      this.usersService.getUsers().pipe(take(1)
+      ).subscribe(data => {
+        console.log(data)
+        // this.user = data
+      })
+      // this.buildUserForm()
+    this.save.emit('em111111it')
 
-    if (this.statusAddress) {
-      this.buildUserForm()
-      // this.usersService.updateTodo(user)
     }
   }
 
@@ -54,11 +75,11 @@ export class UserComponent implements OnInit {
   //
   // }
   //
-  get addressList() {
-    return this.editForm.get('addressList') as FormArray;
-  }
+  // get addressList() {
+  //   // return this.editForm.get('addressList') as FormArray;
+  // }
   addAlias() {
-    this.addressList.push(this.fb.control(''));
+    // this.addressList.push(this.fb.control(''));
   }
   buildUserForm(address?: FormGroup): FormGroup {
 

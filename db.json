@@ -7,16 +7,15 @@
       "username": "user",
       "mail": "mail1",
       "phone": "555555",
-      "password": "user",
-      "token": "token",
       "addressList": [
         {
           "id": 1,
-          "addressType": "c",
+          "addressType": "333",
           "address": "ccc",
           "city": "cc",
           "postalCode": "ccccc"
-        }]
+        }
+      ]
     },
     {
       "id": 2,
@@ -25,12 +24,10 @@
       "username": "user3",
       "mail": "mail222",
       "phone": "33333",
-      "password": "user222222222",
-      "token": "token",
       "addressList": [
         {
           "id": 1,
-          "addressType": "b",
+          "addressType": "bwwwww",
           "address": "bb",
           "city": "bbbb",
           "postalCode": "bbbbb"
@@ -59,7 +56,8 @@
           "addressType": "st",
           "address": "str",
           "city": "stri",
-          "postalCode": "132456"
+          "postalCode": "132456",
+          "editStatus": false
         }
       ]
     }

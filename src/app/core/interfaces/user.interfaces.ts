@@ -7,6 +7,7 @@ export interface Adress {
   address: string,
   city: string,
   postalCode: string,
+  editStatus?: boolean
 
 }
 

@@ -31,13 +31,15 @@ export class UsersService {
         // elem.username === username || elem.mail === mail ||
         // elem.phone === phone
         console.log(elem)
-
+        
       });
-
+      
     }));
   }
-
+  
   updateTodo(user: User) {
+    
+    console.log('servis', user)
     return this.http.put<any>(`${environment.apiUrl}/users/${user.id}/`, user)
   }
 

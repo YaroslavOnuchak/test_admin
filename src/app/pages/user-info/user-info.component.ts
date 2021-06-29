@@ -38,11 +38,14 @@ export class UserInfoComponent implements OnInit {
   getUsers(): void {
     this.usersService.getUsers().pipe(take(1)
     ).subscribe(data => {
-      // console.log(data)
+      console.log(data)
       this.users = data
     })
   }
-
+  update(e:any){
+    console.log(`dffd`, )
+    this.getUsers()
+  }
   clearForm(): void {
     this.searchForm.reset()
     this.getUsers()
