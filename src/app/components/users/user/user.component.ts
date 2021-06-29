@@ -57,9 +57,9 @@ export class UserComponent implements OnInit {
   get addressList() {
     return this.editForm.get('addressList') as FormArray;
   }
-  // addAlias() {
-  //   this.addressList.push(this.fb.control(''));
-  // }
+  addAlias() {
+    this.addressList.push(this.fb.control(''));
+  }
   buildUserForm(address?: FormGroup): FormGroup {
 
     return this.editForm = this.fb.group({

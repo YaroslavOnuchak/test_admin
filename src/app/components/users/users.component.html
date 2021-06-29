@@ -1,8 +1,7 @@
-
-  <app-user *ngFor=" let user of usersList | searchFilter:'firstName':  searchFirst
+<app-user *ngFor=" let user of usersList | searchFilter:'firstName':  searchFirst
  |searchFilter: 'lastName':  searchLast
  |searchFilter: 'username' : searchUser
  |searchFilter: 'mail' : searchMail
  |searchFilter: 'phone' : searchPhone"
-  [user]="user" class=""></app-user>
-
+  [user]="user"
+  (save)=save($event) class=""></app-user>
