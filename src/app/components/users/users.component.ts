@@ -13,15 +13,16 @@ export class UsersComponent implements OnInit {
 @Input() searchUser :any
 @Input() searchMail :any
 @Input() searchPhone :any
-@Output() saveE = new EventEmitter<string>();
+
+@Output() update = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
-  save(e:any):void{
-    console.log(`1111e`, e)
-    this.saveE.emit()
+  upDate(e:any):void{
+    this.update.emit()
+
   }
 
 }

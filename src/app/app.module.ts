@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 // import {MatFormFieldModule} from '@angular/material/form-field';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -41,6 +42,7 @@ import { UserComponent } from './components/users/user/user.component';
     AppRoutingModule,
     BrowserModule,
     FormsModule,
+    PopoverModule.forRoot(),
 
     // MatFormFieldModule,
     // NoopAnimationsModule,

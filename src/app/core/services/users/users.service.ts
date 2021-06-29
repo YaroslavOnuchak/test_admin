@@ -20,7 +20,6 @@ export class UsersService {
   }
 
   searchUsers(arg: any): Observable<Array<User>> {
-    // console.log("ser", arg)
     let {firstName, lastName, username, mail, phone} = arg
     console.log(firstName)
     return this.http.get<any>(`${environment.apiUrl}/users`).pipe(map(users => {
@@ -30,21 +29,24 @@ export class UsersService {
         // elem.firstName === firstName || elem.lastName === lastName ||
         // elem.username === username || elem.mail === mail ||
         // elem.phone === phone
-        console.log(elem)
-        
+        // console.log(elem)
+
       });
-      
+
     }));
   }
-  
-  updateTodo(user: User) {
-    
-    console.log('servis', user)
+
+  updateUser(user: User) {
+    // console.log('servis', user)
     return this.http.put<any>(`${environment.apiUrl}/users/${user.id}/`, user)
   }
 
+  delUser(userId: number): Observable<Array<User>> {
+    return this.http.delete<any>(`${environment.apiUrl}/users/${userId}`)
+  }
+
   test() {
-    return this.http.get<any>(`${environment.apiUrl}/users/${1}/` )
+    return this.http.get<any>(`${environment.apiUrl}/users/${1}/`)
   }
 
   addTodo(data: Adress) {

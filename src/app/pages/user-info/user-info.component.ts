@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef,} from '@angular/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {User} from "../../core/interfaces";
 import {UsersService} from "../../core/services/users/users.service";
@@ -9,7 +9,8 @@ import {first, take} from "rxjs/operators";
 @Component({
   selector: 'app-user-info',
   templateUrl: './user-info.component.html',
-  styleUrls: ['./user-info.component.scss']
+  styleUrls: ['./user-info.component.scss'],
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserInfoComponent implements OnInit {
   users: Array<User>
@@ -21,7 +22,9 @@ export class UserInfoComponent implements OnInit {
   public searchPhone: any = '';
 
   constructor(private usersService: UsersService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private ref: ChangeDetectorRef
+              ) {
   }
 
   ngOnInit(): void {
@@ -40,12 +43,15 @@ export class UserInfoComponent implements OnInit {
     ).subscribe(data => {
       console.log(data)
       this.users = data
+    console.log(`get users` )
     })
   }
   update(e:any){
-    console.log(`dffd`, )
+    console.log(`update` )
     this.getUsers()
+    // this.ref.detectChanges()
   }
+
   clearForm(): void {
     this.searchForm.reset()
     this.getUsers()

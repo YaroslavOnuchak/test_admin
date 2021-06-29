@@ -1,23 +1,6 @@
 {
   "users": [
     {
-      "id": 1,
-      "firstName": "user",
-      "lastName": "user",
-      "username": "user",
-      "mail": "mail1",
-      "phone": "555555",
-      "addressList": [
-        {
-          "id": 1,
-          "addressType": "333",
-          "address": "ccc",
-          "city": "cc",
-          "postalCode": "ccccc"
-        }
-      ]
-    },
-    {
       "id": 2,
       "firstName": "firstName3",
       "lastName": "last3",
@@ -27,17 +10,19 @@
       "addressList": [
         {
           "id": 1,
-          "addressType": "bwwwww",
-          "address": "bb",
-          "city": "bbbb",
-          "postalCode": "bbbbb"
+          "addressType": "ty6",
+          "address": "bb111",
+          "city": "bb",
+          "postalCode": "codewwq",
+          "editStatus": false
         },
         {
           "id": 2,
-          "addressType": "a",
+          "addressType": "9",
           "address": "aa",
           "city": "aaa",
-          "postalCode": "aaaa"
+          "postalCode": "a",
+          "editStatus": false
         }
       ]
     },
@@ -48,12 +33,10 @@
       "username": "user44",
       "mail": "mail",
       "phone": "998677",
-      "password": "user333333333",
-      "token": "token",
       "addressList": [
         {
           "id": 1,
-          "addressType": "st",
+          "addressType": "tye7",
           "address": "str",
           "city": "stri",
           "postalCode": "132456",

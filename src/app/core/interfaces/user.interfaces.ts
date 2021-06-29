@@ -19,6 +19,7 @@ export interface User {
   mail: string,
   phone: number,
   password: string;
+  passwordCheck?: string;
   addressList: Array<Adress>,
   role?: Role,
   token?: string,
