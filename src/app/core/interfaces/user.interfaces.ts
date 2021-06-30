@@ -1,4 +1,3 @@
-import {Role} from "./role";
 
 
 export interface Adress {
@@ -21,6 +20,5 @@ export interface User {
   password: string;
   passwordCheck?: string;
   addressList: Array<Adress>,
-  role?: Role,
   token?: string,
 }

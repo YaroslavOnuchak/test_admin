@@ -37,20 +37,19 @@ export class UsersService {
   }
 
   updateUser(user: User) {
-    // console.log('servis', user)
     return this.http.put<any>(`${environment.apiUrl}/users/${user.id}/`, user)
+  }
+
+  postUser(user: User) {
+    return this.http.post<any>(`${environment.apiUrl}/users/`, user)
   }
 
   delUser(userId: number): Observable<Array<User>> {
     return this.http.delete<any>(`${environment.apiUrl}/users/${userId}`)
   }
 
-  test() {
-    return this.http.get<any>(`${environment.apiUrl}/users/${1}/`)
-  }
+  // testst() {
+  //   return this.http.get<any>(`${environment.apiUrl}/users/${1}/`)
+  // }
 
-  addTodo(data: Adress) {
-    //  return this.http.post<any>(`${this.url}`, data)
-
-  }
 }

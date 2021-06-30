@@ -1,73 +1,44 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef,} from '@angular/core';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { Component, OnInit, ChangeDetectorRef,} from '@angular/core';
 import {User} from "../../core/interfaces";
 import {UsersService} from "../../core/services/users/users.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {first, take} from "rxjs/operators";
+import { take} from "rxjs/operators";
 
 
 @Component({
   selector: 'app-user-info',
   templateUrl: './user-info.component.html',
   styleUrls: ['./user-info.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserInfoComponent implements OnInit {
   users: Array<User>
-  searchForm: FormGroup
-  public searchFirst: any = '';
-  public searchLast: any = '';
-  public searchUser: any = '';
-  public searchMail: any = '';
-  public searchPhone: any = '';
+  searchForm: FormGroup;
 
   constructor(private usersService: UsersService,
               private formBuilder: FormBuilder,
               private ref: ChangeDetectorRef
-              ) {
-  }
+              ) {}
 
   ngOnInit(): void {
     this.searchForm = this.formBuilder.group({
       firstName: ['', Validators.required],
-      lastNAme: ['', Validators.required],
-      userName: ['', Validators.required],
-      mail: ['', Validators.required],
-      phone: ['', Validators.required],
-    })
-    this.getUsers()
+      lastName: ['', Validators.required],
+      username: ['', Validators.required],
+      mail: ['', Validators.required], // regex
+      phone: ['', Validators.required], // number
+    });
+    this.getUsers();
   }
 
   getUsers(): void {
     this.usersService.getUsers().pipe(take(1)
     ).subscribe(data => {
-      console.log(data)
       this.users = data
-    console.log(`get users` )
     })
-  }
-  update(e:any){
-    console.log(`update` )
-    this.getUsers()
-    // this.ref.detectChanges()
   }
 
   clearForm(): void {
-    this.searchForm.reset()
-    this.getUsers()
-    console.log('click')
+    this.searchForm.reset();
+    this.getUsers();
   }
-
-  searchUsers(): void {
-    let searchData1 = this.searchForm.value;
-    // console.log(searchData1)
-   let searchData = Object.values(this.searchForm.value)
-    this.usersService.searchUsers( searchData1 ).pipe(take(1)
-    ).subscribe(data => {
-      // console.log(data)
-      this.users = data
-    })
-
-  }
-
 }

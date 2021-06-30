@@ -1,6 +1,9 @@
 :host{
+tbody .tr-header{
+  background: rgba(0, 0, 0, 0.2);
+}
   form{
-  box-shadow:  1rem 2rem 1rem darkgrey ;
+  box-shadow:  0 0 1rem  1rem darkgrey ;
     margin-bottom: 5rem;
   }
   input{

@@ -8,19 +8,17 @@ import {User} from "../../core/interfaces";
 })
 export class UsersComponent implements OnInit {
 @Input() usersList : Array<User>
-@Input() searchFirst :any
-@Input() searchLast :any
-@Input() searchUser :any
-@Input() searchMail :any
-@Input() searchPhone :any
+@Input() searchForm :User
 
 @Output() update = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.searchForm)
   }
-  upDate(e:any):void{
+
+  upDate():void{
     this.update.emit()
 
   }

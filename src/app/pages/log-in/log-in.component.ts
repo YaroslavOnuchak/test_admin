@@ -1,10 +1,8 @@
-
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {take} from 'rxjs/operators';
-
-import { AuthService } from '../../core/services/Auth/auth.service';
+import {AuthService} from '../../core/services/Auth/auth.service';
 
 @Component({
   selector: 'app-log-in',
@@ -22,13 +20,9 @@ export class LogInComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthService
   ) {
-    // redirect to home if already logged in
-    // if (this.authenticationService.userValue) {
-    //   this.router.navigate(['/']);
-    // }
   }
 
-  ngOnInit() :void{
+  ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -36,27 +30,28 @@ export class LogInComponent implements OnInit {
   }
 
   // convenience getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
+  get f() { // full names
+    return this.loginForm.controls;
+  }
 
   onSubmit() {
-    this.submitted = true;
+    this.submitted = this.loading = true;
     //
     // // stop here if form is invalid
     // if (this.loginForm.invalid) {
     //   return;
     // }
-    //
-    this.loading = true;
+    // this.loginForm.get('username').value
     this.authenticationService.login(this.f.username.value, this.f.password.value)
       .pipe(take(1))
-      .subscribe(data=>{
-        console.log(data)
-        if(data){
-      this.router.navigate(['/main-page']);
-        }else{
-          this.error = `no user or wrong user/pass`
-          return
-        }
+      .subscribe(data => {
+          console.log(data)
+          if (data) {
+            this.router.navigate(['/main-page']);
+          } else {
+            this.error = `no user or wrong user/pass`
+            return;
+          }
         },
         error => {
           this.error = error;

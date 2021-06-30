@@ -1,47 +1,56 @@
-<form class="container" [formGroup]="searchForm">
+<form class="container pb-2" [formGroup]="searchForm">
   <div class="form-group">
     <div class="row">
       <div class="col-6">
         <label for="firstName">First Name</label>
-        <input type="text" [(ngModel)]=searchFirst  formControlName="firstName" class="form-control" id="firstName"
+        <input type="text"
+               formControlName="firstName"
+               class="form-control" id="firstName"
                placeholder="Enter First name" />
-        <small id="firstNameHelp" class="form-text text-muted"></small></div>
+        <small id="firstNameHelp"
+               class="form-text
+               text-muted"></small></div>
       <div class="col-6">
         <label for="lastName">Last Name</label>
-        <input type="text" class="form-control" formControlName="lastNAme"[(ngModel)]=searchLast id="lastName" aria-describedby="emailHelp"
+        <input type="text" class="form-control"
+               formControlName="lastName"
+               id="lastName"
+               aria-describedby="emailHelp"
                placeholder="Enter last name"></div>
-
     </div>
   </div>
   <div class="form-group my-2">
     <div class="row">
       <div class="col-4">
         <label for="userName">User name</label>
-        <input type="text" class="form-control" formControlName="userName" [(ngModel)]=searchUser id="userName"
+        <input type="text" class="form-control"
+               formControlName="username"
+               id="userName"
                placeholder="Enter user name">
 <!--        <small id="firstNameHelp" class="form-text text-muted"></small>-->
       </div>
       <div class="col-4">
         <label for="mail">Mail</label>
-        <input type="email" class="form-control"  formControlName="mail"[(ngModel)]=searchMail id="mail"
+        <input type="email"
+               class="form-control"
+               formControlName="mail"
+               id="mail"
                placeholder="Enter mail"/></div>
       <div class="col-4">
         <label for="phone">Phone</label>
-        <input type="text" [(ngModel)]=searchPhone formControlName="phone" class="form-control" id="phone" placeholder="Enter phone">
+        <input type="text"
+               formControlName="phone"
+               class="form-control"
+               id="phone" placeholder="Enter phone">
       </div>
-
     </div>
-
   </div>
-  <button (click)="clearForm()" type="button" class="btn btn-outline-info mx-2">Clear</button>
-  <button (click)="searchUsers()" type="button" class="btn btn-primary">Find</button>
+  <button (click)="clearForm()" type="button" class="btn btn-danger mx-2">Clear</button>
 </form>
 
-<app-users [usersList]="users"
-           [searchFirst]=searchFirst
-           [searchLast]=searchLast
-           [searchUser]=searchUser
-           [searchMail]=searchMail
-           [searchPhone]=searchPhone
-           (update)=update($event)
+<app-users
+           [usersList]="users"
+           [searchForm]="searchForm.value"
+           (update)=getUsers()
 ></app-users>
+//           [searchFirst]="searchForm.get('firstName').value"

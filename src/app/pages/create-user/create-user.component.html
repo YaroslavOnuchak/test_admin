@@ -1,99 +1,205 @@
-<form [formGroup]="newUser" class="col-10">
-  <div class="user" *ngIf=toogle>
-    <div class="mb-3 col-6">
-      <label for="createFirstName" class="form-label">Enter First name</label>
-      <input type="text"
-        formControlName="firstName"
-        class="form-control"
-        id="createFirstName">
-
-    </div>
-    <div class="mb-3 col-6">
-      <label for="createLastName" class="form-label">Enter Last name</label>
-      <input type="text"
-        formControlName="lastName"
-        class="form-control"
-        id="createLastName">
-    </div>
-    <div class="mb-3 col-6">
-      <label for="createUserName"
-        class="form-label">Enter Username</label>
-      <input type="text"
-        class="form-control"
-        formControlName="username"
-        id="createUserName">
-    </div>
-    <div class="mb-3 col-6">
-      <label for="createEmail"
-
-        class="form-label">Email address</label>
-      <input type="email" class="form-control"
-        formControlName="mail"
-        id="createEmail"
-        aria-describedby="emailHelp">
-      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-    </div>
-    <div class="mb-3 col-6">
-      <label for="createPhone" class="form-label">Enter Phone</label>
-      <input type="text"
-        formControlName="phone"
-        class="form-control"
-        id="createPhone">
-    </div>
-    <div class="mb-3 row">
-      <div class="col">
-        <label for="createPassword" class="form-label ">Password</label>
-        <input type="password"
-          formControlName="password"
-          class="form-control "
-          id="createPassword">
+<div class="container pb-2">
+  <form [formGroup]="newUser" *ngIf="toggleShowForm" class="col-10">
+    <div *ngIf="!curentPage" class="user">
+      <div class="mb-3 col-6">
+        <label for="createFirstName" class="form-label">Enter First name</label>
+        <input type="text"
+               formControlName="firstName"
+               class="form-control"
+               placeholder="first name"
+               id="createFirstName">
       </div>
-      <div class="col">
-        <label for="checkCreatePassword" class="form-label">Password</label>
-        <input type="password" class="form-control" id="checkCreatePassword">
+      <div class="mb-3 col-6">
+        <label for="createLastName" class="form-label">Enter Last name</label>
+        <input type="text"
+               placeholder="last name"
+               formControlName="lastName"
+               class="form-control"
+               id="createLastName">
+      </div>
+      <div class="mb-3 col-6">
+        <label for="createUserName"
+               class="form-label">Enter Username</label>
+        <input type="text"
+               placeholder="username"
+               class="form-control"
+               formControlName="username"
+               id="createUserName">
+      </div>
+      <div class="mb-3 col-6">
+        <label for="createEmail"
+               class="form-label">Email address</label>
+        <input type="email" class="form-control"
+               formControlName="mail"
+               placeholder="email"
+               id="createEmail"
+               aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+      </div>
+      <div class="mb-3 col-6">
+        <label for="createPhone"
+               class="form-label">Enter Phone</label>
+        <input type="text"
+               placeholder="phone"
+               formControlName="phone"
+               class="form-control"
+               id="createPhone">
+      </div>
+      <div class="mb-3 row">
+        <div class="col">
+          <label for="createPassword"
+                 class="form-label ">Password</label>
+          <input type="password"
+                 placeholder="create Password"
+                 formControlName="password"
+                 class="form-control "
+                 id="createPassword">
+        </div>
+        <div class="col">
+          <label for="checkCreatePassword"
+                 class="form-label">Password</label>
+          <input type="password"
+                 class="form-control"
+                 placeholder="repead Password"
+                 formControlName="passwordCheck"
+                 id="checkCreatePassword">
+        </div>
       </div>
     </div>
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-primary">Next</button>
+    <div formArrayName="addressList" *ngIf="curentPage">
+      <h4>Address Information</h4>
+      <div *ngFor="let newAddresss of addressListArray.controls, let idx = index">
+        <div [formGroupName]=idx>
+          <h5> addres # : {{ idx + 1}}</h5>
+
+          <div class="mb-3 col-6 form-group firstControlElem">
+            <label>AddresType:
+              <select class="form-select"
+                      formControlName="addressType"
+                      aria-label="Default select example">
+                <option selected disabled>You have to choose</option>
+                <option *ngFor="let el of addressType, let idx = index"
+                        [value]=el.value> {{el.text}}</option>
+              </select>
+            </label>
+            <button type="button"
+                    class="btn btn-close"
+                    (click)="delAddresField(idx)"></button>
+          </div>
+          <div class="mb-3 col-6">
+            <label>Enter address:
+              <input type="text"
+                     placeholder="address"
+                     formControlName="address"
+                     class="form-control"></label>
+          </div>
+          <div class="mb-3 col-6">
+            <label>Enter city:
+              <input type="text"
+                     placeholder="city"
+                     formControlName="city"
+                     class="form-control"></label>
+          </div>
+          <div class="mb-3 col-6"><label>Enter postal Code:
+            <input type="text"
+                   placeholder="postal Code"
+                   formControlName="postalCode"
+                   class="form-control"></label>
+          </div>
+
+          <hr/>
+        </div>
+      </div>
     </div>
+  </form>
+
+  <div *ngIf="!toggleShowForm">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">username</th>
+        <th scope="col">mail</th>
+        <th scope="col">phone</th>
+        <th scope="col">pass</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <th scope="row">{{user.id}}</th>
+        <td>{{ user.firstName  }}
+        </td>
+        <td>{{ user.lastName  }}
+        </td>
+        <td>{{ user.username  }}
+        </td>
+        <td>{{user.mail}}
+        </td>
+        <td>{{ user.phone  }}
+        </td>
+        <td>{{ user.password  }}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <table
+      class="table table-striped"
+    >
+      <thead>
+      <tr>
+        <th scope="col">address Type</th>
+        <th scope="col">address</th>
+        <th scope="col">city</th>
+        <th scope="col">postalCode</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor=" let addressInfo of user.addressList, let idx = index">
+
+        <td>{{ addressInfo.addressType }}
+        </td>
+        <td>
+          {{ addressInfo.address }}
+        </td>
+        <td>
+          {{addressInfo.city  }}
+        </td>
+        <td>
+          {{ addressInfo.postalCode  }}
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
-  <div formArrayName="addressList">
-
-
-    <div *ngFor="let newAddress of user.addressList,let idx = index" [formGroupName]="idx">
-      <div class="mb-3 col-6">
-
-        <input type="text"
-          formControlName="addressType"
-          placeholder="Enter addresType"
-          class="form-control">
-      </div>
-      <div class="mb-3 col-6">
-
-        <input type="text"
-          formControlName="address"
-          placeholder="Enter address"
-          class="form-control">
-      </div>
-      <div class="mb-3 col-6">
-
-        <input type="text"
-          formControlName="city"
-          placeholder="Enter city"
-          class="form-control">
-      </div>
-      <div class="mb-3 col-6">
-
-        <input type="text"
-          formControlName="postalCode"
-          placeholder="Enter postalCode"
-          class="form-control">
-      </div>
-      <div class="d-flex justify-content-end">
-        <button class="btn ">add another address</button>
-        <button class="btn btn-primary">Previous</button>
-        <button class="btn btn-primary">Next</button>
-      </div>
-    </div>
+  <div class="'showForm"
+       *ngIf="toggleShowForm">
+    <button *ngIf="curentPage"
+            type="button"
+            class="btn m-2"
+            (click)="addNewAddress()">add another address
+    </button>
+    <br/>
+    <button type="button"
+            *ngIf="curentPage"
+            (click)="previous()"
+            class="btn btn-secondary mx-2">Previous
+    </button>
+    <button type="button"
+            (click)="next()"
+            class="btn btn-secondary">Next
+    </button>
   </div>
-</form>
+  <div class="summaryPage" *ngIf="!toggleShowForm">
+    <button type="button"
+            (click)="sendForm()"
+            class="btn btn-success">save
+    </button>
+    <button type="button"
+            (click)="canselSend()"
+            class="btn btn-danger">cancel
+    </button>
+    <br>
+  </div>
+</div>

@@ -2,7 +2,7 @@
   <table class="table table-striped">
     <thead>
     <tr>
-      <th scope="col">#</th>
+      <th scope="col">Id#</th>
       <th scope="col">First</th>
       <th scope="col">Last</th>
       <th scope="col">username</th>
@@ -12,7 +12,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
+    <tr class="tr-header">
       <th scope="row">{{user.id}}</th>
       <td>{{(!updateInfo) ? user.firstName : '' }}
         <input *ngIf="updateInfo"
@@ -46,18 +46,17 @@
       </td>
       <td>
         <button type="button" (click)="updateContactInfo(user)"
-                class="btn btn-outline-info mr-1">
+                class="btn btn-secondary mr-1">
           {{(!updateInfo) ? "update" : "save"}}</button>
       </td><td *ngIf="updateInfo">
       <button type="button"
               (click)="addNewAddress()"
-              class="btn btn-outline-info">add address</button>
+              class="btn btn-secondary">add address</button>
       </td>
       <td>
-
         <a [popover]="popOverContent" container="body" #pop="bs-popover"
            placement="top">
-          <button type="button" class="btn btn-outline-info">del
+          <button type="button" class="btn btn-dark">del
           </button>
         </a>
         <ng-template #popOverContent>
@@ -86,24 +85,28 @@
       <th colspan="3" class="text-center">action</th>
     </tr>
     </thead>
-    <tbody>
-    <tr *ngFor=" let addressInfo of user.addressList, let idx = index" [formGroupName]="idx">
+    <tbody *ngFor=" let addressInfo of user.addressList, let idx = index">
+    <tr  [formGroupName]="idx">
 
       <td>{{(!addressInfo.editStatus) ? addressInfo.addressType : '' }}
         <input
+          class="form-control"
           *ngIf="addressInfo.editStatus"
+          [value]=addressInfo.addressType
           formControlName="addressType"
           type="text">
       </td>
       <td>
         {{(!addressInfo.editStatus) ? addressInfo.address : '' }}
         <input *ngIf="addressInfo.editStatus"
+               class="form-control"
                formControlName="address"
                type="text">
       </td>
       <td>
         {{(!addressInfo.editStatus) ? addressInfo.city : '' }}
         <input *ngIf="addressInfo.editStatus"
+               class="form-control"
                formControlName="city"
                type="text">
       </td>
@@ -111,6 +114,7 @@
         {{(!addressInfo.editStatus) ? addressInfo.postalCode : '' }}
         <input
           *ngIf="addressInfo.editStatus"
+          class="form-control"
           formControlName="postalCode"
           type="text">
       </td>
@@ -118,12 +122,12 @@
       <td>
         <button (click)="updateAddsress(user, idx)"
                 type="button"
-                class="btn btn-outline-info mr-1">{{(!addressInfo.editStatus) ? "update" : "save"}}</button>
+                class="btn btn-secondary mr-1">{{(!addressInfo.editStatus) ? "update" : "save"}}</button>
       </td>
       <td>
         <a [popover]="popOverContent" container="body" #pop="bs-popover"
            placement="top">
-          <button type="button" class="btn btn-outline-info">del
+          <button type="button" class="btn btn-dark">del
           </button>
         </a>
         <ng-template #popOverContent>
@@ -138,7 +142,7 @@
       <td>
         <button type="button"
                 (click)="addNewAddress()"
-                class="btn btn-outline-info">add new +</button>
+                class="btn btn-secondary">add new +</button>
       </td>
       <br>
     </tr>

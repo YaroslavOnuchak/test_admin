@@ -24,8 +24,6 @@ import {takeUntil} from 'rxjs/operators'
 })
 export class UserComponent implements OnInit {
   private unsubscribe = new Subject();
-  // @Output() save = new EventEmitter<string>();
-  // @Output() delAddress = new EventEmitter<string>();
   @Output() update = new EventEmitter<any>();
   @Input() user: User
   // updateAdress: boolean = false;
@@ -34,18 +32,13 @@ export class UserComponent implements OnInit {
   test = 12356;
   editForm: FormGroup;
 
-  // private modalService: BsModalService
-
   constructor(private usersService: UsersService,
-              private fb: FormBuilder,
-              // private modalService: P,
-              private ref: ChangeDetectorRef
+              private fb: FormBuilder
   ) {
   }
 
   ngOnInit(): void {
     this.buildUserForm()
-    // console.log("onOn")
   }
 
   updateContactInfo(user: User): void {
@@ -59,21 +52,22 @@ export class UserComponent implements OnInit {
   }
 
   addNewAddress(): void {
-    this.editForm.value.addressList.push({
-      id: this.user.addressList[this.user.addressList.length - 1].id + 1,
+    const addressItem = this.fb.group({
+      id: this.user?.addressList[this.user.addressList.length - 1]?.id + 1 ||1,
       addressType: '',
       address: '',
       city: '',
       postalCode: '',
       editStatus: true
     })
-    this.setUser(this.editForm.value, this.update )
-    // this.user = this.editForm.value
-    console.log("addUUUUUU", this.user.addressList[ this.user.addressList.length-1])
-    console.log("addFFFFF", this.editForm.value.addressList[ this.editForm.value.addressList.length-1])
+    this.addressListArray.push(addressItem);
+    this.user = this.editForm.value
+
   }
 
-
+  get addressListArray() : FormArray {
+    return this.editForm.get('addressList') as FormArray;
+  }
   deleteUser(user:User):void{
     this.usersService.delUser(user.id)
       .pipe(takeUntil(this.unsubscribe))
@@ -88,22 +82,14 @@ export class UserComponent implements OnInit {
   }
 
   updateAddsress(user: User, i: number): void {
-    // this.update.emit()
-      console.log('1=>', this.editForm.value.addressList.length+ " "+this.user.addressList.length)
-    if(this.editForm.value.addressList.length>this.user.addressList.length){
-
-      console.log('1', this.editForm.value.addressList.length)
+    if(user.addressList[i].editStatus){
+      this.editForm.value.addressList[i].editStatus = false
+      this.user = this.editForm.value
     }else{
-      console.log('2')
+      this.editForm.value.addressList[i].editStatus = true
+      this.user = this.editForm.value
     }
-    user.addressList[i].editStatus = !user.addressList[i].editStatus,
-      this.editForm.value.addressList[i].editStatus = !this.editForm.value.addressList[i].editStatus
-
-    if (user.addressList[i].editStatus) {
-    } else {
       this.setUser(this.editForm.value, this.update )
-
-    }
   }
 
 
@@ -116,12 +102,7 @@ export class UserComponent implements OnInit {
   }
   //
   //
-  // get addressList() {
-  //   // return this.editForm.get('addressList') as FormArray;
-  // }
-  // addAlias() {
-    // this.addressList.push(this.fb.control(''));
-  // }
+
 
   buildUserForm(address?: FormGroup): FormGroup {
 
@@ -144,7 +125,6 @@ export class UserComponent implements OnInit {
       ],
       addressList: this.fb.array(
         this.user.addressList?.map((el: Adress, i: number) => {
-          // console.log("ellll",el)
           return this.fb.group({
             id: [
               el.id || this.user.addressList[i].id,
