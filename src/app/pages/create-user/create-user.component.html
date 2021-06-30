@@ -1,52 +1,52 @@
 <form [formGroup]="newUser" class="col-10">
-  <div class="user">
+  <div class="user" *ngIf=toogle>
     <div class="mb-3 col-6">
       <label for="createFirstName" class="form-label">Enter First name</label>
       <input type="text"
-             formControlName="firstName"
-             class="form-control"
-             id="createFirstName">
+        formControlName="firstName"
+        class="form-control"
+        id="createFirstName">
 
     </div>
     <div class="mb-3 col-6">
       <label for="createLastName" class="form-label">Enter Last name</label>
       <input type="text"
-             formControlName="lastName"
-             class="form-control"
-             id="createLastName">
+        formControlName="lastName"
+        class="form-control"
+        id="createLastName">
     </div>
     <div class="mb-3 col-6">
       <label for="createUserName"
-             class="form-label">Enter Username</label>
+        class="form-label">Enter Username</label>
       <input type="text"
-             class="form-control"
-             formControlName="username"
-             id="createUserName">
+        class="form-control"
+        formControlName="username"
+        id="createUserName">
     </div>
     <div class="mb-3 col-6">
       <label for="createEmail"
 
-             class="form-label">Email address</label>
+        class="form-label">Email address</label>
       <input type="email" class="form-control"
-             formControlName="mail"
-             id="createEmail"
-             aria-describedby="emailHelp">
+        formControlName="mail"
+        id="createEmail"
+        aria-describedby="emailHelp">
       <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
     </div>
     <div class="mb-3 col-6">
       <label for="createPhone" class="form-label">Enter Phone</label>
       <input type="text"
-             formControlName="phone"
-             class="form-control"
-             id="createPhone">
+        formControlName="phone"
+        class="form-control"
+        id="createPhone">
     </div>
     <div class="mb-3 row">
       <div class="col">
         <label for="createPassword" class="form-label ">Password</label>
         <input type="password"
-               formControlName="password"
-               class="form-control "
-               id="createPassword">
+          formControlName="password"
+          class="form-control "
+          id="createPassword">
       </div>
       <div class="col">
         <label for="checkCreatePassword" class="form-label">Password</label>
@@ -57,42 +57,37 @@
       <button class="btn btn-primary">Next</button>
     </div>
   </div>
-  <div formArrayName="addressList"
-  >
+  <div formArrayName="addressList">
 
 
     <div *ngFor="let newAddress of user.addressList,let idx = index" [formGroupName]="idx">
       <div class="mb-3 col-6">
 
         <input type="text"
-               formControlName="addressType"
-               placeholder="Enter addresType"
-               class="form-control"
-        >
+          formControlName="addressType"
+          placeholder="Enter addresType"
+          class="form-control">
       </div>
       <div class="mb-3 col-6">
 
         <input type="text"
-               formControlName="address"
-               placeholder="Enter address"
-               class="form-control"
-        >
+          formControlName="address"
+          placeholder="Enter address"
+          class="form-control">
       </div>
       <div class="mb-3 col-6">
 
         <input type="text"
-               formControlName="city"
-               placeholder="Enter city"
-               class="form-control"
-        >
+          formControlName="city"
+          placeholder="Enter city"
+          class="form-control">
       </div>
       <div class="mb-3 col-6">
 
         <input type="text"
-               formControlName="postalCode"
-               placeholder="Enter postalCode"
-               class="form-control"
-        >
+          formControlName="postalCode"
+          placeholder="Enter postalCode"
+          class="form-control">
       </div>
       <div class="d-flex justify-content-end">
         <button class="btn ">add another address</button>

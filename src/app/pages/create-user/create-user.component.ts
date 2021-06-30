@@ -13,6 +13,7 @@ export class CreateUserComponent implements OnInit {
   newUser: FormGroup
   user: User
   users: Array<User>
+  toogle:boolean = false;
 
   constructor(private fb: FormBuilder,
               private usersService: UsersService) {
