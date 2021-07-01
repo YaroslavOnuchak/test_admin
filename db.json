@@ -164,11 +164,9 @@
       "id": 7,
       "firstName": "",
       "lastName": "",
-      "username": "",
-      "mail": "",
-      "phone": "",
-      "password": "",
-      "passwordCheck": "",
+      "username": "er",
+      "mail": "er",
+      "phone": "er",
       "addressList": [
         {
           "id": 1,
@@ -177,45 +175,13 @@
           "city": " ",
           "postalCode": " ",
           "editStatus": false
-        }
-      ]
-    },
-    {
-      "id": 8,
-      "firstName": "",
-      "lastName": "",
-      "username": "",
-      "mail": "",
-      "phone": "",
-      "password": "",
-      "passwordCheck": "",
-      "addressList": [
+        },
         {
-          "id": 1,
-          "addressType": "",
-          "address": " ",
-          "city": " ",
-          "postalCode": " ",
-          "editStatus": false
-        }
-      ]
-    },
-    {
-      "id": 9,
-      "firstName": "",
-      "lastName": "",
-      "username": "",
-      "mail": "",
-      "phone": "",
-      "password": "",
-      "passwordCheck": "",
-      "addressList": [
-        {
-          "id": 1,
-          "addressType": "",
-          "address": " ",
-          "city": " ",
-          "postalCode": " ",
+          "id": 2,
+          "addressType": "er",
+          "address": "er",
+          "city": "er",
+          "postalCode": "er",
           "editStatus": false
         }
       ]
