@@ -1,55 +1,93 @@
 <div class="container pb-2">
   <form [formGroup]="newUser" *ngIf="toggleShowForm" class="col-10">
-    <div *ngIf="!curentPage" class="user">
+    <div *ngIf="!currentPage" class="user">
       <div class="mb-3 col-6">
-        <label for="createFirstName" class="form-label">Enter First name</label>
+        <label for="createFirstName" class="form-label _req">Enter First name</label>
         <input type="text"
                formControlName="firstName"
                class="form-control"
                placeholder="first name"
                id="createFirstName">
+        <div *ngIf="firstName?.dirty || !validForm">
+          <div *ngIf="firstName?.errors?.required" class="small text-danger">
+            firstName is mandatory.
+          </div>
+        </div>
       </div>
       <div class="mb-3 col-6">
-        <label for="createLastName" class="form-label">Enter Last name</label>
+        <label for="createLastName" class="form-label _req">Enter Last name</label>
         <input type="text"
                placeholder="last name"
                formControlName="lastName"
                class="form-control"
                id="createLastName">
+        <div *ngIf="lastName?.dirty || !validForm">
+          <div *ngIf="lastName?.errors?.required" class="small text-danger">
+            lastName is mandatory.
+          </div>
+        </div>
       </div>
       <div class="mb-3 col-6">
         <label for="createUserName"
-               class="form-label">Enter Username</label>
+               class="form-label _req">Enter Username</label>
         <input type="text"
                placeholder="username"
                class="form-control"
                formControlName="username"
                id="createUserName">
+        <div *ngIf="username?.dirty || !validForm">
+          <div *ngIf="username?.errors?.required" class="small text-danger">
+            username is mandatory.
+          </div>
+        </div>
       </div>
       <div class="mb-3 col-6">
         <label for="createEmail"
-               class="form-label">Email address</label>
+               class="form-label _req">Email address</label>
         <input type="email" class="form-control"
                formControlName="mail"
                placeholder="email"
                id="createEmail"
                aria-describedby="emailHelp">
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        <div id="emailHelp"
+             class="form-text">We'll never share your email with anyone else. Trust us
+        </div>
+        <div *ngIf="mail?.dirty || !validForm">
+          <div *ngIf="mail?.errors?.required"
+               class="small text-danger">
+            email is mandatory.
+          </div>
+          <div *ngIf="mail?.errors?.email"
+               class="small text-danger">
+            email is incorrect.
+          </div>
+        </div>
       </div>
       <div class="mb-3 col-6">
         <label for="createPhone"
-               class="form-label">Enter Phone</label>
+               class="form-label _req">Enter Phone</label>
         <input type="text"
-               placeholder="phone"
+               placeholder="phone 0.. "
                formControlName="phone"
                class="form-control"
                id="createPhone">
+
+        <div *ngIf="phone?.dirty || !validForm">
+          <div *ngIf="phone?.errors?.required"
+               class="small text-danger">
+            email is mandatory.
+          </div>
+          <div *ngIf="phone?.errors?.pattern"
+               class="small text-danger">
+            phone number not valid.
+          </div>
+        </div>
       </div>
       <div class="mb-3 row">
         <div class="col">
           <label for="createPassword"
-                 class="form-label ">Password</label>
-          <input type="password"
+                 class="form-label _req ">Password</label>
+          <input type="text"
                  placeholder="create Password"
                  formControlName="password"
                  class="form-control "
@@ -57,27 +95,50 @@
         </div>
         <div class="col">
           <label for="checkCreatePassword"
-                 class="form-label">Password</label>
-          <input type="password"
+                 class="form-label _req">Repeat Password</label>
+          <input type="text"
                  class="form-control"
-                 placeholder="repead Password"
+                 placeholder="repeat Password"
                  formControlName="passwordCheck"
                  id="checkCreatePassword">
+          <div *ngIf="reapedPass?.errors?.minlength" class="small text-danger">
+            reapedPass must be at least 6 characters long.
+          </div>
+          <div *ngIf="reapedPass?.errors?.maxlength" class="small text-danger">
+            Reaped Password with more than 24 characters
+          </div>
+          <div class="form-text text-danger"
+               *ngIf="reapedPass?.errors?.confirmedValidator"
+          >Password and Confirm Password must be match.
+          </div>
+        </div>
+        <div class="ac-form-field-description form-text">Between 6 and 24 characters.</div>
+        <div *ngIf="pass?.dirty || reapedPass?.dirty || !validForm">
+          <div>
+            <div *ngIf="pass?.errors?.required" class="small text-danger">
+              Password is mandatory.
+            </div>
+          </div>
+          <div *ngIf="pass?.errors?.minlength" class="small text-danger">
+            pass must be at least 6 characters long.
+          </div>
+          <div *ngIf="pass?.errors?.maxlength" class="small text-danger">
+            Password with more than 24 characters.
+          </div>
         </div>
       </div>
     </div>
-    <div formArrayName="addressList" *ngIf="curentPage">
+    <div formArrayName="addressList" *ngIf="currentPage">
       <h4>Address Information</h4>
-      <div *ngFor="let newAddresss of addressListArray.controls, let idx = index">
+      <div *ngFor="let newAddress of addressListArray.controls, let idx = index">
         <div [formGroupName]=idx>
-          <h5> addres # : {{ idx + 1}}</h5>
-
+          <h5> address # : {{ idx + 1}}</h5>
           <div class="mb-3 col-6 form-group firstControlElem">
-            <label>AddresType:
+            <label>AddressType:
               <select class="form-select"
                       formControlName="addressType"
                       aria-label="Default select example">
-                <option selected disabled>You have to choose</option>
+                <option [selected] disabled>You have to choose</option>
                 <option *ngFor="let el of addressType, let idx = index"
                         [value]=el.value> {{el.text}}</option>
               </select>
@@ -99,6 +160,29 @@
                      placeholder="city"
                      formControlName="city"
                      class="form-control"></label>
+
+          </div>
+          <div class="mb-3 col-6 box--helpList">
+            <label>Enter country:
+              <input type="text"
+                     placeholder="country"
+                     formControlName="country"
+                     (focus)="showHelpList=true"
+                     [value]="newAddress.value.country"
+                     class="form-control"></label>
+            <select
+              *ngIf="showHelpList"
+              class="form-select helpList"
+              (change)="getHelpListValue($event, idx)"
+              size="3"
+              aria-label="Default select example">
+              <option *ngFor="let country of countries|
+                    searchFilter: 'name' : newAddress.value.country"
+                      [value]="country.name"
+                      > {{country.name}}</option>
+            </select>
+            <div>
+            </div>
           </div>
           <div class="mb-3 col-6"><label>Enter postal Code:
             <input type="text"
@@ -106,7 +190,6 @@
                    formControlName="postalCode"
                    class="form-control"></label>
           </div>
-
           <hr/>
         </div>
       </div>
@@ -152,22 +235,23 @@
         <th scope="col">address Type</th>
         <th scope="col">address</th>
         <th scope="col">city</th>
+        <th scope="col">country</th>
         <th scope="col">postalCode</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor=" let addressInfo of user.addressList, let idx = index">
 
-        <td>{{ addressInfo.addressType }}
+        <td>{{addressInfo.addressType}}
         </td>
         <td>
-          {{ addressInfo.address }}
+          {{addressInfo.address}}
         </td>
         <td>
-          {{addressInfo.city  }}
+          {{addressInfo.city}}
         </td>
         <td>
-          {{ addressInfo.postalCode  }}
+          {{addressInfo.postalCode}}
         </td>
       </tr>
       </tbody>
@@ -175,30 +259,31 @@
   </div>
   <div class="'showForm"
        *ngIf="toggleShowForm">
-    <button *ngIf="curentPage"
+    <button *ngIf="currentPage"
             type="button"
             class="btn m-2"
             (click)="addNewAddress()">add another address
     </button>
     <br/>
     <button type="button"
-            *ngIf="curentPage"
+            *ngIf="currentPage"
             (click)="previous()"
             class="btn btn-secondary mx-2">Previous
     </button>
     <button type="button"
+            [disabled]="!newUser.valid"
             (click)="next()"
             class="btn btn-secondary">Next
     </button>
   </div>
   <div class="summaryPage" *ngIf="!toggleShowForm">
     <button type="button"
-            (click)="sendForm()"
-            class="btn btn-success">save
+            (click)="cancelSend()"
+            class="btn btn-danger">cancel
     </button>
     <button type="button"
-            (click)="canselSend()"
-            class="btn btn-danger">cancel
+            (click)="sendForm()"
+            class="btn btn-success">save
     </button>
     <br>
   </div>

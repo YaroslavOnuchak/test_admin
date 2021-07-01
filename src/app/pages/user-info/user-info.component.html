@@ -6,7 +6,7 @@
         <input type="text"
                formControlName="firstName"
                class="form-control" id="firstName"
-               placeholder="Enter First name" />
+               placeholder="Enter First name"/>
         <small id="firstNameHelp"
                class="form-text
                text-muted"></small></div>
@@ -27,7 +27,6 @@
                formControlName="username"
                id="userName"
                placeholder="Enter user name">
-<!--        <small id="firstNameHelp" class="form-text text-muted"></small>-->
       </div>
       <div class="col-4">
         <label for="mail">Mail</label>
@@ -35,22 +34,30 @@
                class="form-control"
                formControlName="mail"
                id="mail"
-               placeholder="Enter mail"/></div>
+               placeholder="Enter mail"/>
+        <div *ngIf="mail?.errors?.pattern" class="small text-danger">
+          email is incorrect.
+        </div>
+      </div>
       <div class="col-4">
         <label for="phone">Phone</label>
         <input type="text"
                formControlName="phone"
                class="form-control"
                id="phone" placeholder="Enter phone">
+        <div *ngIf="phone?.errors?.pattern" class="small text-danger">
+          phone number not valid.
+        </div>
       </div>
     </div>
   </div>
-  <button (click)="clearForm()" type="button" class="btn btn-danger mx-2">Clear</button>
+  <button (click)="clearForm()"
+          type="button"
+          class="btn btn-danger mx-2">Clear
+  </button>
 </form>
-
 <app-users
-           [usersList]="users"
-           [searchForm]="searchForm.value"
-           (update)=getUsers()
+  [usersList]="users"
+  [searchForm]="searchForm.value"
+  (update)=getUsers()
 ></app-users>
-//           [searchFirst]="searchForm.get('firstName').value"

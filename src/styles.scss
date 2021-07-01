@@ -1,3 +1,16 @@
 .popover-content{
   box-shadow: 0 0  5rem 3rem aliceblue;
 }
+label._req::after{
+  content: "*";
+  color: red;
+}
+.box--helpList{
+  position: relative;
+}
+.helpList{
+  position: absolute;
+  top: 0;
+  transform: translateX(100%);
+  opacity: 0.8;
+}

@@ -15,6 +15,8 @@ export class SearchFilterPipe implements PipeTransform {
       return data;
     }
     return data.filter((el: any) => { // any type
+      console.log(val)
+      console.log(el)
       return val ? el[field].toLowerCase().indexOf(val.toLocaleLowerCase()) > -1 : true
     });
   }

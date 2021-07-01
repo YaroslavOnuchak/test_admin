@@ -10,9 +10,10 @@
       "addressList": [
         {
           "id": 1,
-          "addressType": "ty6qqq",
+          "addressType": "Shipment",
           "address": "bb111",
           "city": "bb",
+          "country": "bb",
           "postalCode": "codewfwq",
           "editStatus": false
         },
@@ -21,6 +22,7 @@
           "addressType": "22",
           "address": "aa",
           "city": "aaa2",
+          "country": "aaa2",
           "postalCode": "assssssaa",
           "editStatus": false
         },
@@ -29,6 +31,7 @@
           "addressType": "new",
           "address": " ",
           "city": " ",
+          "country": " ",
           "postalCode": " ",
           "editStatus": false
         }
@@ -47,6 +50,7 @@
           "addressType": "ty6qqq",
           "address": "bb111",
           "city": "bb",
+          "country": "bb",
           "postalCode": "codewfwq",
           "editStatus": false
         },
@@ -55,6 +59,7 @@
           "addressType": "22",
           "address": "aa",
           "city": "aaa2",
+          "country": "aaa2",
           "postalCode": "assssssaa",
           "editStatus": false
         },
@@ -63,6 +68,7 @@
           "addressType": "new",
           "address": " ",
           "city": " ",
+          "country": " ",
           "postalCode": " ",
           "editStatus": false
         }
@@ -81,6 +87,7 @@
           "addressType": "ty6qqq",
           "address": "bb111",
           "city": "bb",
+          "country": "bb",
           "postalCode": "codewfwq",
           "editStatus": false
         },
@@ -89,6 +96,7 @@
           "addressType": "22",
           "address": "aa",
           "city": "aaa2",
+          "country": "aaa2",
           "postalCode": "assssssaa",
           "editStatus": false
         },
@@ -97,6 +105,7 @@
           "addressType": "new",
           "address": "",
           "city": "",
+          "country": "",
           "postalCode": "",
           "editStatus": false
         }
@@ -115,6 +124,7 @@
           "addressType": "s",
           "address": "",
           "city": "",
+          "country": "",
           "postalCode": "s",
           "editStatus": false
         }
@@ -135,6 +145,7 @@
           "addressType": "Shipment",
           "address": " as",
           "city": " as",
+          "country": " as",
           "postalCode": " sa",
           "editStatus": false
         }
@@ -155,24 +166,28 @@
           "addressType": "Billing",
           "address": " 44444444",
           "city": " 44444444",
+          "country": " 44444444",
           "postalCode": " 44",
           "editStatus": false
         }
       ]
     },
     {
-      "id": 7,
+      "id": 8,
       "firstName": "",
       "lastName": "",
-      "username": "er",
-      "mail": "er",
+      "username": "user",
+      "mail": "user7777@gmail.com",
       "phone": "er",
+      "password": "user",
+      "passwordCheck": "user",
       "addressList": [
         {
           "id": 1,
           "addressType": "",
           "address": " ",
           "city": " ",
+          "country": " ",
           "postalCode": " ",
           "editStatus": false
         },
@@ -181,6 +196,7 @@
           "addressType": "er",
           "address": "er",
           "city": "er",
+          "country": "er",
           "postalCode": "er",
           "editStatus": false
         }

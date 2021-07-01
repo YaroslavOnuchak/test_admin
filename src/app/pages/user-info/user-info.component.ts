@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectorRef,} from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef,} from '@angular/core';
 import {User} from "../../core/interfaces";
 import {UsersService} from "../../core/services/users/users.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import { take} from "rxjs/operators";
+import {take} from "rxjs/operators";
 
 
 @Component({
@@ -11,29 +11,42 @@ import { take} from "rxjs/operators";
   styleUrls: ['./user-info.component.scss'],
 })
 export class UserInfoComponent implements OnInit {
-  users: Array<User>
+  users: Array<User>;
   searchForm: FormGroup;
 
   constructor(private usersService: UsersService,
               private formBuilder: FormBuilder,
-              private ref: ChangeDetectorRef
-              ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.searchForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       username: ['', Validators.required],
-      mail: ['', Validators.required], // regex
-      phone: ['', Validators.required], // number
+      mail: ['', [
+        Validators.required,
+        Validators.email,
+        Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]], // regex
+      phone: ['', [
+        Validators.required, Validators.pattern("[0-9]{10}")
+      ]], // number
     });
     this.getUsers();
+  }
+
+  get phone() {
+    return this.searchForm.get('phone');
+  }
+
+  get mail() {
+    return this.searchForm.get('mail');
   }
 
   getUsers(): void {
     this.usersService.getUsers().pipe(take(1)
     ).subscribe(data => {
-      this.users = data
+      this.users = data;
     })
   }
 

@@ -1,4 +1,7 @@
-
+export interface AddressType {
+  value: string,
+  text: string
+}
 
 export interface Adress {
   id: number,
@@ -6,8 +9,8 @@ export interface Adress {
   address: string,
   city: string,
   postalCode: string,
+  country?: string,
   editStatus?: boolean
-
 }
 
 export interface User {

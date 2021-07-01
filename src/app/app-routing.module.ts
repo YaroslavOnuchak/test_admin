@@ -12,11 +12,6 @@ const routes: Routes = [
   { path: 'main-page', component: MainPageComponent },
   { path: 'create-user', component: CreateUserComponent },
   { path: 'user-info', component:  UserInfoComponent},
-  //   path: 'about', component: AboutComponent,
-  //   children: [
-  //     { path: '', redirectTo: 'about-project', pathMatch: 'full' },
-  //   ]
-  // },
   { path: '**', redirectTo: 'log' }
 ];
 

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {take} from 'rxjs/operators';
-import {AuthService} from '../../core/services/Auth/auth.service';
+import {AuthService} from '../../core/services/authentication/auth.service';
 
 @Component({
   selector: 'app-log-in',
@@ -11,9 +11,9 @@ import {AuthService} from '../../core/services/Auth/auth.service';
 })
 export class LogInComponent implements OnInit {
   loginForm: FormGroup;
-  loading = false;
-  submitted = false;
-  error = '';
+  loading: boolean = false;
+  submitted: boolean = false;
+  error: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,25 +30,19 @@ export class LogInComponent implements OnInit {
   }
 
   // convenience getter for easy access to form fields
-  get f() { // full names
+  get formFields() { // full names
     return this.loginForm.controls;
   }
 
   onSubmit() {
     this.submitted = this.loading = true;
-    //
-    // // stop here if form is invalid
-    // if (this.loginForm.invalid) {
-    //   return;
-    // }
-    // this.loginForm.get('username').value
-    this.authenticationService.login(this.f.username.value, this.f.password.value)
+    this.authenticationService.login(this.formFields.username.value, this.formFields.password.value)
       .pipe(take(1))
       .subscribe(data => {
-          console.log(data)
           if (data) {
             this.router.navigate(['/main-page']);
           } else {
+            this.loading = false;
             this.error = `no user or wrong user/pass`
             return;
           }

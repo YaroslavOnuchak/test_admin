@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Adress, User} from "../../core/interfaces";
+import {AddressType, Adress, User} from "../../core/interfaces";
 import {UsersService} from "../../core/services/users/users.service";
 import {take} from "rxjs/operators";
-import {Router, ActivatedRoute} from '@angular/router';
+import {Router} from '@angular/router';
+import {HelperListService} from "../../core/services/helperList/helper-list.service";
+import {ConfirmedValidator} from "../../core/validators/confirm";
 
 
 @Component({
@@ -27,44 +29,86 @@ export class CreateUserComponent implements OnInit {
       addressType: '',
       address: '',
       city: '',
+      country: '',
       postalCode: '',
       editStatus: true
-    }
-    ]
+    }]
   }
   users: Array<User>;
-  addressType :any=[ // add interface AddressType
-    {value:'Billing', text:'Billing Address '},
-    {value:'Shipment', text:'Shipment Address '},
-    {value:'Home', text:'Home Address '}];
+  countries: Array<any>;
+  addressType: Array<AddressType> = [
+    {value: 'Billing', text: 'Billing Address '},
+    {value: 'Shipment', text: 'Shipment Address '},
+    {value: 'Home', text: 'Home Address '}];
   toggleShowForm: boolean = true;
-  toggle: boolean = true;
-  curentPage: number = 0;
+  validForm: boolean = true;
+  showHelpList: boolean = false;
+  currentPage: number = 1;
+
 
   constructor(private fb: FormBuilder,
               private usersService: UsersService,
+              private helpListService: HelperListService,
               private router: Router) {
-
   }
 
   ngOnInit(): void {
     this.buildUserForm()
     this.getUsers()
+    this.getCountries()
+  }
+
+  get firstName() {
+    return this.newUser.get('firstName');
+  }
+
+  get lastName() {
+    return this.newUser.get('lastName');
+  }
+
+  get username() {
+    return this.newUser.get('username');
+  }
+
+  get mail() {
+    return this.newUser.get('mail');
+  }
+
+  get phone() {
+    return this.newUser.get('phone');
+  }
+
+  get pass() {
+    return this.newUser.get('password');
+  }
+
+  get reapedPass() {
+    return this.newUser.get('passwordCheck');
+  }
+
+  getHelpListValue(e: any, index: number): void {
+    this.newUser.value.addressList[index].country = e.target.value;
+    this.showHelpList = false
   }
 
 
   next(): void {
-    if (this.curentPage === this.user.addressList.length) {
+    if (this.currentPage === this.user.addressList.length) {
       this.user = this.newUser.value
       this.toggleShowForm = false
     } else {
-      this.curentPage++
+      if (this.newUser.valid) {
+        if (this.newUser.value.password === this.newUser.value.passwordCheck) {
+          this.currentPage++
+        }
+      } else {
+        this.validForm = false
+      }
     }
   }
 
   previous(): void {
-    this.curentPage--
-
+    this.currentPage--
   }
 
   addNewAddress(): void {
@@ -73,72 +117,100 @@ export class CreateUserComponent implements OnInit {
       addressType: '',
       address: '',
       city: '',
+      country: '',
       postalCode: '',
       editStatus: false
     })
     this.addressListArray.push(addressItem);
   }
-  get addressListArray() : FormArray {
+
+  get addressListArray(): FormArray {
     return this.newUser.get('addressList') as FormArray;
   }
-  delAddresField(id:number):void{
+
+  delAddresField(id: number): void {
     this.addressListArray.removeAt(id);
   }
-  sendForm():void{
+
+  sendForm(): void {
     this.usersService.postUser(this.newUser.value)
       .pipe(take(1))
       .subscribe(data => {
         this.router.navigate(['/main-page']);
       })
-
-  }  canselSend():void{
-    this.user =this.buildUserForm().value
-        this.router.navigate(['/main-page']);
   }
+
+  cancelSend(): void {
+    this.user = this.buildUserForm().value
+    this.router.navigate(['/main-page']);
+  }
+
   getUsers(): void {
     this.usersService.getUsers().pipe(take(1)
     ).subscribe(data => {
       this.users = data;
-      this.buildUserForm()
+      this.buildUserForm();
     })
   }
 
+  getCountries(): void {
+    this.helpListService.getAll().pipe(take(1)
+    ).subscribe(data => {
+      this.users = data;
+      this.countries = data;
+    })
+  }
 
   buildUserForm(): FormGroup {
     return this.newUser = this.fb.group({
       id: [this.users ? this.users[this.users.length - 1].id + 1 : null],
-      firstName:  ['', Validators.required],
-      lastName:  ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       username: ['', Validators.required],
-      mail:  ['', Validators.required],
-      phone: ['', Validators.required],
-      password:  ['', Validators.required],
-      passwordCheck:  ['', Validators.required],
+      mail: ['', [
+        Validators.required, Validators.email
+      ]],
+      phone: ['', [
+        Validators.required,
+        Validators.pattern("[0-9]{10}")
+      ]],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(24),]
+      ],
+      passwordCheck: ['', [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(24),]
+      ],
       addressList: this.fb.array(
-       this.user.addressList?.map((el: Adress, i: number) => {
+        this.user.addressList?.map((el: Adress, i: number) => {
           return this.fb.group({
             id: [
-              el.id || this.user.addressList[i].id,Validators.required
+              el.id || this.user.addressList[i].id,
             ],
             addressType: [
               el.addressType ||
               this.user.addressList[i].addressType ||
-              '', Validators.required
+              ''
             ],
             address: [
-              el.address || this.user.addressList[i].address || ' ',Validators.required
+              el.address || this.user.addressList[i].address || ''
             ],
             city: [
-              el.city || this.user.addressList[i].city || " ",
-              Validators.required
+              el.city || this.user.addressList[i].city || "",
+            ],
+            country: [
+              ""
             ],
             postalCode: [
-              el.postalCode || this.user.addressList[i].postalCode || " "
-            ], editStatus:  [false]
+              el.postalCode || this.user.addressList[i].postalCode || ""
+            ], editStatus: [false]
 
           });
         })
-      )
-    })
+      ),
+    }, {validator: ConfirmedValidator('password', 'passwordCheck')})
   }
 }

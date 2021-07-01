@@ -8,7 +8,7 @@ import {
   ChangeDetectorRef,
   ChangeDetectionStrategy
 } from '@angular/core';
-import {Adress, User} from "../../../core/interfaces";
+import {AddressType, Adress, User} from "../../../core/interfaces";
 import {take} from "rxjs/operators";
 import {UsersService} from "../../../core/services/users/users.service";
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
@@ -26,11 +26,12 @@ export class UserComponent implements OnInit {
   private unsubscribe = new Subject();
   @Output() update = new EventEmitter<any>();
   @Input() user: User
-  // updateAdress: boolean = false;
-  statusAddress: boolean = false;
   updateInfo: boolean = false;
-  test = 12356;
   editForm: FormGroup;
+  addressType: Array<AddressType> = [
+    {value: 'Billing', text: 'Billing Address '},
+    {value: 'Shipment', text: 'Shipment Address '},
+    {value: 'Home', text: 'Home Address '}];
 
   constructor(private usersService: UsersService,
               private fb: FormBuilder
@@ -47,7 +48,6 @@ export class UserComponent implements OnInit {
       return
     } else {
       this.setUser(this.editForm.value, this.update)
-
     }
   }
 
@@ -57,6 +57,7 @@ export class UserComponent implements OnInit {
       addressType: '',
       address: '',
       city: '',
+      country: '',
       postalCode: '',
       editStatus: true
     })
@@ -100,9 +101,6 @@ export class UserComponent implements OnInit {
         emit.emit()
       })
   }
-  //
-  //
-
 
   buildUserForm(address?: FormGroup): FormGroup {
 
@@ -138,9 +136,13 @@ export class UserComponent implements OnInit {
             city: [
               el.city || this.user.addressList[i].city || " "
             ],
+            country: [
+              el.city || this.user.addressList[i].city || " "
+            ],
             postalCode: [
               el.postalCode || this.user.addressList[i].postalCode || " "
-            ], editStatus: [
+            ],
+            editStatus: [
               el.editStatus || this.user.addressList[i].editStatus || false
             ]
           });

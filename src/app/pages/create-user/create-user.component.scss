@@ -1,17 +1,21 @@
 :host {
   width: 100%;
+
   .btn:focus, .btn-secondary:focus {
-box-shadow:none;
+    box-shadow: none;
   }
-label{
-width: 100%;
-}
-.firstControlElem{
-width: 100%;
-display: flex;
-justify-content: space-between;
-label{
- width: 50%;
-}
-}
+
+  label {
+    width: 100%;
+  }
+
+  .firstControlElem {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    label {
+      width: 50%;
+    }
+  }
 }

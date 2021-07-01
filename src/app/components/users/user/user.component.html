@@ -48,10 +48,12 @@
         <button type="button" (click)="updateContactInfo(user)"
                 class="btn btn-secondary mr-1">
           {{(!updateInfo) ? "update" : "save"}}</button>
-      </td><td *ngIf="updateInfo">
-      <button type="button"
-              (click)="addNewAddress()"
-              class="btn btn-secondary">add address</button>
+      </td>
+      <td *ngIf="updateInfo">
+        <button type="button"
+                (click)="addNewAddress()"
+                class="btn btn-secondary">add address
+        </button>
       </td>
       <td>
         <a [popover]="popOverContent" container="body" #pop="bs-popover"
@@ -81,20 +83,24 @@
       <th scope="col">address Type</th>
       <th scope="col">address</th>
       <th scope="col">city</th>
+      <th scope="col">country</th>
       <th scope="col">postalCode</th>
       <th colspan="3" class="text-center">action</th>
     </tr>
     </thead>
     <tbody *ngFor=" let addressInfo of user.addressList, let idx = index">
-    <tr  [formGroupName]="idx">
+    <tr [formGroupName]="idx">
 
       <td>{{(!addressInfo.editStatus) ? addressInfo.addressType : '' }}
-        <input
-          class="form-control"
-          *ngIf="addressInfo.editStatus"
-          [value]=addressInfo.addressType
-          formControlName="addressType"
-          type="text">
+        <select class="form-select"
+                formControlName="addressType"
+                *ngIf="addressInfo.editStatus"
+                [value]=addressInfo.addressType
+                aria-label="Default select example">
+          <option *ngFor="let el of addressType, let idx = index"
+                  [value]="el.value" [selected]="el.value===addressInfo.addressType"> {{el.text}}</option>
+        </select>
+
       </td>
       <td>
         {{(!addressInfo.editStatus) ? addressInfo.address : '' }}
@@ -108,6 +114,13 @@
         <input *ngIf="addressInfo.editStatus"
                class="form-control"
                formControlName="city"
+               type="text">
+      </td>
+      <td>
+        {{(!addressInfo.editStatus) ? addressInfo.country : '' }}
+        <input *ngIf="addressInfo.editStatus"
+               class="form-control"
+               formControlName="country"
                type="text">
       </td>
       <td>
@@ -142,7 +155,8 @@
       <td>
         <button type="button"
                 (click)="addNewAddress()"
-                class="btn btn-secondary">add new +</button>
+                class="btn btn-secondary">add new +
+        </button>
       </td>
       <br>
     </tr>

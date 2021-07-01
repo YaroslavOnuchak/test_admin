@@ -19,23 +19,6 @@ export class UsersService {
     return this.http.get<any>(`${environment.apiUrl}/users`)
   }
 
-  searchUsers(arg: any): Observable<Array<User>> {
-    let {firstName, lastName, username, mail, phone} = arg
-    console.log(firstName)
-    return this.http.get<any>(`${environment.apiUrl}/users`).pipe(map(users => {
-      console.log(users)
-      return users.filter((elem: User) => {
-        return elem.firstName.toLowerCase().indexOf(firstName.toLocaleLowerCase()) > -1
-        // elem.firstName === firstName || elem.lastName === lastName ||
-        // elem.username === username || elem.mail === mail ||
-        // elem.phone === phone
-        // console.log(elem)
-
-      });
-
-    }));
-  }
-
   updateUser(user: User) {
     return this.http.put<any>(`${environment.apiUrl}/users/${user.id}/`, user)
   }
@@ -47,9 +30,5 @@ export class UsersService {
   delUser(userId: number): Observable<Array<User>> {
     return this.http.delete<any>(`${environment.apiUrl}/users/${userId}`)
   }
-
-  // testst() {
-  //   return this.http.get<any>(`${environment.apiUrl}/users/${1}/`)
-  // }
 
 }
