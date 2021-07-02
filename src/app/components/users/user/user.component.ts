@@ -4,23 +4,22 @@ import {
   OnInit,
   Output,
   EventEmitter,
-  OnChanges,
-  ChangeDetectorRef,
-  ChangeDetectionStrategy
 } from '@angular/core';
 import {AddressType, Adress, User} from "../../../core/interfaces";
 import {take} from "rxjs/operators";
 import {UsersService} from "../../../core/services/users/users.service";
-import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators'
 
+import {Store} from "@ngxs/store";
+import {DeleteUser, FetchGetUsers} from "../../../store/actions/user.actions";
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
   private unsubscribe = new Subject();
@@ -34,12 +33,22 @@ export class UserComponent implements OnInit {
     {value: 'Home', text: 'Home Address '}];
 
   constructor(private usersService: UsersService,
-              private fb: FormBuilder
-  ) {
+              private fb: FormBuilder,
+              private  store: Store
+  ) {}
+
+
+  deleteUser_Store( index :number){
+    this.store.dispatch(new DeleteUser(index))
   }
+  getAllUser_Store(){
+    this.store.dispatch(new FetchGetUsers())
+  }
+
 
   ngOnInit(): void {
     this.buildUserForm()
+    this.getAllUser_Store()
   }
 
   updateContactInfo(user: User): void {
@@ -116,10 +125,18 @@ export class UserComponent implements OnInit {
       ],
       username: [
         this.user ? this.user.username : ""
-      ], mail: [
+      ],
+      mail: [
         this.user ? this.user.mail : ""
-      ], phone: [
+      ],
+      phone: [
         this.user ? this.user.phone : ""
+      ],
+      password: [
+        this.user ? this.user.password : ""
+      ],
+      passwordCheck: [
+        this.user ? this.user.passwordCheck : ""
       ],
       addressList: this.fb.array(
         this.user.addressList?.map((el: Adress, i: number) => {

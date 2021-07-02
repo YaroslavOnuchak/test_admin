@@ -15,7 +15,7 @@ export class UsersComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.searchForm)
+    // console.log(this.searchForm)
   }
 
   upDate():void{

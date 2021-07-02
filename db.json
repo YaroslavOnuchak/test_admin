@@ -7,6 +7,8 @@
       "username": "bat12",
       "mail": "bat@gmail.com",
       "phone": "1111",
+      "password": "string",
+      "passwordCheck": "string",
       "addressList": [
         {
           "id": 1,
@@ -28,7 +30,7 @@
         },
         {
           "id": 3,
-          "addressType": "new",
+          "addressType": "Billing",
           "address": " ",
           "city": " ",
           "country": " ",
@@ -44,6 +46,8 @@
       "username": "super",
       "mail": "super@gmail.com",
       "phone": "2222",
+      "password": "string",
+      "passwordCheck": "string",
       "addressList": [
         {
           "id": 1,
@@ -65,7 +69,7 @@
         },
         {
           "id": 3,
-          "addressType": "new",
+          "addressType": "Shipment",
           "address": " ",
           "city": " ",
           "country": " ",
@@ -81,6 +85,8 @@
       "username": "greenAr",
       "mail": "greenAr@gmail.com",
       "phone": "33333",
+      "password": "string",
+      "passwordCheck": "string",
       "addressList": [
         {
           "id": 1,
@@ -102,30 +108,11 @@
         },
         {
           "id": 3,
-          "addressType": "new",
-          "address": "",
-          "city": "",
-          "country": "",
-          "postalCode": "",
-          "editStatus": false
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "firstName": "2",
-      "lastName": "vdssssss",
-      "username": "dvssssss",
-      "mail": "dvssss",
-      "phone": "1111111",
-      "addressList": [
-        {
-          "id": 1,
-          "addressType": "s",
-          "address": "",
-          "city": "",
-          "country": "",
-          "postalCode": "s",
+          "addressType": "Billing",
+          "address": " ",
+          "city": " ",
+          "country": " ",
+          "postalCode": " ",
           "editStatus": false
         }
       ]
@@ -158,8 +145,9 @@
       "username": "444444444",
       "mail": "4444444",
       "phone": "4444",
-      "password": "4444444444",
-      "passwordCheck": "4444444444",
+      "password": "string",
+      "passwordCheck": "string",
+      "token": "string",
       "addressList": [
         {
           "id": 1,
@@ -174,8 +162,8 @@
     },
     {
       "id": 8,
-      "firstName": "",
-      "lastName": "",
+      "firstName": "user",
+      "lastName": "user",
       "username": "user",
       "mail": "user7777@gmail.com",
       "phone": "er",
@@ -193,11 +181,32 @@
         },
         {
           "id": 2,
-          "addressType": "er",
+          "addressType": "Shipment",
           "address": "er",
           "city": "er",
           "country": "er",
           "postalCode": "er",
+          "editStatus": false
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "firstName": "sdfghj",
+      "lastName": "sdfghj",
+      "username": "qwe",
+      "mail": "onuchak.j@gmail.com",
+      "phone": "0939974336",
+      "password": null,
+      "passwordCheck": null,
+      "addressList": [
+        {
+          "id": 1,
+          "addressType": "Shipment",
+          "address": "",
+          "city": "",
+          "country": "",
+          "postalCode": "",
           "editStatus": false
         }
       ]

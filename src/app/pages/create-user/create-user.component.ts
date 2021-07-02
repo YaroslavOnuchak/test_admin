@@ -43,7 +43,7 @@ export class CreateUserComponent implements OnInit {
   toggleShowForm: boolean = true;
   validForm: boolean = true;
   showHelpList: boolean = false;
-  currentPage: number = 0;
+  currentPage: number = 1;
 
 
   constructor(private fb: FormBuilder,
@@ -164,7 +164,7 @@ export class CreateUserComponent implements OnInit {
   getCountries(): void {
     this.helpListService.getAll().pipe(take(1)
     ).subscribe(data => {
-      this.users = data;
+      // this.users = data;
       this.countries = data;
     })
   }
@@ -176,7 +176,8 @@ export class CreateUserComponent implements OnInit {
       lastName: ['', Validators.required],
       username: ['', Validators.required],
       mail: ['', [
-        Validators.required, Validators.email
+        Validators.required,
+        Validators.email
       ]],
       phone: ['', [
         Validators.required,
@@ -214,11 +215,14 @@ export class CreateUserComponent implements OnInit {
             ],
             postalCode: [
               el.postalCode || this.user.addressList[i].postalCode || ""
-            ], editStatus: [false]
+            ],
+            editStatus: [false]
 
           });
         })
       ),
-    }, {validator: ConfirmedValidator('password', 'passwordCheck')})
+    }, {validator:
+        ConfirmedValidator('password', 'passwordCheck')})
   }
+
 }

@@ -58,12 +58,12 @@
       <td>
         <a [popover]="popOverContent" container="body" #pop="bs-popover"
            placement="top">
-          <button type="button" class="btn btn-dark">del
+          <button type="button"  class="btn btn-dark">del
           </button>
         </a>
         <ng-template #popOverContent>
           <h6>Are You sure to delete that User?</h6>
-          <button class="btn btn-danger mx-1" (click)="deleteUser(user)">Delete &times;</button>
+          <button class="btn btn-danger mx-1"  (click)="deleteUser_Store(user.id)">Delete &times;</button>
           <button type="button" (click)='pop.hide()' class="close btn btn-success" aria-
                   label="Close">
             <span aria-hidden="true">NO</span>

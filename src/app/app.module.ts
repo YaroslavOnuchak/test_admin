@@ -1,4 +1,8 @@
 import { NgModule } from '@angular/core';
+
+import { NgxsModule } from '@ngxs/store';
+import { UsersState } from './store/state/users.state';
+
 import { BrowserModule } from '@angular/platform-browser';
 // import {MatFormFieldModule} from '@angular/material/form-field';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +24,11 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersComponent } from './components/users/users.component';
 import { SearchFilterPipe } from './shared/pipe/search-filter.pipe';
 import { UserComponent } from './components/users/user/user.component';
+import {environment} from "../environments/environment";
+import {NgxsRootModule} from "@ngxs/store/src/modules/ngxs-root.module";
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+// import {environment} from "../environments/environment.prod";
 
 @NgModule({
   declarations: [
@@ -37,12 +46,17 @@ import { UserComponent } from './components/users/user/user.component';
     UserComponent
   ],
   imports: [
+    NgxsModule.forRoot([UsersState], {
+      developmentMode: !environment.production
+    }),
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserModule,
     FormsModule,
     PopoverModule.forRoot(),
+    // NgxsReduxDevtoolsPluginModule.forRoot(),
+    // NgxsLoggerPluginModule.forRoot()
 
     // MatFormFieldModule,
     // NoopAnimationsModule,
