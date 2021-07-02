@@ -167,11 +167,12 @@
               <input type="text"
                      placeholder="country"
                      formControlName="country"
-                     (focus)="showHelpList=true"
+                     (input)="checkShowHelpList(idx)"
+                     (blur)="showHelpList= false"
                      [value]="newAddress.value.country"
                      class="form-control"></label>
             <select
-              *ngIf="showHelpList"
+              [ngClass]="showHelpList? 'show' : 'hide'"
               class="form-select helpList"
               (change)="getHelpListValue($event, idx)"
               size="3"

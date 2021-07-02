@@ -43,7 +43,7 @@ export class CreateUserComponent implements OnInit {
   toggleShowForm: boolean = true;
   validForm: boolean = true;
   showHelpList: boolean = false;
-  currentPage: number = 1;
+  currentPage: number = 0;
 
 
   constructor(private fb: FormBuilder,
@@ -84,6 +84,14 @@ export class CreateUserComponent implements OnInit {
 
   get reapedPass() {
     return this.newUser.get('passwordCheck');
+  }
+
+  checkShowHelpList(index:number):void{
+    if((this.newUser.value.addressList[index].country)===""){
+      return
+    }else{
+      this.showHelpList= true;
+    }
   }
 
   getHelpListValue(e: any, index: number): void {

@@ -14,3 +14,13 @@ label._req::after{
   transform: translateX(100%);
   opacity: 0.8;
 }
+select.show{
+  visibility: visible;
+  opacity: 1;
+  transition: 0.8s;
+}
+select.hide{
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.2s;
+}
