@@ -9,7 +9,7 @@ export interface Adress {
   address: string,
   city: string,
   postalCode: string,
-  country?: string,
+  country?: any,
   editStatus?: boolean
 }
 

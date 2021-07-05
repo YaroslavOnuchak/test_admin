@@ -6,6 +6,8 @@ import {take} from "rxjs/operators";
 import {Router} from '@angular/router';
 import {HelperListService} from "../../core/services/helperList/helper-list.service";
 import {ConfirmedValidator} from "../../core/validators/confirm";
+import {Store} from "@ngxs/store";
+import {AddUser, DeleteUser} from "../../store/actions/user.actions";
 
 
 @Component({
@@ -29,7 +31,7 @@ export class CreateUserComponent implements OnInit {
       addressType: '',
       address: '',
       city: '',
-      country: '',
+      country: {},
       postalCode: '',
       editStatus: true
     }]
@@ -40,15 +42,16 @@ export class CreateUserComponent implements OnInit {
     {value: 'Billing', text: 'Billing Address '},
     {value: 'Shipment', text: 'Shipment Address '},
     {value: 'Home', text: 'Home Address '}];
+  // selectedCountry: any;
   toggleShowForm: boolean = true;
   validForm: boolean = true;
-  showHelpList: boolean = false;
-  currentPage: number = 1;
+  currentPage: number = 0;
 
 
   constructor(private fb: FormBuilder,
               private usersService: UsersService,
               private helpListService: HelperListService,
+              private store: Store,
               private router: Router) {
   }
 
@@ -86,18 +89,17 @@ export class CreateUserComponent implements OnInit {
     return this.newUser.get('passwordCheck');
   }
 
-  checkShowHelpList(index:number):void{
-    if((this.newUser.value.addressList[index].country)===""){
-      return
-    }else{
-      this.showHelpList= true;
-    }
-  }
+  // checkShowHelpList(index:number):void{
+  //   if((this.newUser.value.addressList[index].country)===""){
+  //     return
+  //   }else{
+  //     this.showHelpList= true;
+  //   }
+  // }
 
-  getHelpListValue(e: any, index: number): void {
-    this.newUser.value.addressList[index].country = e.target.value;
-    this.showHelpList = false
-  }
+  // getHelpListValue(e: any, index: number): void {
+  //   this.newUser.value.addressList[index].country = e.target.value;
+  // }
 
 
   next(): void {
@@ -120,6 +122,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   addNewAddress(): void {
+    // console.log("object", this.newUser.value.addressList[0]?.country)
     const addressItem = this.fb.group({
       id: this.user.addressList[this.user.addressList.length - 1].id + 1,
       addressType: '',
@@ -130,6 +133,7 @@ export class CreateUserComponent implements OnInit {
       editStatus: false
     })
     this.addressListArray.push(addressItem);
+    console.log("'selectedCity'", this.newUser.value)
   }
 
   get addressListArray(): FormArray {
@@ -141,7 +145,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   sendForm(): void {
-    this.usersService.postUser(this.newUser.value)
+    this.store.dispatch((new AddUser(this.newUser.value)))
       .pipe(take(1))
       .subscribe(data => {
         this.router.navigate(['/main-page']);
@@ -165,7 +169,17 @@ export class CreateUserComponent implements OnInit {
     this.helpListService.getAll().pipe(take(1)
     ).subscribe(data => {
       // this.users = data;
+      // data.forEach((el, index) => {
+      //   // console.log(this.countries + '' + data)
+      //   this.countries?.push({
+      //     name: el.name,
+      //     id: index
+      //   })
+      // })
       this.countries = data;
+      // this.countries.map((el, index) =>el = {name :el.name,
+      // id:index})
+      // console.log(this.countries)
     })
   }
 
@@ -211,7 +225,7 @@ export class CreateUserComponent implements OnInit {
               el.city || this.user.addressList[i].city || "",
             ],
             country: [
-              ""
+              {}
             ],
             postalCode: [
               el.postalCode || this.user.addressList[i].postalCode || ""
@@ -221,8 +235,10 @@ export class CreateUserComponent implements OnInit {
           });
         })
       ),
-    }, {validator:
-        ConfirmedValidator('password', 'passwordCheck')})
+    }, {
+      validator:
+        ConfirmedValidator('password', 'passwordCheck')
+    })
   }
 
 }

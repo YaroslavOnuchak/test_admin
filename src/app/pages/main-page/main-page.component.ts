@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../../core/services/authentication/auth.service";
+import {Component, OnInit} from '@angular/core';
 import {User} from "../../core/interfaces";
+import {AuthGuardService} from "../../core/services/authentication/auth-guard.service";
 
 @Component({
   selector: 'app-main-page',
@@ -8,13 +8,17 @@ import {User} from "../../core/interfaces";
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent implements OnInit {
+  private navigation: any;
 
-public user :User ;
+  public user: User;
 
-  constructor(private  authenticationService: AuthService) { }
+  constructor(private authenticationService: AuthGuardService,
+             ) {
+    // this.navigation = this.router.getCurrentNavigation()?.extras?.state;
+  }
 
   ngOnInit(): void {
     this.user = this.authenticationService.loginedUser()
-  }
 
+  }
 }

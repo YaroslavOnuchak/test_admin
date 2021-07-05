@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {take} from 'rxjs/operators';
-import {AuthService} from '../../core/services/authentication/auth.service';
+import {AuthGuardService} from "../../core/services/authentication/auth-guard.service";
 
 @Component({
   selector: 'app-log-in',
@@ -18,7 +18,7 @@ export class LogInComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authenticationService: AuthService
+    private authGuardService: AuthGuardService,
   ) {
   }
 
@@ -36,7 +36,7 @@ export class LogInComponent implements OnInit {
 
   onSubmit() {
     this.submitted = this.loading = true;
-    this.authenticationService.login(this.formFields.username.value, this.formFields.password.value)
+    this.authGuardService.login(this.formFields.username.value, this.formFields.password.value)
       .pipe(take(1))
       .subscribe(data => {
           if (data) {

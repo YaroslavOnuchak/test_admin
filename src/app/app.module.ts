@@ -29,6 +29,8 @@ import {NgxsRootModule} from "@ngxs/store/src/modules/ngxs-root.module";
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 // import {environment} from "../environments/environment.prod";
+import { NgSelectModule } from '@ng-select/ng-select';
+import {AuthGuardService} from "./core/services/authentication/auth-guard.service";
 
 @NgModule({
   declarations: [
@@ -55,13 +57,16 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
     BrowserModule,
     FormsModule,
     PopoverModule.forRoot(),
+    NgSelectModule,
     // NgxsReduxDevtoolsPluginModule.forRoot(),
     // NgxsLoggerPluginModule.forRoot()
 
     // MatFormFieldModule,
     // NoopAnimationsModule,
   ],
-  providers: [],
+  providers: [
+    AuthGuardService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {User} from "../../core/interfaces";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-users',
@@ -7,7 +8,7 @@ import {User} from "../../core/interfaces";
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-@Input() usersList : Array<User>
+@Input() usersList? : Observable<User[]>;
 @Input() searchForm :User
 
 @Output() update = new EventEmitter<string>();

@@ -3,6 +3,10 @@ import {User} from "../../core/interfaces";
 import {UsersService} from "../../core/services/users/users.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {take} from "rxjs/operators";
+import {FetchGetUsers} from "../../store/actions/user.actions";
+import {Observable} from "rxjs";
+import { Select, Store } from '@ngxs/store';
+import { UsersState } from '../../store/state/users.state';
 
 
 @Component({
@@ -11,11 +15,12 @@ import {take} from "rxjs/operators";
   styleUrls: ['./user-info.component.scss'],
 })
 export class UserInfoComponent implements OnInit {
-  users: Array<User>;
+  // users: Array<User>;
   searchForm: FormGroup;
-
+  @Select(UsersState.getUserList) users: Observable<User[]>;
   constructor(private usersService: UsersService,
               private formBuilder: FormBuilder,
+              private  store: Store
   ) {
   }
 
@@ -33,6 +38,7 @@ export class UserInfoComponent implements OnInit {
       ]], // number
     });
     this.getUsers();
+    // this.getAllUser_Store()
   }
 
   get phone() {
@@ -42,12 +48,24 @@ export class UserInfoComponent implements OnInit {
   get mail() {
     return this.searchForm.get('mail');
   }
-
-  getUsers(): void {
-    this.usersService.getUsers().pipe(take(1)
-    ).subscribe(data => {
-      this.users = data;
+  getAllUser_Store(){
+    this.store.dispatch(new FetchGetUsers())
+      // .pipe(take(1))
+      .subscribe(data => {
+      this.users = data.users.users;
     })
+  }
+  getUsers(): void {
+    this.store.dispatch(new FetchGetUsers())
+      // .pipe(take(1))
+      .subscribe(data => {
+        // console.log(data.users)
+        // this.users = data.users.users;
+      })
+    // this.usersService.getUsers().pipe(take(1)
+    // ).subscribe(data => {
+    //   this.users = data;
+    // })
   }
 
   clearForm(): void {

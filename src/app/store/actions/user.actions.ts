@@ -17,3 +17,10 @@ export class AddUser {
   constructor(public payload: User) {
   }
 }
+
+export class UpdateUser {
+  static readonly type = "[User] Update"
+
+  constructor(public payload: User) {
+  }
+}

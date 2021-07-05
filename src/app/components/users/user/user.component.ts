@@ -6,15 +6,13 @@ import {
   EventEmitter,
 } from '@angular/core';
 import {AddressType, Adress, User} from "../../../core/interfaces";
-import {take} from "rxjs/operators";
 import {UsersService} from "../../../core/services/users/users.service";
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators'
 
 import {Store} from "@ngxs/store";
-import {DeleteUser, FetchGetUsers} from "../../../store/actions/user.actions";
+import {DeleteUser, UpdateUser} from "../../../store/actions/user.actions";
 
 @Component({
   selector: 'app-user',
@@ -34,21 +32,26 @@ export class UserComponent implements OnInit {
 
   constructor(private usersService: UsersService,
               private fb: FormBuilder,
-              private  store: Store
+              private store: Store
   ) {}
-
-
-  deleteUser_Store( index :number){
-    this.store.dispatch(new DeleteUser(index))
-  }
-  getAllUser_Store(){
-    this.store.dispatch(new FetchGetUsers())
-  }
-
 
   ngOnInit(): void {
     this.buildUserForm()
-    this.getAllUser_Store()
+  }
+
+  get addressListArray(): FormArray {
+    return this.editForm.get('addressList') as FormArray;
+  }
+
+  deleteUser_Store(index: number) {
+    this.store.dispatch(new DeleteUser(index))
+    // this.update.emit()
+  }
+
+  deleteAddress(user: User, index: number): void {
+    this.editForm.value.addressList.splice(index, 1)
+    this.store.dispatch(new UpdateUser(this.editForm.value))
+    this.update.emit()
   }
 
   updateContactInfo(user: User): void {
@@ -56,13 +59,26 @@ export class UserComponent implements OnInit {
     if (this.updateInfo) {
       return
     } else {
-      this.setUser(this.editForm.value, this.update)
+      this.store.dispatch(new UpdateUser(this.editForm.value));
+      this.update.emit();
     }
+  }
+
+  updateAddsress(user: User, i: number): void {
+    if (user.addressList[i].editStatus) {
+      this.editForm.value.addressList[i].editStatus = false
+      this.user = this.editForm.value
+    } else {
+      this.editForm.value.addressList[i].editStatus = true
+      this.user = this.editForm.value
+    }
+    this.store.dispatch(new UpdateUser(this.editForm.value));
+    this.update.emit();
   }
 
   addNewAddress(): void {
     const addressItem = this.fb.group({
-      id: this.user?.addressList[this.user.addressList.length - 1]?.id + 1 ||1,
+      id: this.user?.addressList[this.user.addressList.length - 1]?.id + 1 || 1,
       addressType: '',
       address: '',
       city: '',
@@ -72,43 +88,6 @@ export class UserComponent implements OnInit {
     })
     this.addressListArray.push(addressItem);
     this.user = this.editForm.value
-
-  }
-
-  get addressListArray() : FormArray {
-    return this.editForm.get('addressList') as FormArray;
-  }
-  deleteUser(user:User):void{
-    this.usersService.delUser(user.id)
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe(() => {
-        this.update.emit()
-      });
-
-  }
-  deleteAddress(user: User, index: number): void {
-    this.editForm.value.addressList.splice(index, 1)
-    this.setUser(this.editForm.value, this.update )
-  }
-
-  updateAddsress(user: User, i: number): void {
-    if(user.addressList[i].editStatus){
-      this.editForm.value.addressList[i].editStatus = false
-      this.user = this.editForm.value
-    }else{
-      this.editForm.value.addressList[i].editStatus = true
-      this.user = this.editForm.value
-    }
-      this.setUser(this.editForm.value, this.update )
-  }
-
-
-  setUser(user : User, emit:EventEmitter<any>):void{
-    this.usersService.updateUser(user)
-      .pipe(take(1))
-      .subscribe(data => {
-        emit.emit()
-      })
   }
 
   buildUserForm(address?: FormGroup): FormGroup {

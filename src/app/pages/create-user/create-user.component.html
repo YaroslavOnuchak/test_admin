@@ -71,7 +71,6 @@
                formControlName="phone"
                class="form-control"
                id="createPhone">
-
         <div *ngIf="phone?.dirty || !validForm">
           <div *ngIf="phone?.errors?.required"
                class="small text-danger">
@@ -87,7 +86,7 @@
         <div class="col">
           <label for="createPassword"
                  class="form-label _req ">Password</label>
-          <input type="text"
+          <input type="password"
                  placeholder="create Password"
                  formControlName="password"
                  class="form-control "
@@ -96,7 +95,7 @@
         <div class="col">
           <label for="checkCreatePassword"
                  class="form-label _req">Repeat Password</label>
-          <input type="text"
+          <input type="password"
                  class="form-control"
                  placeholder="repeat Password"
                  formControlName="passwordCheck"
@@ -108,8 +107,10 @@
             Reaped Password with more than 24 characters
           </div>
           <div class="form-text text-danger"
-               *ngIf="reapedPass?.errors?.confirmedValidator"
-          >Password and Confirm Password must be match.
+               *ngIf="reapedPass?.errors?.confirmedValidator">Password and Confirm Password must be match.
+          </div>
+          <div class="form-text text-danger"
+               *ngIf="pass?.errors?.confirmedValidator">Password and Confirm Password must be match.
           </div>
         </div>
         <div class="ac-form-field-description form-text">Between 6 and 24 characters.</div>
@@ -160,37 +161,25 @@
                      placeholder="city"
                      formControlName="city"
                      class="form-control"></label>
-
           </div>
           <div class="mb-3 col-6 box--helpList">
-            <label>Enter country: {{newAddress.value.country}}
-              <input type="text"
-                     placeholder="country"
-                     formControlName="country"
-                     (input)="checkShowHelpList(idx)"
-                     (blur)="showHelpList= false"
-                     [value]="newAddress.value.country"
-                     class="form-control"></label>
-            <select
-              [ngClass]="showHelpList? 'show' : 'hide'"
-              class="form-select helpList"
-              (change)="getHelpListValue($event, idx)"
-              size="3"
-              aria-label="Default select example">
-              <option *ngFor="let country of countries|
-                    searchFilter: 'name' : newAddress.value.country"
-                      [value]="country.name"
-                      > {{country.name}}</option>
-            </select>
-            <div>
-            </div>
+            <label>Enter country:
+              <ng-select
+                formControlName="country"
+                class="form-control"
+                [items]="countries"
+
+                bindLabel="name"
+                placeholder="Select coun">
+              </ng-select>
+            </label>
           </div>
           <div class="mb-3 col-6">
             <label>Enter postal Code:
-            <input type="text"
-                   placeholder="postal Code"
-                   formControlName="postalCode"
-                   class="form-control"></label>
+              <input type="text"
+                     placeholder="postal Code"
+                     formControlName="postalCode"
+                     class="form-control"></label>
           </div>
           <hr/>
         </div>
@@ -214,24 +203,23 @@
       <tbody>
       <tr>
         <th scope="row">{{user.id}}</th>
-        <td>{{ user.firstName  }}
+        <td>{{ user.firstName }}
         </td>
-        <td>{{ user.lastName  }}
+        <td>{{ user.lastName }}
         </td>
-        <td>{{ user.username  }}
+        <td>{{ user.username }}
         </td>
         <td>{{user.mail}}
         </td>
-        <td>{{ user.phone  }}
+        <td>{{ user.phone }}
         </td>
-        <td>{{ user.password  }}
+        <td>{{ user.password }}
         </td>
       </tr>
       </tbody>
     </table>
     <table
-      class="table table-striped"
-    >
+      class="table table-striped">
       <thead>
       <tr>
         <th scope="col">address Type</th>
@@ -251,6 +239,9 @@
         </td>
         <td>
           {{addressInfo.city}}
+        </td>
+        <td>
+          {{addressInfo.country.name}}
         </td>
         <td>
           {{addressInfo.postalCode}}
