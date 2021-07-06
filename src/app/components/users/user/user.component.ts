@@ -12,7 +12,9 @@ import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Subject} from 'rxjs';
 
 import {Store} from "@ngxs/store";
-import {DeleteUser, UpdateUser} from "../../../store/actions/user.actions";
+import {DeleteUser, FetchGetUsers, UpdateUser} from "../../../store/actions/user.actions";
+// import { BsModalService, BsModalRef } from "ngx-bootstrap/tooltip";
+import {PopoverModule} from 'ngx-bootstrap/popover';
 
 @Component({
   selector: 'app-user',
@@ -20,9 +22,14 @@ import {DeleteUser, UpdateUser} from "../../../store/actions/user.actions";
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
+
+
   private unsubscribe = new Subject();
   @Output() update = new EventEmitter<any>();
   @Input() user: User
+
+
+  users: Array<User> = [];
   updateInfo: boolean = false;
   editForm: FormGroup;
   addressType: Array<AddressType> = [
@@ -33,25 +40,39 @@ export class UserComponent implements OnInit {
   constructor(private usersService: UsersService,
               private fb: FormBuilder,
               private store: Store
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.buildUserForm()
+  }
+
+  getUsers(): void {
+    this.store.dispatch(new FetchGetUsers())
+      .subscribe(data => {
+        // console.log("dara=> ",data)
+        this.users = data.Users.users;
+      })
+
   }
 
   get addressListArray(): FormArray {
     return this.editForm.get('addressList') as FormArray;
   }
 
-  deleteUser_Store(index: number) {
+  deleteUser_Store(index: number, pop?: any) {
+    pop.hide();
     this.store.dispatch(new DeleteUser(index))
     // this.update.emit()
   }
 
-  deleteAddress(user: User, index: number): void {
+  deleteAddress(user: User, index: number, pop?: any): void {
     this.editForm.value.addressList.splice(index, 1)
-    this.store.dispatch(new UpdateUser(this.editForm.value))
-    this.update.emit()
+    pop.hide();
+    this.store.dispatch(new UpdateUser(this.editForm.value)).subscribe(() => {
+
+    });
+    // this.update.emit()
   }
 
   updateContactInfo(user: User): void {
@@ -60,7 +81,7 @@ export class UserComponent implements OnInit {
       return
     } else {
       this.store.dispatch(new UpdateUser(this.editForm.value));
-      this.update.emit();
+      // this.update.emit();
     }
   }
 
@@ -73,7 +94,7 @@ export class UserComponent implements OnInit {
       this.user = this.editForm.value
     }
     this.store.dispatch(new UpdateUser(this.editForm.value));
-    this.update.emit();
+    // this.update.emit();
   }
 
   addNewAddress(): void {

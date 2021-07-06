@@ -19,8 +19,14 @@ export class UsersService {
     return this.http.get<any>(`${environment.apiUrl}/users`)
   }
 
+  getFilterUsers(a:string='',mail:string='onuchak.j@gmail.com'): Observable<Array<User>> {
+    return this.http.get<any>(
+      `${environment.apiUrl}/users?firstName=${a}&mail=${mail}`
+    )
+  }
+
   updateUser(user: User) {
-    console.log('updateUser')
+    console.log('updateUser', user)
     return this.http.put<any>(`${environment.apiUrl}/users/${user.id}/`, user)
   }
 
@@ -29,7 +35,7 @@ export class UsersService {
     return this.http.post<any>(`${environment.apiUrl}/users/`, user)
   }
 
-  delUser(userId: number): Observable<Array<User>> {
+  deleteUser(userId: number): Observable<Array<User>> {
     return this.http.delete<any>(`${environment.apiUrl}/users/${userId}`)
   }
 
