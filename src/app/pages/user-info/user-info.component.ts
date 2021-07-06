@@ -2,11 +2,12 @@ import {Component, OnInit, ChangeDetectorRef,} from '@angular/core';
 import {User} from "../../core/interfaces";
 import {UsersService} from "../../core/services/users/users.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {take} from "rxjs/operators";
+import {pluck, take} from "rxjs/operators";
 import {FetchGetUsers} from "../../store/actions/user.actions";
 import {Observable} from "rxjs";
-import { Select, Store } from '@ngxs/store';
-import { UsersState } from '../../store/state/users.state';
+import {Select, Store} from '@ngxs/store';
+import {UsersState} from '../../store/state/users.state';
+import {loggerOptionsFactory} from "@ngxs/logger-plugin/src/logger.module";
 
 
 @Component({
@@ -15,16 +16,28 @@ import { UsersState } from '../../store/state/users.state';
   styleUrls: ['./user-info.component.scss'],
 })
 export class UserInfoComponent implements OnInit {
-  // users: Array<User>;
+  users: Array<User>;
   searchForm: FormGroup;
-  @Select(UsersState.getUserList) users: Observable<User[]>;
+
+  @Select(UsersState.getUserList) usersState$: Observable<Array<User>>;
+
   constructor(private usersService: UsersService,
               private formBuilder: FormBuilder,
-              private  store: Store
+              private store: Store
   ) {
   }
 
   ngOnInit(): void {
+    this.usersState$.subscribe(res => this.users = res)
+    this.getUsers();
+
+    this.usersService.getFilterUsers()
+      .pipe(take(1))
+      .subscribe(data => {
+        console.log(data)
+      },)
+
+
     this.searchForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -37,8 +50,8 @@ export class UserInfoComponent implements OnInit {
         Validators.required, Validators.pattern("[0-9]{10}")
       ]], // number
     });
-    this.getUsers();
-    // this.getAllUser_Store()
+
+
   }
 
   get phone() {
@@ -48,24 +61,15 @@ export class UserInfoComponent implements OnInit {
   get mail() {
     return this.searchForm.get('mail');
   }
-  getAllUser_Store(){
-    this.store.dispatch(new FetchGetUsers())
-      // .pipe(take(1))
-      .subscribe(data => {
-      this.users = data.users.users;
-    })
-  }
+
   getUsers(): void {
     this.store.dispatch(new FetchGetUsers())
-      // .pipe(take(1))
-      .subscribe(data => {
-        // console.log(data.users)
-        // this.users = data.users.users;
+      .pipe(take(1), pluck('Users', 'users'))
+      .subscribe((users: User[]) => {
+        // console.log("dara=> ",data)
+        this.users = users;
       })
-    // this.usersService.getUsers().pipe(take(1)
-    // ).subscribe(data => {
-    //   this.users = data;
-    // })
+
   }
 
   clearForm(): void {
