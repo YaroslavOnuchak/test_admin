@@ -4,15 +4,17 @@ import {ActivatedRouteSnapshot} from '@angular/router';
 import {Observable, of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {map, catchError} from 'rxjs/operators';
-import {User} from "../../interfaces";
+import {LoginForm, User} from "../../interfaces";
 import {environment} from "../../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuardService implements CanActivate {
+
+
   public user: User;
-  private loginStatus: boolean = true
+  private loginStatus: boolean = true;
 
 
   constructor(
@@ -20,13 +22,15 @@ export class AuthGuardService implements CanActivate {
   ) {
   }
 
-  login(username?: string, password?: string): Observable<User> {
+  login( {username,  password}: LoginForm): Observable<User> {
     return this.http.get<any>(`${environment.apiUrl}/users`)
       .pipe(map(
         users => {
-         let user = users.filter((elem: User) => elem.username === username && elem.password === password)[0];
-         this.loginStatus = true
-          this.user = user;
+          let user = users.filter((elem: User) => elem.username === username && elem.password === password)[0];
+          this.loginStatus = true
+          // this.user = user;
+          // console.log('servis=>>>> login', user)
+          // console.log('servis=>>>> username',);
           return user;
         }
       ));
@@ -40,9 +44,7 @@ export class AuthGuardService implements CanActivate {
     return this.http.get(`${environment.apiUrl}/users`).pipe(
       map(
         res => {
-          if (!res)
-            // if (true)
-          {
+          if (!res) {
             alert("no data");
             return false;
           } else {

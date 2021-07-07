@@ -1,4 +1,8 @@
 @import "~@ng-select/ng-select/themes/material.theme.css";
+*, :after, :before {
+  box-sizing: border-box;
+}
+
 .popover-content{
   box-shadow: 0 0  5rem 3rem aliceblue;
 }
@@ -6,22 +10,49 @@ label._req::after{
   content: "*";
   color: red;
 }
-.box--helpList{
+
+.spin {
+  &-wrap {
+    position:absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(230,230,250, 0.4);;
+  }
+  width: 140px;
+  height: 140px;
+  border-top: 2px solid #000;
+  border-radius: 100px;
   position: relative;
+  animation: spin 1.7s linear infinite;
+  &:after, &:before {
+    position: absolute;
+    content: '';
+  }
+  &:after {
+    width: 150px;
+    height: 150px;
+    border-radius: 110px;
+    top: -7px;
+    left: -7px;
+    border-right: 2px solid #ffe500;
+    animation: spin 3s linear infinite;
+  }
+  &:before {
+    width: 130px;
+    height: 130px;
+    border-radius: 90px;
+    top: 3px;
+    left: 3px;
+    border-left: 2px solid #00defa;
+    animation: spin 2.5s linear infinite;
+  }
 }
-.helpList{
-  position: absolute;
-  top: 0;
-  transform: translateX(100%);
-  opacity: 0.8;
-}
-select.show{
-  visibility: visible;
-  opacity: 1;
-  transition: 0.8s;
-}
-select.hide{
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.2s;
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {User} from "../../core/interfaces";
 import {Observable} from "rxjs";
 
@@ -9,20 +9,18 @@ import {Observable} from "rxjs";
 })
 export class UsersComponent implements OnInit {
 // @Input() usersList : Array<User>;
-@Input() usersList :Array<User>;
-@Input() searchForm :User
+  @Input() usersList: Array<User>;
+  @Input() searchForm: User
 
 // @Output() update = new EventEmitter<string>();
 
-  constructor() { }
-
-  ngOnInit(): void {
-  console.log(this.usersList)
+  constructor() {
   }
 
-  upDate():void{
-    // this.update.emit()
+  ngOnInit(): void {
+  }
 
+  upDate(): void {
   }
 
 }

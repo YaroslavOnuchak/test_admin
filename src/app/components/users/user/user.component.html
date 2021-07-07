@@ -1,175 +1,180 @@
-<form [formGroup]="editForm">
+<form [formGroup]="editForm" >
   <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">Id#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">username</th>
-        <th scope="col">mail</th>
-        <th scope="col">phone</th>
-        <th colspan="2" class="text-center">action</th>
-      </tr>
+    <thead class="form_title" >
+    <tr >
+      <th scope="col">Id#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">username</th>
+      <th scope="col">mail</th>
+      <th scope="col">phone</th>
+      <th colspan="2" class="text-center">action</th>
+    </tr>
     </thead>
     <tbody>
-      <tr class="tr-header">
-        <th scope="row">{{user.id}}</th>
-        <td>{{(!updateInfo) ? user.firstName : '' }}
-          <input *ngIf="updateInfo"
-            formControlName="firstName"
-            type="text"
-            class="form-control"
-            value={{user.firstName}}>
-        </td>
-        <td>{{(!updateInfo) ? user.lastName : '' }}
-          <input *ngIf="updateInfo"
-            formControlName="lastName"
-            type="text"
-            class="form-control"
-            value={{user.lastName}}>
-        </td>
-        <td>{{(!updateInfo) ? user.username : '' }}
-          <input *ngIf="updateInfo"
-            formControlName="username"
-            type="text"
-            class="form-control"
-            value={{user.username}}>
-        </td>
-        <td>{{(!updateInfo) ? user.mail : '' }}
-          <input *ngIf="updateInfo"
-            formControlName="mail"
-            type="text"
-            class="form-control"
-            value={{user.mail}}>
-        </td>
-        <td>{{(!updateInfo) ? user.phone : '' }}
-          <input *ngIf="updateInfo"
-            formControlName="phone"
-            type="text"
-            class="form-control"
-            value={{user.phone}}>
-        </td>
-        <td>
-          <button type="button" (click)="updateContactInfo(user)"
-            class="btn btn-secondary mr-1">
-            {{(!updateInfo) ? "update" : "save"}}</button>
-        </td>
-        <td *ngIf="updateInfo">
-          <button type="button"
-            (click)="addNewAddress()"
-            class="btn btn-secondary">add address
+    <tr class="tr-header">
+      <th scope="row">{{user.id}}</th>
+      <td>{{(!updateInfo) ? user.firstName : '' }}
+        <input *ngIf="updateInfo"
+               formControlName="firstName"
+               type="text"
+               class="form-control"
+               value={{user.firstName}}>
+      </td>
+      <td>{{(!updateInfo) ? user.lastName : '' }}
+        <input *ngIf="updateInfo"
+               formControlName="lastName"
+               type="text"
+               class="form-control"
+               value={{user.lastName}}>
+      </td>
+      <td>{{(!updateInfo) ? user.username : '' }}
+        <input *ngIf="updateInfo"
+               formControlName="username"
+               type="text"
+               class="form-control"
+               value={{user.username}}>
+      </td>
+      <td>{{(!updateInfo) ? user.mail : '' }}
+        <input *ngIf="updateInfo"
+               formControlName="mail"
+               type="text"
+               class="form-control"
+               value={{user.mail}}>
+      </td>
+      <td>{{(!updateInfo) ? user.phone : '' }}
+        <input *ngIf="updateInfo"
+               formControlName="phone"
+               type="text"
+               class="form-control"
+               value={{user.phone}}>
+      </td>
+      <td>
+        <button type="button" (click)="updateContactInfo(user)"
+                class="btn btn-secondary mr-1">
+          {{(!updateInfo) ? "update" : "save"}}</button>
+      </td>
+      <td >
+        <button *ngIf="updateInfo" type="button"
+                (click)="addNewAddress()"
+                class="btn btn-secondary">add address
+        </button>
+        <button *ngIf="!updateInfo"  type="button"
+                (click)="showAddressList()"
+                class="btn btn-secondary">show address
+        </button>
+      </td>
+      <td>
+        <a [popover]="popOverContent" container="body" #pop="bs-popover"
+           placement="top">
+          <button type="button" class="btn btn-dark">del
           </button>
-        </td>
-        <td>
-          <a [popover]="popOverContent" container="body" #pop="bs-popover"
-            placement="top">
-            <button type="button" class="btn btn-dark">del
-            </button>
-          </a>
-          <ng-template #popOverContent>
-            <h6>Are You sure to delete that User?</h6>
-            <button class="btn btn-danger mx-1"
-              (click)="deleteUser_Store(user.id, pop)">Delete &times;</button>
-            <button type="button" (click)='pop.hide()' class="close btn btn-success" aria-
-              label="Close">
-              <span aria-hidden="true">NO</span>
-            </button>
-          </ng-template>
-        </td>
-        <br>
-      </tr>
+        </a>
+        <ng-template #popOverContent>
+          <h6>Are You sure to delete that User?</h6>
+          <button class="btn btn-danger mx-1"
+                  (click)="deleteUser_Store(user.id, pop)">Delete &times;
+          </button>
+          <button type="button" (click)='pop.hide()' class="close btn btn-success" aria-
+                  label="Close">
+            <span aria-hidden="true">NO</span>
+          </button>
+        </ng-template>
+      </td>
+      <br>
+    </tr>
     </tbody>
   </table>
   <table
     formArrayName="addressList"
     class="table table-striped"
-    *ngIf="user.addressList.length">
+    *ngIf="user.addressList.length && showAddress ">
     <thead>
-      <tr>
-        <th scope="col">address Type</th>
-        <th scope="col">address</th>
-        <th scope="col">city</th>
-        <th scope="col">country</th>
-        <th scope="col">postalCode</th>
-        <th colspan="3" class="text-center">action</th>
-      </tr>
+    <tr>
+      <th scope="col">address Type</th>
+      <th scope="col">address</th>
+      <th scope="col">city</th>
+      <th scope="col">country</th>
+      <th scope="col">postalCode</th>
+      <th colspan="3" class="text-center">action</th>
+    </tr>
     </thead>
     <tbody *ngFor=" let addressInfo of user.addressList, let idx = index">
-      <tr [formGroupName]="idx">
+    <tr [formGroupName]="idx">
 
-        <td>{{(!addressInfo.editStatus) ? addressInfo.addressType : '' }}
-          <select class="form-select"
-            formControlName="addressType"
-            *ngIf="addressInfo.editStatus"
-            [value]=addressInfo.addressType
-            aria-label="Default select example">
-            <option *ngFor="let el of addressType, let idx = index"
-              [value]="el.value" [selected]="el.value===addressInfo.addressType"> {{el.text}}</option>
-          </select>
+      <td>{{(!addressInfo.editStatus) ? addressInfo.addressType : '' }}
+        <select class="form-select"
+                formControlName="addressType"
+                *ngIf="addressInfo.editStatus"
+                [value]=addressInfo.addressType
+                aria-label="Default select example">
+          <option *ngFor="let el of addressType, let idx = index"
+                  [value]="el.value" [selected]="el.value===addressInfo.addressType"> {{el.text}}</option>
+        </select>
 
-        </td>
-        <td>
-          {{(!addressInfo.editStatus) ? addressInfo.address : '' }}
-          <input *ngIf="addressInfo.editStatus"
-            class="form-control"
-            formControlName="address"
-            type="text">
-        </td>
-        <td>
-          {{(!addressInfo.editStatus) ? addressInfo.city : '' }}
-          <input *ngIf="addressInfo.editStatus"
-            class="form-control"
-            formControlName="city"
-            type="text">
-        </td>
-        <td class=" box--helpList">
-          {{(!addressInfo.editStatus) ? addressInfo.country?.name : '' }}
-          <ng-select *ngIf="addressInfo.editStatus"
-            formControlName="country"
-            class="form-control"
-            [items]="countries"
-            bindLabel="name"
-            [(ngModel)]="selectedCountryName"
-            placeholder="Select country">
-          </ng-select>
-        </td>
-        <td>
-          {{(!addressInfo.editStatus) ? addressInfo.postalCode : '' }}
-          <input
-            *ngIf="addressInfo.editStatus"
-            class="form-control"
-            formControlName="postalCode"
-            type="text">
-        </td>
+      </td>
+      <td>
+        {{(!addressInfo.editStatus) ? addressInfo.address : '' }}
+        <input *ngIf="addressInfo.editStatus"
+               class="form-control"
+               formControlName="address"
+               type="text">
+      </td>
+      <td>
+        {{(!addressInfo.editStatus) ? addressInfo.city : '' }}
+        <input *ngIf="addressInfo.editStatus"
+               class="form-control"
+               formControlName="city"
+               type="text">
+      </td>
+      <td class=" box--helpList">
+        {{(!addressInfo.editStatus) ? addressInfo.country : '' }}
+        <ng-select *ngIf="addressInfo.editStatus"
+                   formControlName="country"
+                   class="form-control"
+                   [items]="countries"
+                   bindLabel="name"
+                   [bindValue]='addressInfo.country'
+                   placeholder="Select country">
+        </ng-select>
+      </td>
+      <td>
+        {{(!addressInfo.editStatus) ? addressInfo.postalCode : '' }}
+        <input
+          *ngIf="addressInfo.editStatus"
+          class="form-control"
+          formControlName="postalCode"
+          type="text">
+      </td>
 
-        <td>
-          <button (click)="updateAddsress(user, idx)"
-            type="button"
-            class="btn btn-secondary mr-1">{{(!addressInfo.editStatus) ? "update" : "save"}}</button>
-        </td>
-        <td>
-          <a [popover]="popOverContent" container="body" #pop="bs-popover"
-            placement="top">
-            <button type="button" class="btn btn-dark">del
-            </button>
-          </a>
-          <ng-template #popOverContent>
-            <h6>Are You sure to delete that record?</h6>
-            <button class="btn btn-danger mx-1" (click)="deleteAddress(user, idx, pop)">Delete &times;</button>
-            <button type="button" (click)='pop.hide()' class="close btn btn-success" aria-
-              label="Close">
-              <span aria-hidden="true">NO</span>
-            </button>
-          </ng-template>
-        </td>
-        <td>
-          <button type="button"
-            (click)="addNewAddress()"
-            class="btn btn-secondary">add new +
+      <td>
+        <button (click)="updateAddsress(user, idx)"
+                type="button"
+                class="btn btn-secondary mr-1">{{(!addressInfo.editStatus) ? "update" : "save"}}</button>
+      </td>
+      <td>
+        <a [popover]="popOverContent" container="body" #pop="bs-popover"
+           placement="top">
+          <button type="button" class="btn btn-dark">del
           </button>
-        </td>
-        <br>
-      </tr>
+        </a>
+        <ng-template #popOverContent>
+          <h6>Are You sure to delete that record?</h6>
+          <button class="btn btn-danger mx-1" (click)="deleteAddress(user, idx, pop)">Delete &times;</button>
+          <button type="button" (click)='pop.hide()' class="close btn btn-success" aria-
+                  label="Close">
+            <span aria-hidden="true">NO</span>
+          </button>
+        </ng-template>
+      </td>
+      <td>
+        <button type="button"
+                (click)="addNewAddress()"
+                class="btn btn-secondary">add new +
+        </button>
+      </td>
+      <br>
+    </tr>
     </tbody>
   </table>
 </form>

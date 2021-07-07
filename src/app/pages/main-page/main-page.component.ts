@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../../core/interfaces";
 import {AuthGuardService} from "../../core/services/authentication/auth-guard.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-main-page',
@@ -13,12 +14,14 @@ export class MainPageComponent implements OnInit {
   public user: User;
 
   constructor(private authenticationService: AuthGuardService,
-             ) {
-    // this.navigation = this.router.getCurrentNavigation()?.extras?.state;
-  }
+              private route: ActivatedRoute
+             ) {}
 
   ngOnInit(): void {
-    this.user = this.authenticationService.loginedUser()
+
+    // this.user = this.authenticationService.loginedUser();
+    this.user = this.route.snapshot.data.user;
+    console.log("==>user", this.user)
 
   }
 }

@@ -6,15 +6,26 @@ import {UserInfoComponent} from "./pages/user-info/user-info.component";
 import {CreateUserComponent} from "./pages/create-user/create-user.component";
 
 import {AuthGuardService} from './core/services/authentication/auth-guard.service';
+
+import {UserResolver} from "./resolver/user.resolver";
+
 const routes: Routes = [
   {path: '', redirectTo: 'log', pathMatch: 'full'},
   {path: 'log', component: LogInComponent},
-  {path: 'main-page', component: MainPageComponent,
-    canActivate: [AuthGuardService]},
-  {path: 'create-user', component: CreateUserComponent,
-    canActivate: [AuthGuardService]},
-  {path: 'user-info', component: UserInfoComponent,
-    canActivate: [AuthGuardService]},
+  {
+    path: 'main-page', component: MainPageComponent,
+    canActivate: [AuthGuardService],
+    // outlet: "with",
+    resolve: {user: UserResolver}
+  },
+  {
+    path: 'create-user', component: CreateUserComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'user-info', component: UserInfoComponent,
+    canActivate: [AuthGuardService]
+  },
   {path: '**', redirectTo: 'log'}
 ];
 

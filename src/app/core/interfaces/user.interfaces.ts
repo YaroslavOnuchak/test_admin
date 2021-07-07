@@ -25,3 +25,8 @@ export interface User {
   addressList: Array<Adress>,
   token?: string,
 }
+
+export interface LoginForm {
+  username: string,
+  password: string;
+}

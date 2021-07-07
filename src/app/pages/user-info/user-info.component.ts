@@ -34,8 +34,8 @@ export class UserInfoComponent implements OnInit {
     this.usersService.getFilterUsers()
       .pipe(take(1))
       .subscribe(data => {
-        console.log(data)
-      },)
+        }
+      )
 
 
     this.searchForm = this.formBuilder.group({
@@ -50,8 +50,6 @@ export class UserInfoComponent implements OnInit {
         Validators.required, Validators.pattern("[0-9]{10}")
       ]], // number
     });
-
-
   }
 
   get phone() {
@@ -64,12 +62,10 @@ export class UserInfoComponent implements OnInit {
 
   getUsers(): void {
     this.store.dispatch(new FetchGetUsers())
-      .pipe(take(1), pluck('Users', 'users'))
+      .pipe(take(1), pluck('Data', 'users'))
       .subscribe((users: User[]) => {
-        // console.log("dara=> ",data)
         this.users = users;
       })
-
   }
 
   clearForm(): void {

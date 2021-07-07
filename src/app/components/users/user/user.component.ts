@@ -32,14 +32,15 @@ export class UserComponent implements OnInit {
 
   users: Array<User> = [];
   updateInfo: boolean = false;
+  showAddress: boolean = true;
   editForm: FormGroup;
-  countries: Array<any>;
+  countries: Array<string>;
   addressType: Array<AddressType> = [
     {value: 'Billing', text: 'Billing Address '},
     {value: 'Shipment', text: 'Shipment Address '},
     {value: 'Home', text: 'Home Address '}];
-    selectedCountryName :any
-  constructor(private usersService: UsersService,
+  constructor(
+    // private usersService: UsersService,
               private fb: FormBuilder,
               private store: Store,
               private helpListService: HelperListService,
@@ -49,51 +50,39 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.buildUserForm()
     this.getCountries()
-    
-  }
-
-  getUsers(): void {
-    this.store.dispatch(new FetchGetUsers())
-      .subscribe(data => {
-        // console.log("dara=> ",data)
-        this.users = data.Users.users;
-      })
+    console.log("==>",this.showAddress)
   }
 
   getCountries(): void {
     this.helpListService.getAll().pipe(take(1)
     ).subscribe(data => {
       // this.users = data;
-      // data.forEach((el, index) => {
-      //   // console.log(this.countries + '' + data)
-      //   this.countries?.push({
-      //     name: el.name,
-      //     id: index
-      //   })
-      // })
-      this.countries = data;
-      // this.countries.map((el, index) =>el = {name :el.name,
-      // id:index})
-      // console.log(this.countries)
+      this.countries= new Array(data.length)
+      data.map((el, index) => {
+        this.countries[index]=el.name
+      })
     })
   }
+
   get addressListArray(): FormArray {
     return this.editForm.get('addressList') as FormArray;
   }
-
+  showAddressList():void{
+    this.showAddress =  !this.showAddress;
+    console.log(this.showAddress)
+  }
   deleteUser_Store(index: number, pop?: any) {
     pop.hide();
     this.store.dispatch(new DeleteUser(index))
-    // this.update.emit()
   }
 
   deleteAddress(user: User, index: number, pop?: any): void {
     this.editForm.value.addressList.splice(index, 1)
     pop.hide();
-    this.store.dispatch(new UpdateUser(this.editForm.value)).subscribe(() => {
-
+    this.store.dispatch(new UpdateUser(this.editForm.value))
+      .subscribe(() => {
+        this.showAddress = true
     });
-    // this.update.emit()
   }
 
   updateContactInfo(user: User): void {
@@ -102,7 +91,6 @@ export class UserComponent implements OnInit {
       return
     } else {
       this.store.dispatch(new UpdateUser(this.editForm.value));
-      // this.update.emit();
     }
   }
 
@@ -113,10 +101,9 @@ export class UserComponent implements OnInit {
     } else {
       this.editForm.value.addressList[i].editStatus = true
       this.user = this.editForm.value
-      this.selectedCountryName = this.editForm.value.addressList[i].country.name;
-      console.log(this.selectedCountryName)
     }
     this.store.dispatch(new UpdateUser(this.editForm.value));
+    this.showAddress = true
     // this.update.emit();
   }
 
@@ -131,7 +118,8 @@ export class UserComponent implements OnInit {
       editStatus: true
     })
     this.addressListArray.push(addressItem);
-    this.user = this.editForm.value
+    this.user = this.editForm.value;
+    this.showAddress = true
   }
 
   buildUserForm(address?: FormGroup): FormGroup {
@@ -177,9 +165,7 @@ export class UserComponent implements OnInit {
               el.city || this.user.addressList[i].city || " "
             ],
             country: [
-              {name: el.country?.name || this.user?.addressList[i]?.country?.name  || ''
-              }
-              
+              el.country || this.user?.addressList[i]?.country  || ''
             ],
             postalCode: [
               el.postalCode || this.user.addressList[i].postalCode || " "

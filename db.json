@@ -15,10 +15,8 @@
           "addressType": "Shipment",
           "address": " 2",
           "city": " ",
-          "country": {
-            "name": ""
-          },
-          "postalCode": " ",
+          "country": "Vanuatu",
+          "postalCode": " s",
           "editStatus": false
         },
         {
@@ -26,65 +24,16 @@
           "addressType": "Shipment",
           "address": "33",
           "city": " ",
-          "country": {
-            "name": ""
-          },
+          "country": "Chad",
           "postalCode": " ",
           "editStatus": false
         },
         {
           "id": 4,
-          "addressType": "Home",
-          "address": "33",
+          "addressType": "Shipment",
+          "address": " ",
           "city": " ",
-          "country": {
-            "name": "Åland Islands",
-            "topLevelDomain": [
-              ".ax"
-            ],
-            "alpha2Code": "AX",
-            "alpha3Code": "ALA",
-            "callingCodes": [
-              "358"
-            ],
-            "capital": "Mariehamn",
-            "altSpellings": [
-              "AX",
-              "Aaland",
-              "Aland",
-              "Ahvenanmaa"
-            ],
-            "region": "Europe",
-            "subregion": "Northern Europe",
-            "population": 28875,
-            "latlng": [
-              60.116667,
-              19.9
-            ],
-            "demonym": "Ålandish",
-            "area": 1580,
-            "gini": null,
-            "timezones": [
-              "UTC+02:00"
-            ],
-            "borders": [],
-            "nativeName": "Åland",
-            "numericCode": "248",
-            "currencies": [
-              "EUR"
-            ],
-            "languages": [
-              "sv"
-            ],
-            "translations": {
-              "de": "Åland",
-              "es": "Alandia",
-              "fr": "Åland",
-              "ja": "オーランド諸島",
-              "it": "Isole Aland"
-            },
-            "relevance": "0"
-          },
+          "country": "Algeria",
           "postalCode": " ",
           "editStatus": false
         }
@@ -105,6 +54,7 @@
           "addressType": "",
           "address": " ",
           "city": " ",
+          "country": "Åland Islands",
           "postalCode": " ",
           "editStatus": false
         }
@@ -133,24 +83,14 @@
     },
     {
       "id": 8,
-      "firstName": "user",
+      "firstName": "userntffffffffffffff",
       "lastName": "user",
       "username": "user",
       "mail": "user7777@gmail.com",
       "phone": "er",
       "password": "user",
       "passwordCheck": "user",
-      "addressList": [
-        {
-          "id": 2,
-          "addressType": "Shipment",
-          "address": "er",
-          "city": "er",
-          "country": "er",
-          "postalCode": "er",
-          "editStatus": false
-        }
-      ]
+      "addressList": []
     },
     {
       "id": 9,
@@ -209,8 +149,89 @@
           "addressType": "",
           "address": " ",
           "city": " ",
-          "country": {},
+          "country": "Afghanistan",
           "postalCode": " ",
+          "editStatus": false
+        },
+        {
+          "id": 2,
+          "addressType": "",
+          "address": " ",
+          "city": " ",
+          "country": "American Samoa",
+          "postalCode": " ",
+          "editStatus": false
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "firstName": "han",
+      "lastName": "solo",
+      "username": "hansolo",
+      "mail": "onuchak.j@gmail.com",
+      "phone": "0939974336",
+      "password": "123123",
+      "passwordCheck": "123123",
+      "addressList": [
+        {
+          "id": 1,
+          "addressType": "",
+          "address": "",
+          "city": "",
+          "country": "Ukraine",
+          "postalCode": "",
+          "editStatus": false
+        },
+        {
+          "id": 2,
+          "addressType": "Billing",
+          "address": "3123",
+          "city": "32",
+          "country": "Canada",
+          "postalCode": "123",
+          "editStatus": false
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "firstName": "han",
+      "lastName": "solo",
+      "username": "hansolo",
+      "mail": "onuchak.j@gmail.com",
+      "phone": "0939974336",
+      "password": "123123",
+      "passwordCheck": "123123",
+      "addressList": [
+        {
+          "id": 1,
+          "addressType": "Billing",
+          "address": "3123",
+          "city": "3211",
+          "country": "South Africa",
+          "postalCode": "",
+          "editStatus": false
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "firstName": "test",
+      "lastName": "trss",
+      "username": "ssssssssss",
+      "mail": "onuchak.j@gmail.com",
+      "phone": "0939974336",
+      "password": "123123",
+      "passwordCheck": "123123",
+      "addressList": [
+        {
+          "id": 1,
+          "addressType": "",
+          "address": "",
+          "city": "",
+          "country": "Åland Islands",
+          "postalCode": "",
           "editStatus": false
         }
       ]

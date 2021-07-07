@@ -4,10 +4,10 @@
       <div class="mb-3 col-6">
         <label for="createFirstName" class="form-label _req">Enter First name</label>
         <input type="text"
-          formControlName="firstName"
-          class="form-control"
-          placeholder="first name"
-          id="createFirstName">
+               formControlName="firstName"
+               class="form-control"
+               placeholder="first name"
+               id="createFirstName">
         <div *ngIf="firstName?.dirty || !validForm">
           <div *ngIf="firstName?.errors?.required" class="small text-danger">
             firstName is mandatory.
@@ -17,10 +17,10 @@
       <div class="mb-3 col-6">
         <label for="createLastName" class="form-label _req">Enter Last name</label>
         <input type="text"
-          placeholder="last name"
-          formControlName="lastName"
-          class="form-control"
-          id="createLastName">
+               placeholder="last name"
+               formControlName="lastName"
+               class="form-control"
+               id="createLastName">
         <div *ngIf="lastName?.dirty || !validForm">
           <div *ngIf="lastName?.errors?.required" class="small text-danger">
             lastName is mandatory.
@@ -29,12 +29,12 @@
       </div>
       <div class="mb-3 col-6">
         <label for="createUserName"
-          class="form-label _req">Enter Username</label>
+               class="form-label _req">Enter Username</label>
         <input type="text"
-          placeholder="username"
-          class="form-control"
-          formControlName="username"
-          id="createUserName">
+               placeholder="username"
+               class="form-control"
+               formControlName="username"
+               id="createUserName">
         <div *ngIf="username?.dirty || !validForm">
           <div *ngIf="username?.errors?.required" class="small text-danger">
             username is mandatory.
@@ -43,41 +43,41 @@
       </div>
       <div class="mb-3 col-6">
         <label for="createEmail"
-          class="form-label _req">Email address</label>
+               class="form-label _req">Email address</label>
         <input type="email" class="form-control"
-          formControlName="mail"
-          placeholder="email"
-          id="createEmail"
-          aria-describedby="emailHelp">
+               formControlName="mail"
+               placeholder="email"
+               id="createEmail"
+               aria-describedby="emailHelp">
         <div id="emailHelp"
-          class="form-text">We'll never share your email with anyone else. Trust us
+             class="form-text">We'll never share your email with anyone else. Trust us
         </div>
         <div *ngIf="mail?.dirty || !validForm">
           <div *ngIf="mail?.errors?.required"
-            class="small text-danger">
+               class="small text-danger">
             email is mandatory.
           </div>
           <div *ngIf="mail?.errors?.email"
-            class="small text-danger">
+               class="small text-danger">
             email is incorrect.
           </div>
         </div>
       </div>
       <div class="mb-3 col-6">
         <label for="createPhone"
-          class="form-label _req">Enter Phone</label>
+               class="form-label _req">Enter Phone</label>
         <input type="text"
-          placeholder="phone 0.. "
-          formControlName="phone"
-          class="form-control"
-          id="createPhone">
+               placeholder="phone 0.. "
+               formControlName="phone"
+               class="form-control"
+               id="createPhone">
         <div *ngIf="phone?.dirty || !validForm">
           <div *ngIf="phone?.errors?.required"
-            class="small text-danger">
+               class="small text-danger">
             email is mandatory.
           </div>
           <div *ngIf="phone?.errors?.pattern"
-            class="small text-danger">
+               class="small text-danger">
             phone number not valid.
           </div>
         </div>
@@ -85,21 +85,21 @@
       <div class="mb-3 row">
         <div class="col">
           <label for="createPassword"
-            class="form-label _req ">Password</label>
+                 class="form-label _req ">Password</label>
           <input type="password"
-            placeholder="create Password"
-            formControlName="password"
-            class="form-control "
-            id="createPassword">
+                 placeholder="create Password"
+                 formControlName="password"
+                 class="form-control "
+                 id="createPassword">
         </div>
         <div class="col">
           <label for="checkCreatePassword"
-            class="form-label _req">Repeat Password</label>
+                 class="form-label _req">Repeat Password</label>
           <input type="password"
-            class="form-control"
-            placeholder="repeat Password"
-            formControlName="passwordCheck"
-            id="checkCreatePassword">
+                 class="form-control"
+                 placeholder="repeat Password"
+                 formControlName="passwordCheck"
+                 id="checkCreatePassword">
           <div *ngIf="reapedPass?.errors?.minlength" class="small text-danger">
             reapedPass must be at least 6 characters long.
           </div>
@@ -107,10 +107,10 @@
             Reaped Password with more than 24 characters
           </div>
           <div class="form-text text-danger"
-            *ngIf="reapedPass?.errors?.confirmedValidator">Password and Confirm Password must be match.
+               *ngIf="reapedPass?.errors?.confirmedValidator">Password and Confirm Password must be match.
           </div>
           <div class="form-text text-danger"
-            *ngIf="pass?.errors?.confirmedValidator">Password and Confirm Password must be match.
+               *ngIf="pass?.errors?.confirmedValidator">Password and Confirm Password must be match.
           </div>
         </div>
         <div class="ac-form-field-description form-text">Between 6 and 24 characters.</div>
@@ -137,30 +137,30 @@
           <div class="mb-3 col-6 form-group firstControlElem">
             <label>AddressType:
               <select class="form-select"
-                formControlName="addressType"
-                aria-label="Default select example">
+                      formControlName="addressType"
+                      aria-label="Default select example">
                 <option [selected] disabled>You have to choose</option>
                 <option *ngFor="let el of addressType, let idx = index"
-                  [value]=el.value> {{el.text}}</option>
+                        [value]=el.value> {{el.text}}</option>
               </select>
             </label>
             <button type="button"
-              class="btn btn-close"
-              (click)="delAddresField(idx)"></button>
+                    class="btn btn-close"
+                    (click)="delAddresField(idx)"></button>
           </div>
           <div class="mb-3 col-6">
             <label>Enter address:
               <input type="text"
-                placeholder="address"
-                formControlName="address"
-                class="form-control"></label>
+                     placeholder="address"
+                     formControlName="address"
+                     class="form-control"></label>
           </div>
           <div class="mb-3 col-6">
             <label>Enter city:
               <input type="text"
-                placeholder="city"
-                formControlName="city"
-                class="form-control"></label>
+                     placeholder="city"
+                     formControlName="city"
+                     class="form-control"></label>
           </div>
           <div class="mb-3 col-6 box--helpList">
             <label>Enter country:
@@ -169,18 +169,18 @@
                 class="form-control"
                 [items]="countries"
                 bindLabel="name"
-                placeholder="Select coun">
+                placeholder="Select country">
               </ng-select>
             </label>
           </div>
           <div class="mb-3 col-6">
             <label>Enter postal Code:
               <input type="text"
-                placeholder="postal Code"
-                formControlName="postalCode"
-                class="form-control"></label>
+                     placeholder="postal Code"
+                     formControlName="postalCode"
+                     class="form-control"></label>
           </div>
-          <hr />
+          <hr/>
         </div>
       </div>
     </div>
@@ -189,93 +189,93 @@
   <div *ngIf="!toggleShowForm">
     <table class="table table-striped">
       <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">username</th>
-          <th scope="col">mail</th>
-          <th scope="col">phone</th>
-          <th scope="col">pass</th>
-        </tr>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">username</th>
+        <th scope="col">mail</th>
+        <th scope="col">phone</th>
+        <th scope="col">pass</th>
+      </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">{{user.id}}</th>
-          <td>{{ user.firstName }}
-          </td>
-          <td>{{ user.lastName }}
-          </td>
-          <td>{{ user.username }}
-          </td>
-          <td>{{user.mail}}
-          </td>
-          <td>{{ user.phone }}
-          </td>
-          <td>{{ user.password }}
-          </td>
-        </tr>
+      <tr>
+        <th scope="row">{{user.id}}</th>
+        <td>{{ user.firstName }}
+        </td>
+        <td>{{ user.lastName }}
+        </td>
+        <td>{{ user.username }}
+        </td>
+        <td>{{user.mail}}
+        </td>
+        <td>{{ user.phone }}
+        </td>
+        <td>{{ user.password }}
+        </td>
+      </tr>
       </tbody>
     </table>
     <table
       class="table table-striped">
       <thead>
-        <tr>
-          <th scope="col">address Type</th>
-          <th scope="col">address</th>
-          <th scope="col">city</th>
-          <th scope="col">country</th>
-          <th scope="col">postalCode</th>
-        </tr>
+      <tr>
+        <th scope="col">address Type</th>
+        <th scope="col">address</th>
+        <th scope="col">city</th>
+        <th scope="col">country</th>
+        <th scope="col">postalCode</th>
+      </tr>
       </thead>
       <tbody>
-        <tr *ngFor=" let addressInfo of user.addressList, let idx = index">
+      <tr *ngFor=" let addressInfo of user.addressList, let idx = index">
 
-          <td>{{addressInfo.addressType}}
-          </td>
-          <td>
-            {{addressInfo.address}}
-          </td>
-          <td>
-            {{addressInfo.city}}
-          </td>
-          <td>
-            {{addressInfo.country.name}}
-          </td>
-          <td>
-            {{addressInfo.postalCode}}
-          </td>
-        </tr>
+        <td>{{addressInfo.addressType}}
+        </td>
+        <td>
+          {{addressInfo.address}}
+        </td>
+        <td>
+          {{addressInfo.city}}
+        </td>
+        <td>
+          {{addressInfo.country}}
+        </td>
+        <td>
+          {{addressInfo.postalCode}}
+        </td>
+      </tr>
       </tbody>
     </table>
   </div>
   <div class="'showForm"
-    *ngIf="toggleShowForm">
+       *ngIf="toggleShowForm">
     <button *ngIf="currentPage"
-      type="button"
-      class="btn m-2"
-      (click)="addNewAddress()">add another address
+            type="button"
+            class="btn m-2"
+            (click)="addNewAddress()">add another address
     </button>
-    <br />
+    <br/>
     <button type="button"
-      *ngIf="currentPage"
-      (click)="previous()"
-      class="btn btn-secondary mx-2">Previous
+            *ngIf="currentPage"
+            (click)="previous()"
+            class="btn btn-secondary mx-2">Previous
     </button>
     <button type="button"
-      [disabled]="!newUser.valid"
-      (click)="next()"
-      class="btn btn-secondary">Next
+            [disabled]="!newUser.valid"
+            (click)="next()"
+            class="btn btn-secondary">Next
     </button>
   </div>
   <div class="summaryPage" *ngIf="!toggleShowForm">
     <button type="button"
-      (click)="cancelSend()"
-      class="btn btn-danger">cancel
+            (click)="cancelSend()"
+            class="btn btn-danger">cancel
     </button>
     <button type="button"
-      (click)="sendForm()"
-      class="btn btn-success">save
+            (click)="sendForm()"
+            class="btn btn-success">save
     </button>
     <br>
   </div>

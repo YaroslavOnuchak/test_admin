@@ -31,18 +31,17 @@ export class CreateUserComponent implements OnInit {
       addressType: '',
       address: '',
       city: '',
-      country: {},
+      country: "",
       postalCode: '',
       editStatus: true
     }]
   }
   users: Array<User>;
-  countries: Array<any>;
+  countries: Array<string>;
   addressType: Array<AddressType> = [
     {value: 'Billing', text: 'Billing Address '},
     {value: 'Shipment', text: 'Shipment Address '},
     {value: 'Home', text: 'Home Address '}];
-  // selectedCountry: any;
   toggleShowForm: boolean = true;
   validForm: boolean = true;
   currentPage: number = 0;
@@ -169,17 +168,10 @@ export class CreateUserComponent implements OnInit {
     this.helpListService.getAll().pipe(take(1)
     ).subscribe(data => {
       // this.users = data;
-      // data.forEach((el, index) => {
-      //   // console.log(this.countries + '' + data)
-      //   this.countries?.push({
-      //     name: el.name,
-      //     id: index
-      //   })
-      // })
-      this.countries = data;
-      // this.countries.map((el, index) =>el = {name :el.name,
-      // id:index})
-      // console.log(this.countries)
+      this.countries= new Array(data.length)
+      data.map((el, index) => {
+        this.countries[index]=el.name
+      })
     })
   }
 
@@ -225,7 +217,7 @@ export class CreateUserComponent implements OnInit {
               el.city || this.user.addressList[i].city || "",
             ],
             country: [
-              {}
+              el.country || this.user.addressList[i].country || ""
             ],
             postalCode: [
               el.postalCode || this.user.addressList[i].postalCode || ""

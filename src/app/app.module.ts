@@ -32,6 +32,10 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {AuthGuardService} from "./core/services/authentication/auth-guard.service";
 
+import {UserResolver} from "./resolver/user.resolver";
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,7 +69,7 @@ import {AuthGuardService} from "./core/services/authentication/auth-guard.servic
     // NoopAnimationsModule,
   ],
   providers: [
-    AuthGuardService,
+    AuthGuardService, UserResolver
   ],
   bootstrap: [AppComponent]
 })

@@ -5,13 +5,13 @@
          alt="User-Profile-Image">
     <p
       class="card-title">
-      first Name: <span class="font-weight-bold">{{user?.firstName | uppercase}}</span><br/>
-      last Name: <span class="font-weight-bold">{{user?.lastName | uppercase}}</span></p></div>
+      first Name:  <strong>{{user?.firstName | uppercase}}</strong><br/>
+      last Name: <strong>{{user?.lastName | uppercase}}</strong></p></div>
   <div class="card-body">
-    <p class="card-text">username: {{user?.username}}</p>
-    <p class="card-text">phone: {{user?.phone}}</p>
-    <p class="card-text">phone: {{user?.phone}}</p>
-    <p class="card-text">phone: {{user?.password}}</p>
-    <a [href]="'mailto:'+user?.mail" class="link-info">mail: {{user?.mail}}</a>
+    <p class="card-text"><i>username:</i> {{user?.username}}</p>
+    <p class="card-text"><i>phone: {{user?.phone}}</i></p>
+    <p class="card-text"><i>phone: {{user?.phone}}</i></p>
+    <p class="card-text"><i>phone: {{user?.password}}</i></p>
+    <a [href]="'mailto:'+user?.mail" class="link-info"><i>mail:</i> {{user?.mail}}</a>
   </div>
 </div>

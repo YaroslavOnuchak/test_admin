@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 
 import {environment} from '../../../../environments/environment';
 import {Adress, User} from '../../interfaces';
@@ -10,7 +9,7 @@ import {Adress, User} from '../../interfaces';
   providedIn: 'root'
 })
 export class UsersService {
-  private users: Array<User>
+  // private users: Array<User>
 
   constructor(private http: HttpClient) {
   }

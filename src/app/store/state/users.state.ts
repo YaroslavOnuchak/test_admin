@@ -2,32 +2,54 @@
 import {State, Action, StateContext, Selector} from '@ngxs/store';
 import {User} from '../../core/interfaces/'
 import {DeleteUser, AddUser, FetchGetUsers, UpdateUser} from '../actions/user.actions'
+import {Login, GetUser} from '../actions/authentication.actions';
 import {Injectable} from '@angular/core';
 import {UsersService} from "../../core/services/users/users.service";
 import {tap, map, filter} from 'rxjs/operators';
+import {AuthGuardService} from "../../core/services/authentication/auth-guard.service";
+import {HelperListService} from "../../core/services/helperList/helper-list.service";
 
+const  user: User = {
+  id: 1,
+  firstName: "",
+  lastName: "",
+  username: "",
+  mail: "",
+  phone: 1,
+  password: "",
+  passwordCheck: "",
+  addressList: []
+}
 // Section 2
 export interface UsersStateStateModel {
   users: User[];
+  loggedUser: User,
+  helperListCountry: string[]
 }
 
 
 // Section 3
 @State<UsersStateStateModel>({
-  name: 'Users',
+  name: `Data`,
   defaults: {
-    users: []
+    users: [],
+    loggedUser: user,
+    helperListCountry: []
   }
 })
 @Injectable()
 export class UsersState {
 
   @Selector()
-  static getUserList(state: UsersStateStateModel) :Array<User>{
+  static getUserList(state: UsersStateStateModel): Array<User> {
     return state.users
   }
 
-  constructor(private userService: UsersService) {
+  constructor(
+    private userService: UsersService,
+    private authentication: AuthGuardService,
+    private helperListService: HelperListService,
+  ) {
   }
 
   @Action(FetchGetUsers)
@@ -84,6 +106,25 @@ export class UsersState {
           });
         })
       )
+  }
+
+  @Action(Login)
+  Login({getState, patchState}: StateContext<UsersStateStateModel>,
+        payload: Login) {
+    return this.authentication.login(payload)
+      .pipe(
+        filter(res => !!res),
+        tap(user => {
+          patchState({
+            loggedUser: user
+          });
+          console.log('state=>>>> login', getState().loggedUser)
+        })
+      )
+  }
+  @Action(GetUser)
+  GetUser({getState}: StateContext<UsersStateStateModel>):User {
+    return getState().loggedUser
   }
 
 }

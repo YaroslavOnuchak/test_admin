@@ -1,8 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {take} from 'rxjs/operators';
+import {pluck, take} from 'rxjs/operators';
 import {AuthGuardService} from "../../core/services/authentication/auth-guard.service";
+import {User} from "../../core/interfaces";
+import {Store} from "@ngxs/store";
+import {Login} from "../../store/actions/authentication.actions";
 
 @Component({
   selector: 'app-log-in',
@@ -19,6 +22,7 @@ export class LogInComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private authGuardService: AuthGuardService,
+    private store: Store
   ) {
   }
 
@@ -29,17 +33,20 @@ export class LogInComponent implements OnInit {
     });
   }
 
-  // convenience getter for easy access to form fields
-  get formFields() { // full names
+  get formFields() {
     return this.loginForm.controls;
   }
 
   onSubmit() {
     this.submitted = this.loading = true;
-    this.authGuardService.login(this.formFields.username.value, this.formFields.password.value)
-      .pipe(take(1))
-      .subscribe(data => {
-          if (data) {
+    this.store.dispatch(new Login
+    (
+      this.formFields.username.value,
+      this.formFields.password.value
+    ))
+      .pipe(take(1), pluck('Data', 'loggedUser'))
+      .subscribe((loggedUser: User) => {
+          if (loggedUser) {
             this.router.navigate(['/main-page']);
           } else {
             this.loading = false;
@@ -51,6 +58,6 @@ export class LogInComponent implements OnInit {
           this.error = error;
           this.loading = false;
         }
-      );
+      )
   }
 }
