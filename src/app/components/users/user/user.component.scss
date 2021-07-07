@@ -1,17 +1,19 @@
-:host{
-tbody .tr-header{
-  background: rgba(0, 0, 0, 0.2);
-}
-  form{
-  box-shadow:  0 0 1rem  1rem darkgrey ;
+:host {
+  tbody .tr-header {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  form {
+    box-shadow: 0 0 1rem 1rem darkgrey;
     margin-bottom: 5rem;
   }
-  input{
+  input {
     width: 100%;
     margin: 0;
   }
-  button{
+  ng-select {
+    min-width: 100px;
+  }
+  button {
     transition: color 0.5s;
   }
-
 }
