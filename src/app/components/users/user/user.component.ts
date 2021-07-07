@@ -8,13 +8,14 @@ import {
 import {AddressType, Adress, User} from "../../../core/interfaces";
 import {UsersService} from "../../../core/services/users/users.service";
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
-
+import {take} from "rxjs/operators";
 import {Subject} from 'rxjs';
 
 import {Store} from "@ngxs/store";
 import {DeleteUser, FetchGetUsers, UpdateUser} from "../../../store/actions/user.actions";
 // import { BsModalService, BsModalRef } from "ngx-bootstrap/tooltip";
 import {PopoverModule} from 'ngx-bootstrap/popover';
+import { HelperListService } from 'src/app/core/services/helperList/helper-list.service';
 
 @Component({
   selector: 'app-user',
@@ -32,19 +33,23 @@ export class UserComponent implements OnInit {
   users: Array<User> = [];
   updateInfo: boolean = false;
   editForm: FormGroup;
+  countries: Array<any>;
   addressType: Array<AddressType> = [
     {value: 'Billing', text: 'Billing Address '},
     {value: 'Shipment', text: 'Shipment Address '},
     {value: 'Home', text: 'Home Address '}];
-
+    selectedCountryName :any
   constructor(private usersService: UsersService,
               private fb: FormBuilder,
-              private store: Store
+              private store: Store,
+              private helpListService: HelperListService,
   ) {
   }
 
   ngOnInit(): void {
     this.buildUserForm()
+    this.getCountries()
+    
   }
 
   getUsers(): void {
@@ -53,9 +58,25 @@ export class UserComponent implements OnInit {
         // console.log("dara=> ",data)
         this.users = data.Users.users;
       })
-
   }
 
+  getCountries(): void {
+    this.helpListService.getAll().pipe(take(1)
+    ).subscribe(data => {
+      // this.users = data;
+      // data.forEach((el, index) => {
+      //   // console.log(this.countries + '' + data)
+      //   this.countries?.push({
+      //     name: el.name,
+      //     id: index
+      //   })
+      // })
+      this.countries = data;
+      // this.countries.map((el, index) =>el = {name :el.name,
+      // id:index})
+      // console.log(this.countries)
+    })
+  }
   get addressListArray(): FormArray {
     return this.editForm.get('addressList') as FormArray;
   }
@@ -92,6 +113,8 @@ export class UserComponent implements OnInit {
     } else {
       this.editForm.value.addressList[i].editStatus = true
       this.user = this.editForm.value
+      this.selectedCountryName = this.editForm.value.addressList[i].country.name;
+      console.log(this.selectedCountryName)
     }
     this.store.dispatch(new UpdateUser(this.editForm.value));
     // this.update.emit();
@@ -154,7 +177,9 @@ export class UserComponent implements OnInit {
               el.city || this.user.addressList[i].city || " "
             ],
             country: [
-              el.city || this.user.addressList[i].city || " "
+              {name: el.country?.name || this.user?.addressList[i]?.country?.name  || ''
+              }
+              
             ],
             postalCode: [
               el.postalCode || this.user.addressList[i].postalCode || " "
