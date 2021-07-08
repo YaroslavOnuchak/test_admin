@@ -1,13 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AddressType, Adress, User} from "../../core/interfaces";
-import {UsersService} from "../../core/services/users/users.service";
-import {take} from "rxjs/operators";
-import {Router} from '@angular/router';
-import {HelperListService} from "../../core/services/helperList/helper-list.service";
-import {ConfirmedValidator} from "../../core/validators/confirm";
-import {Store} from "@ngxs/store";
-import {AddUser, DeleteUser} from "../../store/actions/user.actions";
+import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AddressType, Adress, User } from "../../core/interfaces";
+import { UsersService } from "../../core/services/users/users.service";
+import { take, pluck } from "rxjs/operators";
+import { Router } from '@angular/router';
+import { HelperListService } from "../../core/services/helperList/helper-list.service";
+import { ConfirmedValidator } from "../../core/validators/confirm";
+import { Store } from "@ngxs/store";
+
+import { DeleteUser, FetchGetUsers, UpdateUser, AddUser } from "../../store/actions/user.actions";
+import { GetAddressType, GetListCountry, SetListCountry } from "../../store/actions/helperList.actions";
 
 
 @Component({
@@ -38,26 +40,30 @@ export class CreateUserComponent implements OnInit {
   }
   users: Array<User>;
   countries: Array<string>;
-  addressType: Array<AddressType> = [
-    {value: 'Billing', text: 'Billing Address '},
-    {value: 'Shipment', text: 'Shipment Address '},
-    {value: 'Home', text: 'Home Address '}];
+  addressType: Array<AddressType>
   toggleShowForm: boolean = true;
   validForm: boolean = true;
   currentPage: number = 0;
 
 
   constructor(private fb: FormBuilder,
-              private usersService: UsersService,
-              private helpListService: HelperListService,
-              private store: Store,
-              private router: Router) {
+    private store: Store,
+    private router: Router) {
   }
 
   ngOnInit(): void {
+
+    this.store.dispatch(new SetListCountry());
+
+    this.store.dispatch(new GetListCountry())
+      .pipe(take(1), pluck('Data', "helperList"))
+      .subscribe(({ countryList, addressListType }: any) => {
+        this.addressType = addressListType;
+        this.countries = countryList;
+        console.log("countries ", this.countries)
+      })
     this.buildUserForm()
     this.getUsers()
-    this.getCountries()
   }
 
   get firstName() {
@@ -88,19 +94,6 @@ export class CreateUserComponent implements OnInit {
     return this.newUser.get('passwordCheck');
   }
 
-  // checkShowHelpList(index:number):void{
-  //   if((this.newUser.value.addressList[index].country)===""){
-  //     return
-  //   }else{
-  //     this.showHelpList= true;
-  //   }
-  // }
-
-  // getHelpListValue(e: any, index: number): void {
-  //   this.newUser.value.addressList[index].country = e.target.value;
-  // }
-
-
   next(): void {
     if (this.currentPage === this.user.addressList.length) {
       this.user = this.newUser.value
@@ -121,7 +114,6 @@ export class CreateUserComponent implements OnInit {
   }
 
   addNewAddress(): void {
-    // console.log("object", this.newUser.value.addressList[0]?.country)
     const addressItem = this.fb.group({
       id: this.user.addressList[this.user.addressList.length - 1].id + 1,
       addressType: '',
@@ -157,23 +149,14 @@ export class CreateUserComponent implements OnInit {
   }
 
   getUsers(): void {
-    this.usersService.getUsers().pipe(take(1)
-    ).subscribe(data => {
-      this.users = data;
-      this.buildUserForm();
-    })
+    this.store.dispatch(new FetchGetUsers())
+      .pipe(take(1), pluck('Data', 'users'))
+      .subscribe((users: User[]) => {
+        this.users = users;
+        this.buildUserForm();
+      })
   }
 
-  getCountries(): void {
-    this.helpListService.getAll().pipe(take(1)
-    ).subscribe(data => {
-      // this.users = data;
-      this.countries= new Array(data.length)
-      data.map((el, index) => {
-        this.countries[index]=el.name
-      })
-    })
-  }
 
   buildUserForm(): FormGroup {
     return this.newUser = this.fb.group({

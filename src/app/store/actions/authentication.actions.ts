@@ -1,6 +1,3 @@
-import {User} from "../../core/interfaces";
-
-
 export class Login {
   static readonly type = "[Authentication] Login"
 
@@ -10,7 +7,7 @@ export class Login {
   }
 }
 
-export class GetUser {
+export class GetLoggedUser {
   static readonly type = "[Authentication] GetUser"
 
 }

@@ -6,7 +6,7 @@
       "lastName": "Wayne",
       "username": "bat12",
       "mail": "bat@gmail.com",
-      "phone": "000",
+      "phone": "11",
       "password": "string",
       "passwordCheck": "string",
       "addressList": [
@@ -31,6 +31,15 @@
         {
           "id": 4,
           "addressType": "Shipment",
+          "address": " ",
+          "city": " ",
+          "country": "Algeria",
+          "postalCode": " ",
+          "editStatus": false
+        },
+        {
+          "id": 5,
+          "addressType": "",
           "address": " ",
           "city": " ",
           "country": "Algeria",
@@ -75,7 +84,7 @@
           "addressType": "ty6qqq",
           "address": "bb111",
           "city": "bb",
-          "country": "bb",
+          "country": "American Samoa",
           "postalCode": "codewfwq",
           "editStatus": false
         }
@@ -232,6 +241,27 @@
           "city": "",
           "country": "Åland Islands",
           "postalCode": "",
+          "editStatus": false
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "firstName": "han",
+      "lastName": "solo",
+      "username": "hansolo",
+      "mail": "creeper@gmail.com",
+      "phone": "0939974336",
+      "password": "123123",
+      "passwordCheck": "123123",
+      "addressList": [
+        {
+          "id": 1,
+          "addressType": "",
+          "address": "",
+          "city": "",
+          "country": null,
+          "postalCode": "312",
           "editStatus": false
         }
       ]
