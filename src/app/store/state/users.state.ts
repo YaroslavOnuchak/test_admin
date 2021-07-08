@@ -122,6 +122,7 @@ export class UsersState {
         })
       )
   }
+
   @Action(GetUser)
   GetUser({getState}: StateContext<UsersStateStateModel>):User {
     return getState().loggedUser
