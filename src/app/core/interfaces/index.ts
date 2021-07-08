@@ -1,2 +1,2 @@
-export * from './user.interfaces';
+export * from './datas.interfaces';
 

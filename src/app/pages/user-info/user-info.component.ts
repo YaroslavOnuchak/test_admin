@@ -1,13 +1,13 @@
-import {Component, OnInit, ChangeDetectorRef,} from '@angular/core';
-import {User} from "../../core/interfaces";
-import {UsersService} from "../../core/services/users/users.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {pluck, take} from "rxjs/operators";
-import {FetchGetUsers} from "../../store/actions/user.actions";
-import {Observable} from "rxjs";
-import {Select, Store} from '@ngxs/store';
-import {UsersState} from '../../store/state/users.state';
-import {loggerOptionsFactory} from "@ngxs/logger-plugin/src/logger.module";
+import { Component, OnInit, ChangeDetectorRef, } from '@angular/core';
+import { User } from "../../core/interfaces";
+import { UsersService } from "../../core/services/users/users.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { pluck, take } from "rxjs/operators";
+import { FetchGetUsers } from "../../store/actions/user.actions";
+import { Observable } from "rxjs";
+import { Select, Store } from '@ngxs/store';
+import { UsersState } from '../../store/state/datas.state';
+import { loggerOptionsFactory } from "@ngxs/logger-plugin/src/logger.module";
 
 
 @Component({
@@ -21,9 +21,10 @@ export class UserInfoComponent implements OnInit {
 
   @Select(UsersState.getUserList) usersState$: Observable<Array<User>>;
 
-  constructor(private usersService: UsersService,
-              private formBuilder: FormBuilder,
-              private store: Store
+  constructor(
+    // private usersService: UsersService,
+    private formBuilder: FormBuilder,
+    private store: Store
   ) {
   }
 
@@ -31,11 +32,11 @@ export class UserInfoComponent implements OnInit {
     this.usersState$.subscribe(res => this.users = res)
     this.getUsers();
 
-    this.usersService.getFilterUsers()
-      .pipe(take(1))
-      .subscribe(data => {
-        }
-      )
+    // this.usersService.getFilterUsers()
+    //   .pipe(take(1))
+    //   .subscribe(data => {
+    //     }
+    //   )
 
 
     this.searchForm = this.formBuilder.group({
@@ -61,6 +62,7 @@ export class UserInfoComponent implements OnInit {
   }
 
   getUsers(): void {
+
     this.store.dispatch(new FetchGetUsers())
       .pipe(take(1), pluck('Data', 'users'))
       .subscribe((users: User[]) => {
