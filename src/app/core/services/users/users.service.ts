@@ -9,7 +9,6 @@ import {Adress, User} from '../../interfaces';
   providedIn: 'root'
 })
 export class UsersService {
-  // private users: Array<User>
 
   constructor(private http: HttpClient) {
   }
@@ -25,12 +24,10 @@ export class UsersService {
   }
 
   updateUser(user: User) {
-    console.log('updateUser', user)
     return this.http.put<any>(`${environment.apiUrl}/users/${user.id}/`, user)
   }
 
   postUser(user: User) {
-    console.log('postUser')
     return this.http.post<any>(`${environment.apiUrl}/users/`, user)
   }
 

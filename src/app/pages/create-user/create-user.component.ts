@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { AddressType, Adress, User } from "../../core/interfaces";
-import { UsersService } from "../../core/services/users/users.service";
-import { take, pluck } from "rxjs/operators";
-import { Router } from '@angular/router';
-import { HelperListService } from "../../core/services/helperList/helper-list.service";
-import { ConfirmedValidator } from "../../core/validators/confirm";
-import { Store } from "@ngxs/store";
+import {Component, OnInit} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AddressType, Adress, User} from "../../core/interfaces";
+import {UsersService} from "../../core/services/users/users.service";
+import {take, pluck} from "rxjs/operators";
+import {Router} from '@angular/router';
+import {HelperListService} from "../../core/services/helperList/helper-list.service";
+import {ConfirmedValidator} from "../../core/validators/confirm";
+import {Select, Selector, Store} from "@ngxs/store";
 
-import { DeleteUser, FetchGetUsers, UpdateUser, AddUser } from "../../store/actions/user.actions";
-import { GetAddressType, GetListCountry, SetListCountry } from "../../store/actions/helperList.actions";
+import {DeleteUser, FetchGetUsers, UpdateUser, AddUser} from "../../store/actions/user.actions";
+import {GetAddressType, GetListCountry, SetListCountry} from "../../store/actions/helperList.actions";
+import {DataState} from "../../store/state/datas.state";
+import {Observable} from "rxjs";
 
 
 @Component({
@@ -28,15 +30,7 @@ export class CreateUserComponent implements OnInit {
     phone: 1,
     password: "",
     passwordCheck: "",
-    addressList: [{
-      id: 1,
-      addressType: '',
-      address: '',
-      city: '',
-      country: "",
-      postalCode: '',
-      editStatus: true
-    }]
+    addressList: []
   }
   users: Array<User>;
   countries: Array<string>;
@@ -44,24 +38,28 @@ export class CreateUserComponent implements OnInit {
   toggleShowForm: boolean = true;
   validForm: boolean = true;
   currentPage: number = 0;
-
+ @Select(DataState.getCountries) countries$ : Observable<Array<string>>;
 
   constructor(private fb: FormBuilder,
-    private store: Store,
-    private router: Router) {
+              private store: Store,
+              private router: Router) {
+
   }
 
   ngOnInit(): void {
 
-    this.store.dispatch(new SetListCountry());
-
     this.store.dispatch(new GetListCountry())
-      .pipe(take(1), pluck('Data', "helperList"))
-      .subscribe(({ countryList, addressListType }: any) => {
-        this.addressType = addressListType;
-        this.countries = countryList;
-        console.log("countries ", this.countries)
-      })
+      .pipe(take(1), pluck('Data', "helperList" , "addressListType"))
+      .subscribe((
+        addressListType:Array<AddressType>) => {
+          this.addressType = addressListType;
+        }
+      )
+
+    this.countries$.subscribe( res=> {
+      this.countries = res;
+    });
+
     this.buildUserForm()
     this.getUsers()
   }
@@ -95,12 +93,16 @@ export class CreateUserComponent implements OnInit {
   }
 
   next(): void {
-    if (this.currentPage === this.user.addressList.length) {
+    if (this.user.addressList.length) {
       this.user = this.newUser.value
       this.toggleShowForm = false
     } else {
       if (this.newUser.valid) {
         if (this.newUser.value.password === this.newUser.value.passwordCheck) {
+          if (this.currentPage) {
+            this.user = this.newUser.value
+            this.toggleShowForm = false
+          }
           this.currentPage++
         }
       } else {
@@ -115,7 +117,7 @@ export class CreateUserComponent implements OnInit {
 
   addNewAddress(): void {
     const addressItem = this.fb.group({
-      id: this.user.addressList[this.user.addressList.length - 1].id + 1,
+      id: [this.user.addressList.length ? (this.user?.addressList[this.user.addressList.length - 1]?.id + 1) : 1],
       addressType: '',
       address: '',
       city: '',
@@ -124,7 +126,7 @@ export class CreateUserComponent implements OnInit {
       editStatus: false
     })
     this.addressListArray.push(addressItem);
-    console.log("'selectedCity'", this.newUser.value)
+    this.user = this.newUser.value
   }
 
   get addressListArray(): FormArray {
@@ -170,7 +172,7 @@ export class CreateUserComponent implements OnInit {
       ]],
       phone: ['', [
         Validators.required,
-        Validators.pattern("[0-9]{10}")
+        Validators.pattern("[0-9]{10,15}")
       ]],
       password: ['', [
         Validators.required,
@@ -183,7 +185,7 @@ export class CreateUserComponent implements OnInit {
         Validators.maxLength(24),]
       ],
       addressList: this.fb.array(
-        this.user.addressList?.map((el: Adress, i: number) => {
+        this.user?.addressList?.map((el: Adress, i: number) => {
           return this.fb.group({
             id: [
               el.id || this.user.addressList[i].id,

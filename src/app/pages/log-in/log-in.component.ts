@@ -23,6 +23,7 @@ export class LogInComponent implements OnInit {
     private router: Router,
     private authGuardService: AuthGuardService,
     private store: Store
+
   ) {
   }
 

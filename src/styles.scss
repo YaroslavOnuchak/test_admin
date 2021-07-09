@@ -10,6 +10,75 @@ label._req::after{
   content: "*";
   color: red;
 }
+.loading {
+  position: relative;
+  width: 11rem;
+  height: 11rem;
+  transform-style: preserve-3d;
+  perspective: 500px;
+
+  .arc {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border-bottom: 7px solid red;
+
+    @for $i from 1 through 3 {
+      &:nth-child(#{$i}) {
+        animation: rotate#{$i} 1.15s linear infinite;
+      }
+    }
+
+    &:nth-child(1) {
+      animation-delay: -0.8s;
+    }
+
+    &:nth-child(2) {
+      animation-delay: -0.4s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: 0s;
+    }
+  }
+}
+
+@keyframes rotate1 {
+  from {
+    border-color:   blue;
+    transform: rotateX(35deg) rotateY(-45deg) rotateZ(0);
+  }
+  to {
+    border-color:  green;
+    transform: rotateX(35deg) rotateY(-45deg) rotateZ(1turn);
+  }
+}
+
+@keyframes rotate2 {
+  from {
+    border-color:  darkred;
+    transform: rotateX(50deg) rotateY(10deg) rotateZ(0);
+  }
+  to {
+    border-color:  gold;
+    transform: rotateX(50deg) rotateY(10deg) rotateZ(1turn);
+  }
+}
+
+@keyframes rotate3 {
+  from {
+    border-color:  yellowgreen;
+    transform: rotateX(35deg) rotateY(55deg) rotateZ(0);
+  }
+  to {
+    border-color:  blueviolet;
+    transform: rotateX(35deg) rotateY(55deg) rotateZ(1turn);
+  }
+}
 
 .spin {
   &-wrap {
@@ -21,38 +90,8 @@ label._req::after{
     left: 0;
     bottom: 0;
     right: 0;
-    background: rgba(230,230,250, 0.4);;
+    background: rgba(230, 230, 250, 0.29);
   }
-  width: 140px;
-  height: 140px;
-  border-top: 2px solid #000;
-  border-radius: 100px;
-  position: relative;
-  animation: spin 1.7s linear infinite;
-  &:after, &:before {
-    position: absolute;
-    content: '';
-  }
-  &:after {
-    width: 150px;
-    height: 150px;
-    border-radius: 110px;
-    top: -7px;
-    left: -7px;
-    border-right: 2px solid #ffe500;
-    animation: spin 3s linear infinite;
-  }
-  &:before {
-    width: 130px;
-    height: 130px;
-    border-radius: 90px;
-    top: 3px;
-    left: 3px;
-    border-left: 2px solid #00defa;
-    animation: spin 2.5s linear infinite;
-  }
+
 }
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+

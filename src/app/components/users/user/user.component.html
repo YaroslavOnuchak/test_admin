@@ -1,5 +1,5 @@
 <form [formGroup]="editForm" >
-  <table class="table table-striped">
+  <table class="table user-info table-striped">
     <thead class="form_title" >
     <tr >
       <th scope="col">Id#</th>
@@ -8,7 +8,7 @@
       <th scope="col">username</th>
       <th scope="col">mail</th>
       <th scope="col">phone</th>
-      <th colspan="2" class="text-center">action</th>
+      <th colspan="3" class="text-center">action</th>
     </tr>
     </thead>
     <tbody>
@@ -59,9 +59,9 @@
                 (click)="addNewAddress()"
                 class="btn btn-secondary">add address
         </button>
-        <button *ngIf="!updateInfo"  type="button"
+        <button *ngIf="!updateInfo && user.addressList.length "  type="button"
                 (click)="showAddressList()"
-                class="btn btn-secondary">show address
+                class="btn btn-secondary">{{(showAddress)? 'hide address': 'show address'}}
         </button>
       </td>
       <td>
@@ -73,7 +73,7 @@
         <ng-template #popOverContent>
           <h6>Are You sure to delete that User?</h6>
           <button class="btn btn-danger mx-1"
-                  (click)="deleteUser_Store(user.id, pop)">Delete &times;
+                  (click)="deleteUser(user.id, pop)">Delete &times;
           </button>
           <button type="button" (click)='pop.hide()' class="close btn btn-success" aria-
                   label="Close">
@@ -87,7 +87,7 @@
   </table>
   <table
     formArrayName="addressList"
-    class="table table-striped"
+    class="table address-info table-striped"
     *ngIf="user.addressList.length && showAddress ">
     <thead>
     <tr>
@@ -177,4 +177,5 @@
     </tr>
     </tbody>
   </table>
+
 </form>

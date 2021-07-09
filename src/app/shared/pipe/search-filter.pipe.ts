@@ -11,7 +11,7 @@ export class SearchFilterPipe implements PipeTransform {
             field: string,
             val:any): any {
 // console.log(`  field => ${field} =>${val}`)
-    if (!data || !field) {
+    if (!data || (!field || field===null)) {
       return data;
     }
     return data.filter((el: any) => { // any type

@@ -1,84 +1,75 @@
 import {
   Component,
   Input,
-  OnInit,
-  Output,
-  EventEmitter,
+  OnInit, OnChanges, OnDestroy
 } from '@angular/core';
-import { AddressType, Adress, User } from "../../../core/interfaces";
-import { UsersService } from "../../../core/services/users/users.service";
-import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { pluck, take } from "rxjs/operators";
-import { Subject } from 'rxjs';
+import {AddressType, Adress, User} from "../../../core/interfaces";
+import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {pluck, take} from "rxjs/operators";
 
-import { Store } from "@ngxs/store";
-import { DeleteUser, FetchGetUsers, UpdateUser } from "../../../store/actions/user.actions";
-import { GetAddressType, GetListCountry, SetListCountry } from "../../../store/actions/helperList.actions";
-import { HelperListService } from 'src/app/core/services/helperList/helper-list.service';
+import {Store} from "@ngxs/store";
+import {DeleteUser, UpdateUser} from "../../../store/actions/user.actions";
+import {GetListCountry} from "../../../store/actions/helperList.actions";
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
+
 export class UserComponent implements OnInit {
 
-
-  private unsubscribe = new Subject();
-  @Output() update = new EventEmitter<any>();
   @Input() user: User
-
 
   users: Array<User> = [];
   updateInfo: boolean = false;
-  showAddress: boolean = true;
+  showAddress: boolean = false;
   editForm: FormGroup;
   countries: Array<string>;
   addressType: Array<AddressType>
 
   constructor(
-    // private usersService: UsersService,
     private fb: FormBuilder,
     private store: Store,
-    private helpListService: HelperListService,
-
   ) {
   }
 
   ngOnInit(): void {
     this.buildUserForm();
-    // this.getCountries();
-    this.store.dispatch(new SetListCountry());
     this.store.dispatch(new GetListCountry())
       .pipe(take(1), pluck('Data', "helperList"))
-      .subscribe(({ countryList, addressListType }: any) => {
+      .subscribe(({
+                    countryList,
+                    addressListType
+                  }: {
+        countryList: Array<string>,
+        addressListType: Array<AddressType>
+      }) => {
         this.addressType = addressListType;
         this.countries = countryList;
       })
+
+      //show the address while editing
+      this.user?.addressList?.map(el => {
+        if (this.user?.addressList[el.id - 1]?.editStatus) {
+          this.showAddress = true;
+          console.log(this.showAddress)
+        }
+      })
   }
 
-  // getCountries(): void {
-  // this.helpListService.getAll()
-  // .pipe(take(1)
-  // ).subscribe((data: any) => {
-  //   // this.users = data;
-  //   this.countries = new Array(data.length)
-  //   data.map((el, index) => {
-  //     this.countries[index] = el.name
-  //   })
-  // })
-  // }
 
   get addressListArray(): FormArray {
     return this.editForm.get('addressList') as FormArray;
   }
-  showAddressList(): void {
-    this.showAddress = !this.showAddress;
-    // console.log(this.showAddress)
-  }
-  deleteUser_Store(index: number, pop?: any) {
+
+  deleteUser(index: number, pop?: any) {
     pop.hide();
     this.store.dispatch(new DeleteUser(index))
+  }
+
+  showAddressList(): void {
+    this.showAddress = !this.showAddress;
   }
 
   deleteAddress(user: User, index: number, pop?: any): void {
@@ -127,7 +118,6 @@ export class UserComponent implements OnInit {
   }
 
   buildUserForm(address?: FormGroup): FormGroup {
-
     return this.editForm = this.fb.group({
       id: [
         this.user.id ? this.user.id : ''

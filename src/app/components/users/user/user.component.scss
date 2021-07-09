@@ -6,13 +6,7 @@
   form {
     box-shadow: 0 0 1rem 1rem darkgrey;
     margin-bottom: 5rem;
-    transition: 1s ease-in-out;
-    //thead.form_title {
-    //  cursor: pointer;
-    //  &:hover {
-    //    background-color:lavender;
-    //  }
-    //}
+    transition: 0.1s ease-in-out;
   }
 
   input {
@@ -28,8 +22,5 @@
     transition: color 0.5s;
   }
 
-  table + table {
-    //background: red;
-    transform: translateY(-2%);
-  }
+
 }

@@ -1,11 +1,10 @@
 <app-user
-  *ngFor=" let user of usersList |searchFilter:'firstName':  searchForm.firstName
-|searchFilter: 'lastName':  searchForm.lastName
-|searchFilter: 'username' : searchForm.username
-|searchFilter: 'mail' : searchForm.mail
-|searchFilter: 'phone' : searchForm.phone"
+  *ngFor=" let user of usersList |searchFilter:'firstName':  searchForm?.firstName
+|searchFilter: 'lastName':  searchForm?.lastName
+|searchFilter: 'username' : searchForm?.username
+|searchFilter: 'mail' : searchForm?.mail
+|searchFilter: 'phone' : searchForm?.phone"
   [user]="user"
-  (update)=upDate()
 ></app-user>
 
 

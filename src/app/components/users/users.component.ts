@@ -8,19 +8,12 @@ import {Observable} from "rxjs";
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-// @Input() usersList : Array<User>;
   @Input() usersList: Array<User>;
-  @Input() searchForm: User
-
-// @Output() update = new EventEmitter<string>();
+  @Input() searchForm?: User
 
   constructor() {
   }
 
   ngOnInit(): void {
   }
-
-  upDate(): void {
-  }
-
 }

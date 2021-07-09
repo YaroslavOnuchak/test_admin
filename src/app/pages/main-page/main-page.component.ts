@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from "../../core/interfaces";
-import { AuthGuardService } from "../../core/services/authentication/auth-guard.service";
-import { ActivatedRoute } from "@angular/router";
-import { pluck, take } from "rxjs/operators";
+import {Component, OnInit} from '@angular/core';
+import {User} from "../../core/interfaces";
+import {AuthGuardService} from "../../core/services/authentication/auth-guard.service";
+import {ActivatedRoute} from "@angular/router";
+import {pluck, take} from "rxjs/operators";
+import {Store} from "@ngxs/store";
+import {SetListCountry} from "../../store/actions/helperList.actions";
 
 @Component({
   selector: 'app-main-page',
@@ -10,20 +12,17 @@ import { pluck, take } from "rxjs/operators";
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent implements OnInit {
-  private navigation: any;
-
   public user: any;
 
-  constructor(private authenticationService: AuthGuardService,
-    private route: ActivatedRoute
-  ) { }
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store,
+  ) {
+  }
 
   ngOnInit(): void {
-
-    this.route.snapshot.data.loggedUser
-      .pipe(take(1), pluck('Data', 'loggedUser'))
-      .subscribe((loggedUser: User) => {
-        this.user = loggedUser;
-      })
+    this.user =
+      this.route.snapshot.data.loggedUser.Data.loggedUser;
+    this.store.dispatch(new SetListCountry());
   }
 }

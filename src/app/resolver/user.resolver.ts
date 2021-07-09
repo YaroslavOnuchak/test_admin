@@ -13,23 +13,21 @@ import { GetLoggedUser } from "../store/actions/authentication.actions";
     providedIn: 'root'
   }
 )
-export class UserResolver implements Resolve<Observable<any>> {
+export class UserResolver implements Resolve<Observable<User>> {
   constructor(
     private router: Router,
     private store: Store
   ) {
   }
 
-  resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    return of(
-      this.store.dispatch(new GetLoggedUser())
-        .pipe(delay(0)
-          ,
+  public resolve(route: ActivatedRouteSnapshot):
+    Observable<User> {
+      return this.store.dispatch(new GetLoggedUser())
+        .pipe(delay(1000),
           catchError(() => {
             this.router.navigate(['/log']);
             return EMPTY;
           })
-        )
     )
   }
 }

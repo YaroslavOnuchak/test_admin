@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 
 import { NgxsModule } from '@ngxs/store';
-import { UsersState } from './store/state/datas.state';
+import {DataState} from './store/state/datas.state';
 
 import { BrowserModule } from '@angular/platform-browser';
-// import {MatFormFieldModule} from '@angular/material/form-field';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { PopoverModule } from 'ngx-bootstrap/popover';
@@ -33,8 +32,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import {AuthGuardService} from "./core/services/authentication/auth-guard.service";
 
 import {UserResolver} from "./resolver/user.resolver";
-
-
+import {GetUsersResolver} from "./resolver/get-users.resolver";
 
 @NgModule({
   declarations: [
@@ -49,10 +47,10 @@ import {UserResolver} from "./resolver/user.resolver";
     LogInComponent,
     UsersComponent,
     SearchFilterPipe,
-    UserComponent
+    UserComponent,
   ],
   imports: [
-    NgxsModule.forRoot([UsersState], {
+    NgxsModule.forRoot([DataState], {
       developmentMode: !environment.production
     }),
     ReactiveFormsModule,
@@ -69,7 +67,7 @@ import {UserResolver} from "./resolver/user.resolver";
     // NoopAnimationsModule,
   ],
   providers: [
-    AuthGuardService, UserResolver
+    AuthGuardService, UserResolver, GetUsersResolver
   ],
   bootstrap: [AppComponent]
 })
