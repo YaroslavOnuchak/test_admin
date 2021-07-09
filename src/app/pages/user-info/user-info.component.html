@@ -56,8 +56,10 @@
             type="button"
             class="btn btn-danger mx-2">Clear
     </button>
-    <button [ngClass]="(typeSearch)? 'disabled':'search'" class="btn ">
-      {{(typeSearch) ? "searching by pipe" : "search by button"}}
+    <button [ngClass]="(!typeSearch)? 'disabled':'search'"
+            class="btn "
+           (click)="searchUserByForm()">
+      {{(!typeSearch) ? "searching by pipe" : "search by button"}}
     </button>
     <label class="switch">
       <input type="checkbox" (change)="typeSearch=!typeSearch">
@@ -68,12 +70,11 @@
   </div>
 </form>
 <app-users
-  *ngIf="typeSearch"
-  [usersList]="users"
-  [searchForm]="(typeSearch)? searchForm.value : null "
-></app-users>
-<app-users
   *ngIf="!typeSearch"
   [usersList]="users"
-
+  [searchForm]="(!typeSearch)? searchForm.value : '' "
+></app-users>
+<app-users
+  *ngIf="typeSearch"
+  [usersList]="users"
 ></app-users>

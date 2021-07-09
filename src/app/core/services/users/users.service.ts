@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 
 import {environment} from '../../../../environments/environment';
 import {Adress, User} from '../../interfaces';
+import {FormGroup} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +18,14 @@ export class UsersService {
     return this.http.get<any>(`${environment.apiUrl}/users`)
   }
 
-  getFilterUsers(a:string='',mail:string='onuchak.j@gmail.com'): Observable<Array<User>> {
-    return this.http.get<any>(
-      `${environment.apiUrl}/users?firstName=${a}&mail=${mail}`
-    )
+  getFilterUsers(form: FormGroup): any {
+    // for (let key in form.value) {
+    //
+    // console.log(key)
+    // }
+    // return this.http.get<any>(
+    //   // `${environment.apiUrl}/users?firstName=${a}&mail=${mail}`
+    // )
   }
 
   updateUser(user: User) {

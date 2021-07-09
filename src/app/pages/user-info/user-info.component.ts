@@ -8,6 +8,8 @@ import {Observable} from "rxjs";
 import {Select, Store} from '@ngxs/store';
 import {DataState} from '../../store/state/datas.state';
 import {ActivatedRoute} from "@angular/router";
+import {ConfirmedValidator} from "../../core/validators/confirm";
+import {MinLengthNotEmptyFields} from "../../core/validators/emptyFields";
 
 
 @Component({
@@ -23,6 +25,7 @@ export class UserInfoComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private serU: UsersService
   ) {
   }
 
@@ -30,18 +33,28 @@ export class UserInfoComponent implements OnInit {
     this.usersState$.subscribe(res => {
       this.users = res
     })
+
     this.searchForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      username: ['', Validators.required],
-      mail: ['', [
-        Validators.required,
-        Validators.email,
-        Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]], // regex
-      phone: ['', [
-        Validators.required, Validators.pattern("[0-9]{10,15}")
-      ]], // number
-    });
+        firstName: [''],
+        lastName: [''],
+        username: [''],
+        mail: ['',
+          [Validators.required,
+            Validators.email,
+            Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]
+        ], // regex
+        phone: ['',
+          [
+            Validators.required,
+            Validators.pattern("[0-9]{10,15}")
+          ]
+        ], // number
+      }
+      ,{
+        Validator:
+          MinLengthNotEmptyFields(2)
+      }
+    );
   }
 
   get phone() {
@@ -50,6 +63,25 @@ export class UserInfoComponent implements OnInit {
 
   get mail() {
     return this.searchForm.get('mail');
+  }
+
+  searchUserByForm(): void {
+    this.serU.getFilterUsers(this.searchForm)
+    console.log('valid  =>>', this.searchForm.valid)
+    console.log('valid  mail =>>', this.searchForm.controls.mail.errors)
+    let count = 0;
+    for (let key in this.searchForm.value) {
+      if (this.searchForm.value[key]) {
+        count++;
+        console.log("dsddd",this.searchForm.value[key] );
+      }
+    }
+    if (count > 1 && this.searchForm.valid) {
+    } else {
+      // console.log('seееd  =>>', count)
+      // console.log('seееd  =>>', this.searchForm.errors)
+
+    }
   }
 
   clearForm(): void {

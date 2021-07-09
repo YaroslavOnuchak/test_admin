@@ -2,11 +2,11 @@
   "users": [
     {
       "id": 1,
-      "firstName": "Bruce",
-      "lastName": "Wayne",
+      "firstName": "Brucebg",
+      "lastName": "Waynek",
       "username": "bat12",
       "mail": "bat@gmail.com",
-      "phone": "222",
+      "phone": "2",
       "password": "string",
       "passwordCheck": "string",
       "addressList": [

@@ -6,7 +6,16 @@
 |searchFilter: 'phone' : searchForm?.phone"
   [user]="user"
 ></app-user>
-
+<div class="block-messages text-center">
+  <h4 *ngIf="usersList?.length &&
+  (usersList |searchFilter:'firstName': searchForm?.firstName
+|searchFilter: 'lastName':  searchForm?.lastName
+|searchFilter: 'username' : searchForm?.username
+|searchFilter: 'mail' : searchForm?.mail
+|searchFilter: 'phone' : searchForm?.phone)?.length===0 " >"No matches"
+  </h4>
+  <h4 *ngIf="!usersList || usersList?.length===0">{{(!usersList)? 'No data' : 'Data empty'}}</h4>
+</div>
 
 
 
