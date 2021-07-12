@@ -4,19 +4,21 @@
       <div class="col-6">
         <label for="firstName">First Name</label>
         <input type="text"
-               formControlName="firstName"
-               class="form-control" id="firstName"
-               placeholder="Enter First name"/>
+          formControlName="firstName"
+          class="form-control" id="firstName"
+          placeholder="Enter First name" />
         <small id="firstNameHelp"
-               class="form-text
-               text-muted"></small></div>
+          class="form-text
+               text-muted"></small>
+      </div>
       <div class="col-6">
         <label for="lastName">Last Name</label>
         <input type="text" class="form-control"
-               formControlName="lastName"
-               id="lastName"
-               aria-describedby="emailHelp"
-               placeholder="Enter last name"></div>
+          formControlName="lastName"
+          id="lastName"
+          aria-describedby="emailHelp"
+          placeholder="Enter last name">
+      </div>
     </div>
   </div>
   <div class="form-group my-2">
@@ -24,17 +26,17 @@
       <div class="col-4">
         <label for="userName">User name</label>
         <input type="text" class="form-control"
-               formControlName="username"
-               id="userName"
-               placeholder="Enter user name">
+          formControlName="username"
+          id="userName"
+          placeholder="Enter user name">
       </div>
       <div class="col-4">
         <label for="mail">Mail</label>
         <input type="email"
-               class="form-control"
-               formControlName="mail"
-               id="mail"
-               placeholder="Enter mail"/>
+          class="form-control"
+          formControlName="mail"
+          id="mail"
+          placeholder="Enter mail" />
         <div *ngIf="mail?.errors?.pattern" class="small text-danger">
           email is incorrect.
         </div>
@@ -42,9 +44,9 @@
       <div class="col-4">
         <label for="phone">Phone</label>
         <input type="text"
-               formControlName="phone"
-               class="form-control"
-               id="phone" placeholder="Enter phone">
+          formControlName="phone"
+          class="form-control"
+          id="phone" placeholder="Enter phone">
         <div *ngIf="phone?.errors?.pattern" class="small text-danger">
           phone number not valid.
         </div>
@@ -53,14 +55,15 @@
   </div>
   <div class="d-flex justify-content-between">
     <button (click)="clearForm()"
-            type="button"
-            class="btn btn-danger mx-2">Clear
+      type="button"
+      class="btn btn-danger mx-2">Clear
     </button>
     <button [ngClass]="(!typeSearch)? 'disabled':'search'"
-            class="btn "
-           (click)="searchUserByForm()">
+      class="btn "
+      (click)="searchUserByForm()">
       {{(!typeSearch) ? "searching by pipe" : "search by button"}}
     </button>
+    <div class="ac-form-field-description form-text"></div>
     <label class="switch">
       <input type="checkbox" (change)="typeSearch=!typeSearch">
       <span class="slider round"></span>
@@ -72,9 +75,7 @@
 <app-users
   *ngIf="!typeSearch"
   [usersList]="users"
-  [searchForm]="(!typeSearch)? searchForm.value : '' "
-></app-users>
+  [searchForm]="(!typeSearch)? searchForm.value : '' "></app-users>
 <app-users
   *ngIf="typeSearch"
-  [usersList]="users"
-></app-users>
+  [usersList]="users"></app-users>

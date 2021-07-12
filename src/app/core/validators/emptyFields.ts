@@ -1,28 +1,32 @@
-import {FormGroup} from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 export function MinLengthNotEmptyFields(minLengthNotEmptyFields: number) {
   return (formGroup: FormGroup) => {
-    let count = 0;
-    console.log("==>>", count )
+    let arr = [];
+    // console.log("22222222", formGroup.valid)
     for (let key in formGroup.value) {
       if (formGroup.value[key]) {
-        if (formGroup.controls[key].errors) {
-          // return
-        } else {
-          count++;
+        arr.push(formGroup.value[key])
+        if (arr.length > (minLengthNotEmptyFields - 1)) {
+
+          if (!formGroup.controls[key].errors) {
+            for (let field in formGroup.value) {
+
+              formGroup.controls[field].setErrors(null)
+              console.log("null", formGroup.valid)
+              // console.log("null",  formGroup.controls[field].errors)
+              return
+            }
+          }
         }
       } else {
         if (formGroup.controls[key].errors) {
-          // return
-        }else{
-          formGroup.controls[key].setErrors({MinLengthNotEmptyFields: true})
+          // return         
+          console.log("errrr", formGroup.valid)
+          // console.log("else iff err", formGroup.controls[key].errors)
+        } else {
+          formGroup.controls[key].setErrors({ MinLengthNotEmptyFields: true })
         }
-      }
-    }
-
-    if (count > minLengthNotEmptyFields) {
-      for (let key in formGroup.controls) {
-        formGroup.controls[key].setErrors(null)
       }
     }
   }

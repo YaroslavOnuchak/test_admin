@@ -22,7 +22,7 @@ export class GetUsersResolver implements Resolve<boolean> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<any> {
     return this.store.dispatch(new FetchGetUsers())
-      .pipe(delay(1000),
+      .pipe(delay(0),
         catchError(() => {
           this.router.navigate(['/log']);
           return EMPTY;
