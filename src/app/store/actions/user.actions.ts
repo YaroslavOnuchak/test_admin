@@ -1,4 +1,5 @@
 import {User} from "../../core/interfaces";
+import {FormGroup} from "@angular/forms";
 
 export class FetchGetUsers {
   static readonly type = '[User] Fetch All';
@@ -8,6 +9,11 @@ export class DeleteUser {
   static readonly type = "[User] Del"
 
   constructor(public payload: number) {
+  }
+}export class GetFilterUsers {
+  static readonly type = "[User] getFilterUsers"
+
+  constructor(public payload: FormGroup) {
   }
 }
 

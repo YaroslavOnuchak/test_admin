@@ -18,14 +18,17 @@ export class UsersService {
     return this.http.get<any>(`${environment.apiUrl}/users`)
   }
 
-  getFilterUsers(form: FormGroup): any {
-    // for (let key in form.value) {
-    //
-    // console.log(key)
-    // }
-    // return this.http.get<any>(
-    //   // `${environment.apiUrl}/users?firstName=${a}&mail=${mail}`
-    // )
+  getFilterUsers(form: FormGroup): Observable<Array<User>> {
+    let str: String = '';
+    let key: string;
+    for (key in form.value) {
+      if (form.value[key]) {
+        str = str + `${key}=${form.value[key]}&`;
+      }
+    }
+    str = str.slice(0, -1)
+    return this.http.get<any>(`${environment.apiUrl}/users?${str}`
+    )
   }
 
   updateUser(user: User) {

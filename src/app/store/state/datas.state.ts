@@ -1,32 +1,32 @@
 // Section 1
-import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { Injectable } from '@angular/core';
-import { AddressType, User } from '../../core/interfaces'
+import {State, Action, StateContext, Selector} from '@ngxs/store';
+import {Injectable} from '@angular/core';
+import {AddressType, User} from '../../core/interfaces'
 
-import { DeleteUser, AddUser, FetchGetUsers, UpdateUser } from '../actions/user.actions'
-import { Login, GetLoggedUser } from '../actions/authentication.actions';
-import { SetListCountry, GetAddressType, GetListCountry } from '../actions/helperList.actions';
+import {DeleteUser, GetFilterUsers, AddUser, FetchGetUsers, UpdateUser} from '../actions/user.actions'
+import {Login, GetLoggedUser} from '../actions/authentication.actions';
+import {SetListCountry, GetAddressType, GetListCountry} from '../actions/helperList.actions';
 
-import { tap, map, filter } from 'rxjs/operators';
-import { UsersService } from "../../core/services/users/users.service";
-import { AuthGuardService } from "../../core/services/authentication/auth-guard.service";
-import { HelperListService } from "../../core/services/helperList/helper-list.service";
+import {tap, map, filter} from 'rxjs/operators';
+import {UsersService} from "../../core/services/users/users.service";
+import {AuthGuardService} from "../../core/services/authentication/auth-guard.service";
+import {HelperListService} from "../../core/services/helperList/helper-list.service";
 
 const defaultUser: User = {
-  id: 0,
-  firstName: "",
-  lastName: "",
-  username: "",
-  mail: "",
-  phone: 0,
-  password: "",
-  passwordCheck: "",
-  addressList: []
-},
+    id: 0,
+    firstName: "",
+    lastName: "",
+    username: "",
+    mail: "",
+    phone: 0,
+    password: "",
+    passwordCheck: "",
+    addressList: []
+  },
   defaultAddressType: Array<AddressType> = [
-    { value: 'Billing', text: 'Billing Address ' },
-    { value: 'Shipment', text: 'Shipment Address ' },
-    { value: 'Home', text: 'Home Address ' }];
+    {value: 'Billing', text: 'Billing Address '},
+    {value: 'Shipment', text: 'Shipment Address '},
+    {value: 'Home', text: 'Home Address '}];
 
 
 // Section 2
@@ -59,7 +59,9 @@ export class DataState {
   static getUserList(state: DataStateModel): Array<User> {
     return state.users;
 
-  } @Selector()
+  }
+
+  @Selector()
   static getCountries(state: DataStateModel): Array<string> {
     return state.helperList.countryList
   }
@@ -68,7 +70,8 @@ export class DataState {
     private userService: UsersService,
     private authentication: AuthGuardService,
     private helperListService: HelperListService,
-  ) {}
+  ) {
+  }
 
   @Action(FetchGetUsers)
   fetchAll(ctx: StateContext<DataStateModel>) {
@@ -76,30 +79,41 @@ export class DataState {
       .pipe(
         filter(res => !!res),
         tap(users => {
-          ctx.patchState({ users });
+          ctx.patchState({users});
+        })
+      )
+  }
+
+  @Action(GetFilterUsers)
+  getFilterUsers(ctx: StateContext<DataStateModel>, {payload}: GetFilterUsers) {
+    return this.userService.getFilterUsers(payload)
+      .pipe(
+        filter(res => !!res),
+        tap(users => {
+          ctx.patchState({users});
         })
       )
   }
 
   @Action(UpdateUser)
   updateUser(ctx: StateContext<DataStateModel>,
-    { payload }: UpdateUser) {
+             {payload}: UpdateUser) {
     return this.userService.updateUser(payload).pipe
-      (
-        filter(res => !!res),
-        tap(res => {
-          const UserList = [...ctx.getState().users];
-          UserList[UserList.findIndex(item => item.id === payload.id)] = payload;
-          ctx.setState({
-            ...ctx.getState(), users: UserList,
-          });
-        })
-      )
+    (
+      filter(res => !!res),
+      tap(res => {
+        const UserList = [...ctx.getState().users];
+        UserList[UserList.findIndex(item => item.id === payload.id)] = payload;
+        ctx.setState({
+          ...ctx.getState(), users: UserList,
+        });
+      })
+    )
   }
 
   @Action(DeleteUser)
-  delete({ patchState, getState }: StateContext<DataStateModel>,
-    { payload }: DeleteUser) {
+  delete({patchState, getState}: StateContext<DataStateModel>,
+         {payload}: DeleteUser) {
     return this.userService.deleteUser(payload).pipe(
       tap(
         res => {
@@ -112,8 +126,8 @@ export class DataState {
   }
 
   @Action(AddUser)
-  addNewUser({ getState, patchState }: StateContext<DataStateModel>,
-    { payload }: AddUser) {
+  addNewUser({getState, patchState}: StateContext<DataStateModel>,
+             {payload}: AddUser) {
     return this.userService.postUser(payload)
       .pipe(
         filter(res => !!res),
@@ -127,8 +141,8 @@ export class DataState {
   }
 
   @Action(Login)
-  Login({ getState, patchState }: StateContext<DataStateModel>,
-    payload: Login) {
+  Login({getState, patchState}: StateContext<DataStateModel>,
+        payload: Login) {
     return this.authentication.login(payload)
       .pipe(
         // filter(res => !!res),
@@ -141,12 +155,12 @@ export class DataState {
   }
 
   @Action(GetLoggedUser)
-  GetLoggedUser({ getState }: StateContext<DataStateModel>): User {
+  GetLoggedUser({getState}: StateContext<DataStateModel>): User {
     return getState().loggedUser
   }
 
   @Action(SetListCountry)
-  SetListCountry({ getState, patchState }: StateContext<DataStateModel>): any {
+  SetListCountry({getState, patchState}: StateContext<DataStateModel>): any {
     return this.helperListService.getAll()
       .pipe(
         filter(res => !!res),
@@ -162,12 +176,12 @@ export class DataState {
   }
 
   @Action(GetListCountry)
-  GetListCountry({ getState }: StateContext<DataStateModel>): Array<string> {
+  GetListCountry({getState}: StateContext<DataStateModel>): Array<string> {
     return getState().helperList.countryList
   }
 
   @Action(GetAddressType)
-  GetAddressType({ getState }: StateContext<DataStateModel>): Array<AddressType> {
+  GetAddressType({getState}: StateContext<DataStateModel>): Array<AddressType> {
     return getState().helperList.addressListType
   }
 

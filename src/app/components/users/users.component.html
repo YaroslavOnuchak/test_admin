@@ -14,7 +14,8 @@
 |searchFilter: 'mail' : searchForm?.mail
 |searchFilter: 'phone' : searchForm?.phone)?.length===0 " >"No matches"
   </h4>
-  <h4 *ngIf="!usersList || usersList?.length===0">{{(!usersList)? 'No data' : 'Data empty'}}</h4>
+  <h4 *ngIf="!usersList ||
+  usersList?.length===0">{{(!usersList)? 'No data' : 'No User'}}</h4>
 </div>
 
 
