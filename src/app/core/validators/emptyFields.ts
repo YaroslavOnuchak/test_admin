@@ -5,6 +5,7 @@ export function MinLengthNotEmptyFields(minLengthNotEmptyFields: number) {
     let count = 0;
     console.log("==>>", count )
     for (let key in formGroup.value) {
+
       if (formGroup.value[key]) {
         if (formGroup.controls[key].errors) {
           // return
