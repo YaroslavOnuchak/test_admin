@@ -34,6 +34,7 @@ import {AuthGuardService} from "./core/services/authentication/auth-guard.servic
 import {UserResolver} from "./resolver/user.resolver";
 import {GetUsersResolver} from "./resolver/get-users.resolver";
 
+
 @NgModule({
   declarations: [
     AppComponent,

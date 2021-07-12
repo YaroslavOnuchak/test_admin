@@ -6,6 +6,7 @@ import {AuthGuardService} from "../../core/services/authentication/auth-guard.se
 import {User} from "../../core/interfaces";
 import {Store} from "@ngxs/store";
 import {Login} from "../../store/actions/authentication.actions";
+// import {TestGoogleService} from "../../core/services/test/test-google.service";
 
 @Component({
   selector: 'app-log-in',
@@ -22,12 +23,15 @@ export class LogInComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private authGuardService: AuthGuardService,
+    // private testGoogleService: TestGoogleService,
     private store: Store
 
   ) {
   }
 
   ngOnInit(): void {
+
+    // this.testGoogleService.
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
