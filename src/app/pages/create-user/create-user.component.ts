@@ -1,17 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AddressType, Adress, User} from "../../core/interfaces";
-import {UsersService} from "../../core/services/users/users.service";
-import {take, pluck} from "rxjs/operators";
-import {Router} from '@angular/router';
-import {HelperListService} from "../../core/services/helperList/helper-list.service";
-import {ConfirmedValidator} from "../../core/validators/confirm";
-import {Select, Selector, Store} from "@ngxs/store";
+import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AddressType, Adress, User } from "../../core/interfaces";
+import { UsersService } from "../../core/services/users/users.service";
+import { take, pluck } from "rxjs/operators";
+import { Router } from '@angular/router';
+import { HelperListService } from "../../core/services/helperList/helper-list.service";
+import { ConfirmedValidator } from "../../core/validators/confirm";
+import { Select, Selector, Store } from "@ngxs/store";
 
-import {DeleteUser, FetchGetUsers, UpdateUser, AddUser} from "../../store/actions/user.actions";
-import {GetAddressType, GetListCountry, SetListCountry} from "../../store/actions/helperList.actions";
-import {DataState} from "../../store/state/datas.state";
-import {Observable} from "rxjs";
+import { DeleteUser, FetchGetUsers, UpdateUser, AddUser } from "../../store/actions/user.actions";
+import { GetAddressType, GetListCountry, SetListCountry } from "../../store/actions/helperList.actions";
+import { DataState } from "../../store/state/datas.state";
+import { Observable } from "rxjs";
 
 
 @Component({
@@ -38,25 +38,25 @@ export class CreateUserComponent implements OnInit {
   toggleShowForm: boolean = true;
   validForm: boolean = true;
   currentPage: number = 0;
- @Select(DataState.getCountries) countries$ : Observable<Array<string>>;
+  @Select(DataState.getCountries) countries$: Observable<Array<string>>;
 
   constructor(private fb: FormBuilder,
-              private store: Store,
-              private router: Router) {
+    private store: Store,
+    private router: Router) {
 
   }
 
   ngOnInit(): void {
 
     this.store.dispatch(new GetListCountry())
-      .pipe(take(1), pluck('Data', "helperList" , "addressListType"))
+      .pipe(take(1), pluck('Data', "helperList", "addressListType"))
       .subscribe((
-        addressListType:Array<AddressType>) => {
-          this.addressType = addressListType;
-        }
+        addressListType: Array<AddressType>) => {
+        this.addressType = addressListType;
+      }
       )
 
-    this.countries$.subscribe( res=> {
+    this.countries$.subscribe(res => {
       this.countries = res;
     });
 
