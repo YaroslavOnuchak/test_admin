@@ -45,19 +45,19 @@
         <label for="createEmail"
           class="form-label _req">Email address</label>
         <input type="email" class="form-control"
-          formControlName="mail"
+          formControlName="email"
           placeholder="email"
           id="createEmail"
           aria-describedby="emailHelp">
         <div id="emailHelp"
           class="form-text">We'll never share your email with anyone else. Trust us
         </div>
-        <div *ngIf="mail?.dirty || !validForm">
-          <div *ngIf="mail?.errors?.required"
+        <div *ngIf="email?.dirty || !validForm">
+          <div *ngIf="email?.errors?.required"
             class="small text-danger">
             email is mandatory.
           </div>
-          <div *ngIf="mail?.errors?.email"
+          <div *ngIf="email?.errors?.email"
             class="small text-danger">
             email is incorrect.
           </div>
@@ -194,7 +194,7 @@
           <th scope="col">First</th>
           <th scope="col">Last</th>
           <th scope="col">username</th>
-          <th scope="col">mail</th>
+          <th scope="col">email</th>
           <th scope="col">phone</th>
           <th scope="col">pass</th>
         </tr>
@@ -208,7 +208,7 @@
           </td>
           <td>{{ user.username }}
           </td>
-          <td>{{user.mail}}
+          <td>{{user.email}}
           </td>
           <td>{{ user.phone }}
           </td>

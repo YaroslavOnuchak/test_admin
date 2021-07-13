@@ -26,7 +26,7 @@ export class CreateUserComponent implements OnInit {
     firstName: "",
     lastName: "",
     username: "",
-    mail: "",
+    email: "",
     phone: 1,
     password: "",
     passwordCheck: "",
@@ -76,8 +76,8 @@ export class CreateUserComponent implements OnInit {
     return this.newUser.get('username');
   }
 
-  get mail() {
-    return this.newUser.get('mail');
+  get email() {
+    return this.newUser.get('email');
   }
 
   get phone() {
@@ -166,7 +166,7 @@ export class CreateUserComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       username: ['', Validators.required],
-      mail: ['', [
+      email: ['', [
         Validators.required,
         Validators.email
       ]],

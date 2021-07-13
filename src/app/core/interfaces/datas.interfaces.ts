@@ -18,12 +18,14 @@ export interface User {
   firstName: string,
   lastName: string,
   username: string,
-  mail: string,
+  email: string,
   phone: number,
   password: string;
   passwordCheck?: string;
   addressList: Array<Adress>,
   token?: string,
+  googleId?:string,
+  photo?:string,
 }
 
 export interface LoginForm {

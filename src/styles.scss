@@ -1,15 +1,18 @@
 @import "~@ng-select/ng-select/themes/material.theme.css";
+
 *, :after, :before {
   box-sizing: border-box;
 }
 
-.popover-content{
-  box-shadow: 0 0  5rem 3rem aliceblue;
+.popover-content {
+  box-shadow: 0 0 5rem 3rem aliceblue;
 }
-label._req::after{
+
+label._req::after {
   content: "*";
   color: red;
 }
+
 .loading {
   position: relative;
   width: 11rem;
@@ -49,40 +52,40 @@ label._req::after{
 
 @keyframes rotate1 {
   from {
-    border-color:   blue;
+    border-color: blue;
     transform: rotateX(35deg) rotateY(-45deg) rotateZ(0);
   }
   to {
-    border-color:  green;
+    border-color: green;
     transform: rotateX(35deg) rotateY(-45deg) rotateZ(1turn);
   }
 }
 
 @keyframes rotate2 {
   from {
-    border-color:  darkred;
+    border-color: darkred;
     transform: rotateX(50deg) rotateY(10deg) rotateZ(0);
   }
   to {
-    border-color:  gold;
+    border-color: gold;
     transform: rotateX(50deg) rotateY(10deg) rotateZ(1turn);
   }
 }
 
 @keyframes rotate3 {
   from {
-    border-color:  yellowgreen;
+    border-color: yellowgreen;
     transform: rotateX(35deg) rotateY(55deg) rotateZ(0);
   }
   to {
-    border-color:  blueviolet;
+    border-color: blueviolet;
     transform: rotateX(35deg) rotateY(55deg) rotateZ(1turn);
   }
 }
 
 .spin {
   &-wrap {
-    position:absolute;
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -91,6 +94,38 @@ label._req::after{
     bottom: 0;
     right: 0;
     background: rgba(230, 230, 250, 0.29);
+  }
+
+
+}
+
+.btn.social {
+  width: 100%;
+  border: 1px solid thistle;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 10px lavender;
+
+  img {
+    width: 10%;
+  }
+
+  span {
+    margin: 0 auto;
+  }
+
+}
+
+.horizontal-line-text {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid black;
+  line-height: 0.1rem;
+  margin: 25px 0;
+
+  span {
+    background: white;
+    padding: 0 10px;
   }
 
 }

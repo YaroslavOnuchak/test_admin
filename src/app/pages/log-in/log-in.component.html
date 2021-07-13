@@ -1,7 +1,7 @@
 <div class="container mt-2">
   <div class="card m-auto col-6">
     <div class="card-body">
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="loginForm" >
         <div class="form-group">
           <label for="username">Username</label>
           <input type="text"
@@ -23,13 +23,22 @@
             <div *ngIf="formFields.password.errors.required">Password is required</div>
           </div>
         </div>
-        <button [disabled]="loading" class="btn btn-info ">
+        <button (click)="onSubmit($event)"
+                [disabled]="loading" class="btn btn-info simply-log-in">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Login
         </button>
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
         <div *ngIf="error"
              class="alert alert-danger mt-3 mb-0">{{error}}</div>
+        <br/>
+        <p class="horizontal-line-text">
+          <span>or</span>
+        </p>
+        <button class="btn social google-sign-in"
+                (click)="onSubmit($event)">
+          <img
+          [src]="'assets/img/google_logo.png'"
+          alt="google" /><span>With google</span></button>
       </form>
     </div>
   </div>

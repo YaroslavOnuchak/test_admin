@@ -38,7 +38,7 @@ export class UserInfoComponent implements OnInit {
         firstName: [''],
         lastName: [''],
         username: [''],
-        mail: ['',
+      email: ['',
           [
             Validators.email,
             Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]
@@ -51,7 +51,6 @@ export class UserInfoComponent implements OnInit {
       }, {
         validator:
           MinLengthNotEmptyFields(this.minLengthNotEmptyFields)
-
       }
     );
   }
@@ -60,12 +59,12 @@ export class UserInfoComponent implements OnInit {
     return this.searchForm.get('phone');
   }
 
-  get mail() {
-    return this.searchForm.get('mail');
+  get email() {
+    return this.searchForm.get('email');
   }
 
   searchUserByForm(): void {
-    let arr: any = [];
+    // let arr: any = [];
     if (this.searchForm.valid) {
           this.store.dispatch(new GetFilterUsers(this.searchForm))
     }

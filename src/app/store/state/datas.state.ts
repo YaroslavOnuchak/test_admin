@@ -4,20 +4,22 @@ import {Injectable} from '@angular/core';
 import {AddressType, User} from '../../core/interfaces'
 
 import {DeleteUser, GetFilterUsers, AddUser, FetchGetUsers, UpdateUser} from '../actions/user.actions'
-import {Login, GetLoggedUser} from '../actions/authentication.actions';
+import {Login, LoginGoogle, GetLoggedUser} from '../actions/authentication.actions';
 import {SetListCountry, GetAddressType, GetListCountry} from '../actions/helperList.actions';
 
 import {tap, map, filter} from 'rxjs/operators';
 import {UsersService} from "../../core/services/users/users.service";
 import {AuthGuardService} from "../../core/services/authentication/auth-guard.service";
 import {HelperListService} from "../../core/services/helperList/helper-list.service";
+import {SocialUser} from "angularx-social-login";
+import {Observable} from "rxjs";
 
 const defaultUser: User = {
     id: 0,
     firstName: "",
     lastName: "",
     username: "",
-    mail: "",
+    email: "",
     phone: 0,
     password: "",
     passwordCheck: "",
@@ -142,7 +144,7 @@ export class DataState {
 
   @Action(Login)
   Login({getState, patchState}: StateContext<DataStateModel>,
-        payload: Login) {
+        payload: Login):Observable<User> {
     return this.authentication.login(payload)
       .pipe(
         // filter(res => !!res),
@@ -150,6 +152,19 @@ export class DataState {
           patchState({
             loggedUser: user
           });
+        })
+      )
+  }
+
+  @Action(LoginGoogle)
+  loginGoogle(ctx: StateContext<DataStateModel>) :Observable<User>{
+
+    return this.authentication.loginGoogle()
+      .pipe(
+        tap(googleUser => {
+          ctx.patchState({
+            loggedUser: googleUser
+          })
         })
       )
   }

@@ -12,3 +12,9 @@ export class GetLoggedUser {
 
 }
 
+export class LoginGoogle {
+
+  static readonly type = "[Authentication] GetUserGoogle"
+
+}
+

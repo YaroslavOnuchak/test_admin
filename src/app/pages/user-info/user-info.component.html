@@ -34,10 +34,10 @@
         <label for="mail">Mail</label>
         <input type="email"
                class="form-control"
-               formControlName="mail"
+               formControlName="email"
                id="mail"
                placeholder="Enter mail"/>
-        <div *ngIf="mail?.errors?.pattern" class="small text-danger">
+        <div *ngIf="email?.errors?.pattern" class="small text-danger">
           email is incorrect.
         </div>
       </div>

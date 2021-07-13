@@ -2,7 +2,7 @@
   *ngFor=" let user of usersList |searchFilter:'firstName':  searchForm?.firstName
 |searchFilter: 'lastName':  searchForm?.lastName
 |searchFilter: 'username' : searchForm?.username
-|searchFilter: 'mail' : searchForm?.mail
+|searchFilter: 'email' : searchForm?.email
 |searchFilter: 'phone' : searchForm?.phone"
   [user]="user"
 ></app-user>
@@ -11,7 +11,7 @@
   (usersList |searchFilter:'firstName': searchForm?.firstName
 |searchFilter: 'lastName':  searchForm?.lastName
 |searchFilter: 'username' : searchForm?.username
-|searchFilter: 'mail' : searchForm?.mail
+|searchFilter: 'email' : searchForm?.email
 |searchFilter: 'phone' : searchForm?.phone)?.length===0 " >"No matches"
   </h4>
   <h4 *ngIf="!usersList ||

@@ -131,8 +131,8 @@ export class UserComponent implements OnInit {
       username: [
         this.user ? this.user.username : ""
       ],
-      mail: [
-        this.user ? this.user.mail : ""
+      email: [
+        this.user ? this.user.email : ""
       ],
       phone: [
         this.user ? this.user.phone : ""
