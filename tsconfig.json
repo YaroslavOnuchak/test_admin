@@ -17,9 +17,7 @@
     "importHelpers": true,
     "target": "es2017",
     "module": "es2020",
-    "types": [
-      "gapi",
-      "gapi.auth2"
+    "types": [  "gapi","gapi.auth2",  "gapi.client.gmail"
     ],
     "strictPropertyInitialization": false,
     "lib": [

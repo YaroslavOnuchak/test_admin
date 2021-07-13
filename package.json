@@ -25,7 +25,7 @@
     "@ng-select/ng-select": "^7.1.0",
     "@ngxs/logger-plugin": "^3.7.2",
     "@ngxs/store": "^3.7.2",
-    "@types/gapi": "0.0.40",
+    "@types/gapi": "^0.0.40",
     "@types/gapi.auth2": "0.0.55",
     "@types/gapi.client.gmail": "^1.0.3",
     "angularx-social-login": "^4.0.1",
