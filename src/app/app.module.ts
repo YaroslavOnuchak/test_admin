@@ -19,7 +19,6 @@ import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {HeaderComponent} from './components/header/header.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {LogInComponent} from './pages/log-in/log-in.component';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {UsersComponent} from './components/users/users.component';
 import {SearchFilterPipe} from './shared/pipe/search-filter.pipe';
 import {UserComponent} from './components/users/user/user.component';
@@ -27,6 +26,7 @@ import {environment} from "../environments/environment";
 import {NgxsRootModule} from "@ngxs/store/src/modules/ngxs-root.module";
 import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
 import {NgxsLoggerPluginModule} from '@ngxs/logger-plugin';
+
 // import {environment} from "../environments/environment.prod";
 import {NgSelectModule} from '@ng-select/ng-select';
 import {AuthGuardService} from "./core/services/authentication/auth-guard.service";
@@ -60,16 +60,7 @@ import {SocialLoginModule, GoogleLoginProvider, SocialAuthServiceConfig} from "a
     BrowserModule,
     FormsModule,
     PopoverModule.forRoot(),
-    // GoogleApiModule.forRoot({
-    //   provide: NG_GAPI_CONFIG,
-    //   useValue: GOOGLE_CONFIG
-    // }),
     NgSelectModule,
-    // NgxsReduxDevtoolsPluginModule.forRoot(),
-    // NgxsLoggerPluginModule.forRoot()
-
-    // MatFormFieldModule,
-    // NoopAnimationsModule,
     SocialLoginModule
   ],
   providers: [
@@ -89,7 +80,6 @@ import {SocialLoginModule, GoogleLoginProvider, SocialAuthServiceConfig} from "a
       } as SocialAuthServiceConfig
     }
   ],
-  // exports: [ GoogleApiModule ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

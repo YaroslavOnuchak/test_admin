@@ -67,8 +67,9 @@ export class DataState {
   static getCountries(state: DataStateModel): Array<string> {
     return state.helperList.countryList
   }
+
   @Selector()
-  static getLoggedUser(state: DataStateModel): User{
+  static getLoggedUser(state: DataStateModel): User {
     return state.loggedUser
   }
 

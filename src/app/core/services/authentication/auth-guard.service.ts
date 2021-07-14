@@ -41,7 +41,6 @@ export class AuthGuardService implements CanActivate {
   loginGoogle(): Observable<User> {
     return from(this.authSocialSer.signIn(GoogleLoginProvider.PROVIDER_ID))
       .pipe(mergeMap(socialUser => {
-        // console.log('',socialUser )
         return this.usersService.getUsers()
           .pipe(map(users => {
             let user = users.filter(

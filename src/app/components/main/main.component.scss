@@ -3,4 +3,17 @@
   flex: 1 0 auto;
   background: lightgrey;
   position: relative;
+  .sign-out{
+    position: relative;
+    padding: 5px 10px ;
+    background: indianred;
+    max-height: 36px;
+    font-size: 0.8rem;
+    width: 150px;
+    text-transform: uppercase;
+    box-shadow: 0 0 15px  black;
+    &:hover{
+      background: rgba(216, 191, 216, 0.81);
+    }
+  }
 }
