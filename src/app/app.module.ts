@@ -23,9 +23,7 @@ import {UsersComponent} from './components/users/users.component';
 import {SearchFilterPipe} from './shared/pipe/search-filter.pipe';
 import {UserComponent} from './components/users/user/user.component';
 import {environment} from "../environments/environment";
-import {NgxsRootModule} from "@ngxs/store/src/modules/ngxs-root.module";
-import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
-import {NgxsLoggerPluginModule} from '@ngxs/logger-plugin';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // import {environment} from "../environments/environment.prod";
 import {NgSelectModule} from '@ng-select/ng-select';
@@ -61,7 +59,8 @@ import {SocialLoginModule, GoogleLoginProvider, SocialAuthServiceConfig} from "a
     FormsModule,
     PopoverModule.forRoot(),
     NgSelectModule,
-    SocialLoginModule
+    SocialLoginModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthGuardService, GetUsersResolver,

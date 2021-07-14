@@ -1,9 +1,6 @@
 import {AfterViewInit, Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import {Router} from "@angular/router";
 import {Select, Selector, Store} from "@ngxs/store";
-import {DataState} from "../../store/state/datas.state";
-import {Observable} from "rxjs";
-import {User} from "../../core/interfaces";
 
 @Component({
   selector: 'app-header',
@@ -12,10 +9,7 @@ import {User} from "../../core/interfaces";
 })
 export class HeaderComponent implements  OnInit {
 
-  constructor(
-    private router: Router,
-    private store: Store
-  ) {
+  constructor() {
   }
 
   ngOnInit(): void {

@@ -10,11 +10,35 @@ import {pluck, take} from "rxjs/operators";
 import {Store} from "@ngxs/store";
 import {DeleteUser, UpdateUser} from "../../../store/actions/user.actions";
 import {GetListCountry} from "../../../store/actions/helperList.actions";
+import {trigger, state, style, animate, transition} from '@angular/animations';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  styleUrls: ['./user.component.scss'],
+  animations: [
+    trigger(
+      'inOutAnimation',
+      [
+        transition(
+          ':enter',
+          [
+            style({height: 0, opacity: 0}),
+            animate('1s ease-out',
+              style({height: 90, opacity: 1}))
+          ]
+        ),
+        transition(
+          ':leave',
+          [
+            style({height: 90, opacity: 1}),
+            animate('0.7s ease-in',
+              style({height: 0, opacity: 0}))
+          ]
+        )
+      ]
+    )
+  ]
 })
 
 export class UserComponent implements OnInit {
@@ -49,13 +73,13 @@ export class UserComponent implements OnInit {
         this.countries = countryList;
       })
 
-      //show the address while editing
-      this.user?.addressList?.map(el => {
-        if (this.user?.addressList[el.id - 1]?.editStatus) {
-          this.showAddress = true;
-          console.log(this.showAddress)
-        }
-      })
+    //show the address while editing
+    this.user?.addressList?.map(el => {
+      if (this.user?.addressList[el.id - 1]?.editStatus) {
+        this.showAddress = true;
+        console.log(this.showAddress)
+      }
+    })
   }
 
 

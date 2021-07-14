@@ -8,19 +8,15 @@ import {
   NavigationCancel,
   NavigationError
 } from '@angular/router'
-import {Select} from "@ngxs/store";
-import {DataState} from "../../store/state/datas.state";
-import {Observable} from "rxjs";
-import {User} from "../../core/interfaces";
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-  @Select(DataState.getLoggedUser) user$: Observable<User>;
+
   public loading = false;
-  toggl: Boolean= false;
+  toggl: Boolean= true;
 
   constructor(private router: Router) {
     router.events.subscribe((event: RouterEvent) => {
@@ -42,12 +38,6 @@ export class MainComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this.user$.subscribe((res?: User) => {
-      if (res?.id !== 0) {
-        // console.log(res)
-        this.toggl = true;
-      }
-    })
   }
   singOut(): void {
     localStorage.removeItem("logged_user");

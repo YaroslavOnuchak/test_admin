@@ -88,7 +88,9 @@
   <table
     formArrayName="addressList"
     class="table address-info table-striped"
-    *ngIf="user.addressList.length && showAddress ">
+
+    *ngIf="user.addressList.length && showAddress "
+    [@inOutAnimation]>
     <thead>
     <tr>
       <th scope="col">address Type</th>
