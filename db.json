@@ -15,7 +15,7 @@
           "addressType": "Shipment",
           "address": " ds",
           "city": " dsss",
-          "country": "Antigua and Barbuda",
+          "country": "France",
           "postalCode": "21 ",
           "editStatus": false
         }
@@ -98,7 +98,7 @@
       "addressList": [
         {
           "id": 1,
-          "addressType": "",
+          "addressType": "Shipment",
           "address": " ",
           "city": " ",
           "country": "Ukraine",
@@ -107,10 +107,10 @@
         },
         {
           "id": 2,
-          "addressType": "",
+          "addressType": "Shipment",
           "address": " ",
           "city": "g",
-          "country": "Åland Islands",
+          "country": "United Arab Emirates",
           "postalCode": "234",
           "editStatus": false
         }
@@ -506,36 +506,6 @@
           "city": " ",
           "country": "Bouvet Island",
           "postalCode": "123132",
-          "editStatus": false
-        }
-      ]
-    },
-    {
-      "id": 34,
-      "firstName": "1234231",
-      "lastName": "1234321",
-      "username": "12234",
-      "mail": "onuchak.j@gmail.com",
-      "phone": "0939974336",
-      "password": "12341234",
-      "passwordCheck": "12341234",
-      "addressList": [
-        {
-          "id": 1,
-          "addressType": "Billing",
-          "address": " ccccccccccc",
-          "city": "ccccccccccc",
-          "country": "Algeria",
-          "postalCode": "23",
-          "editStatus": false
-        },
-        {
-          "id": 2,
-          "addressType": "Shipment",
-          "address": "2314",
-          "city": "423",
-          "country": "Canada",
-          "postalCode": "231",
           "editStatus": false
         }
       ]

@@ -10,7 +10,6 @@ export class SearchFilterPipe implements PipeTransform {
   transform(data: Array<User>,
             field: string,
             val:any): any {
-// console.log(`  field => ${field} =>${val}`)
     if (!data || !field) {
       return data;
     }

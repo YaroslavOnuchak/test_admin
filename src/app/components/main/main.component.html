@@ -1,15 +1,15 @@
 <app-sidebar></app-sidebar>
 <router-outlet></router-outlet>
-<div  *ngIf="loading"
-      class="spin-wrap">
+<div *ngIf="loading"
+     class="spin-wrap">
   <div class="loading">
-  <div class="arc"></div>
-  <div class="arc"></div>
-  <div class="arc"></div>
+    <div class="arc"></div>
+    <div class="arc"></div>
+    <div class="arc"></div>
   </div>
 </div>
 <button
-  *ngIf="toggl && !loading"
+  *ngIf="toggle"
   class="btn btn-danger sign-out"
   (click)="singOut()">sign-out
 </button>

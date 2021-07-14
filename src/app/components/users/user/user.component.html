@@ -1,7 +1,7 @@
-<form [formGroup]="editForm" >
+<form [formGroup]="editForm">
   <table class="table user-info table-striped">
-    <thead class="form_title" >
-    <tr >
+    <thead class="form_title">
+    <tr>
       <th scope="col">Id#</th>
       <th scope="col">First</th>
       <th scope="col">Last</th>
@@ -54,14 +54,14 @@
                 class="btn btn-secondary mr-1">
           {{(!updateInfo) ? "update" : "save"}}</button>
       </td>
-      <td >
+      <td>
         <button *ngIf="updateInfo" type="button"
                 (click)="addNewAddress()"
                 class="btn btn-secondary">add address
         </button>
-        <button *ngIf="!updateInfo && user.addressList.length "  type="button"
+        <button *ngIf="!updateInfo && user.addressList.length " type="button"
                 (click)="showAddressList()"
-                class="btn btn-secondary">{{(showAddress)? 'hide address': 'show address'}}
+                class="btn btn-secondary">{{(showAddress) ? 'hide address' : 'show address'}}
         </button>
       </td>
       <td>
@@ -88,7 +88,9 @@
   <table
     formArrayName="addressList"
     class="table address-info table-striped"
-    *ngIf="user.addressList.length && showAddress ">
+
+    *ngIf="user.addressList.length && showAddress "
+    [@inOutAnimation]>
     <thead>
     <tr>
       <th scope="col">address Type</th>
@@ -173,8 +175,8 @@
                 class="btn btn-secondary">add new +
         </button>
       </td>
-      <br>
     </tr>
+    <br/>
     </tbody>
   </table>
 
