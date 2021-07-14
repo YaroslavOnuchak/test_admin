@@ -1,18 +1,21 @@
 <div class="card">
-  <div class="m-b-25 d-flex">
-    <img src="https://img.icons8.com/bubbles/100/000000/user.png"
-      class="img-radius"
-      alt="User-Profile-Image">
+  <div class="m-b-25 d-flex justify-content-between align-items-center">
     <p
       class="card-title">
-      first Name: <strong>{{user?.firstName | uppercase}}</strong><br />
+      first Name: <strong>{{user?.firstName | uppercase}}</strong><br/>
       last Name: <strong>{{user?.lastName | uppercase}}</strong></p>
+    <img
+      [src]="(user?.photo)? user?.photo : 'https://icon-library.com/images/default-profile-icon/default-profile-icon-0.jpg'"
+      class="img-radius"
+      alt="User-Profile-Image">
   </div>
   <div class="card-body">
-    <p class="card-text"><i>id: </i><b>{{user?.id}} </b> </p>
+    <p class="card-text"><i>id: </i><b>{{user?.id}} </b></p>
     <p class="card-text"><a><i>username: </i><b>{{user?.username}}</b></a></p>
     <p class="card-text"><i>phone: </i><a [href]="'tel:+'+user?.phone">{{user?.phone}}</a></p>
     <p class="card-text"><i>password: <b>{{user?.password}}</b></i></p>
-    <p class="card-text"><i>mail: </i><a [href]="'mailto:'+user?.email" class="link-info"><b>{{user?.mail}}</b></a></p>
+    <p class="card-text"><i>email: </i>
+      <a [href]="'mailto:'+user?.email"
+         class="link-info"><b>{{user?.email}}</b></a></p>
   </div>
 </div>

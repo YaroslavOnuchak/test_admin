@@ -5,7 +5,7 @@ import {pluck, take} from 'rxjs/operators';
 import {AuthGuardService} from "../../core/services/authentication/auth-guard.service";
 import {User} from "../../core/interfaces";
 import {Store} from "@ngxs/store";
-import {Login, LoginGoogle} from "../../store/actions/authentication.actions";
+import {CheckLoggedUser, Login, LoginGoogle} from "../../store/actions/authentication.actions";
 import {SocialUser, GoogleLoginProvider, SocialAuthService} from "angularx-social-login";
 
 @Component({
@@ -34,10 +34,7 @@ export class LogInComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // const storage = localStorage.getItem("logged_user");
-
-    this.authGuardService.checkLoggedUser()
-
+    this.store.dispatch(new CheckLoggedUser());
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -49,35 +46,45 @@ export class LogInComponent implements OnInit {
   }
 
   onSubmit(event: any): void {
-    let newDispatch;
-
     if (event?.target?.classList?.contains("google-sign-in")) {
-      newDispatch = new LoginGoogle()
-    } else if (event?.target?.classList?.contains("simply-log-in")) {
-      newDispatch = new Login(this.formFields.username.value,
-        this.formFields.password.value)
-    }
-    this.submitted = this.loading = true;
-    this.store.dispatch(newDispatch)
-      .pipe(take(1), pluck('Data', 'loggedUser'))
-      .subscribe((loggedUser: User) => {
-          if (loggedUser) {
-            this.router.navigate(['/main-page']);
-          } else {
+      this.store.dispatch(new LoginGoogle())
+        .pipe(take(1), pluck('Data', 'loggedUser'))
+        .subscribe((loggedUser: User) => {
+            if (loggedUser) {
+              this.router.navigate(['/main-page']);
+            } else {
+              this.loading = false;
+              this.error = `no user or wrong user/pass`
+              return;
+            }
+          },
+          error => {
+            this.error = error;
             this.loading = false;
-            this.error = `no user or wrong user/pass`
-            return;
           }
-        },
-        error => {
-          this.error = error;
-          this.loading = false;
-        }
+        )
+    }
+    else if (event?.target?.classList?.contains("simply-log-in")) {
+      this.submitted = this.loading = true;
+      this.store.dispatch(new Login(
+        this.formFields.username.value,
+        this.formFields.password.value)
       )
-  }
-
-  singOutGoogle(): void {
-    localStorage.removeItem("logged_user");
-    this.router.navigateByUrl('/log').then()
+        .pipe(take(1), pluck('Data', 'loggedUser'))
+        .subscribe((loggedUser: User) => {
+            if (loggedUser) {
+              this.router.navigate(['/main-page']);
+            } else {
+              this.loading = false;
+              this.error = `no user or wrong user/pass`
+              return;
+            }
+          },
+          error => {
+            this.error = error;
+            this.loading = false;
+          }
+        )
+    }
   }
 }

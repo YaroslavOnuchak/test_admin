@@ -1,5 +1,16 @@
 header{
   height: 10vw;
-  text-align: center;
-  cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
+  .sign-out{
+    position: relative;
+    background: indianred;
+    max-height: 36px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    box-shadow: 0 0 15px  black;
+    &:hover{
+      background: rgba(216, 191, 216, 0.81);
+    }
+  }
 }

@@ -6,7 +6,7 @@
       "lastName": "Kent",
       "username": "super",
       "email": "super@gmail.com",
-      "phone": "2222",
+      "phone": "222",
       "password": "string",
       "passwordCheck": "string",
       "addressList": [
@@ -16,7 +16,7 @@
           "address": " ds",
           "city": " dsss",
           "country": "Antigua and Barbuda",
-          "postalCode": " ",
+          "postalCode": "21 ",
           "editStatus": false
         }
       ]
@@ -51,8 +51,8 @@
       "phone": "0977777777",
       "password": "users",
       "passwordCheck": "users",
-      "googleId":"113565785175600276533",
-      "photo":"dsd",
+      "googleId": "113565785175600276533",
+      "photo": "https://lh3.googleusercontent.com/a-/AOh14GjmiRzsSFqnhJzkUNEAJudgFwt3kf_m9IH-pU1I8A=s96-c",
       "addressList": [
         {
           "id": 1,
@@ -158,27 +158,6 @@
       "password": "123123",
       "passwordCheck": "123123",
       "addressList": []
-    },
-    {
-      "id": 18,
-      "firstName": "sdfghj",
-      "lastName": "sdfghj",
-      "username": "123",
-      "email": "onuchak.j@gmail.com",
-      "phone": "0939974336",
-      "password": "123123",
-      "passwordCheck": "123123",
-      "addressList": [
-        {
-          "id": 1,
-          "addressType": "Shipment",
-          "address": " ",
-          "city": " ",
-          "country": "Azerbaijan",
-          "postalCode": " ",
-          "editStatus": false
-        }
-      ]
     },
     {
       "id": 19,

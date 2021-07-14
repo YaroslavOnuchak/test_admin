@@ -4,14 +4,14 @@ import {Injectable} from '@angular/core';
 import {AddressType, User} from '../../core/interfaces'
 
 import {DeleteUser, GetFilterUsers, AddUser, FetchGetUsers, UpdateUser} from '../actions/user.actions'
-import {Login, LoginGoogle, GetLoggedUser} from '../actions/authentication.actions';
+import {Login, LoginGoogle, GetLoggedUser, CheckLoggedUser} from '../actions/authentication.actions';
 import {SetListCountry, GetAddressType, GetListCountry} from '../actions/helperList.actions';
 
 import {tap, map, filter} from 'rxjs/operators';
 import {UsersService} from "../../core/services/users/users.service";
 import {AuthGuardService} from "../../core/services/authentication/auth-guard.service";
 import {HelperListService} from "../../core/services/helperList/helper-list.service";
-import {SocialUser} from "angularx-social-login";
+
 import {Observable} from "rxjs";
 
 const defaultUser: User = {
@@ -67,6 +67,10 @@ export class DataState {
   static getCountries(state: DataStateModel): Array<string> {
     return state.helperList.countryList
   }
+  @Selector()
+  static getLoggedUser(state: DataStateModel): User{
+    return state.loggedUser
+  }
 
   constructor(
     private userService: UsersService,
@@ -100,17 +104,17 @@ export class DataState {
   @Action(UpdateUser)
   updateUser(ctx: StateContext<DataStateModel>,
              {payload}: UpdateUser) {
-    return this.userService.updateUser(payload).pipe
-    (
-      filter(res => !!res),
-      tap(res => {
-        const UserList = [...ctx.getState().users];
-        UserList[UserList.findIndex(item => item.id === payload.id)] = payload;
-        ctx.setState({
-          ...ctx.getState(), users: UserList,
-        });
-      })
-    )
+    return this.userService.updateUser(payload)
+      .pipe(
+        filter(res => !!res),
+        tap(res => {
+          const UserList = [...ctx.getState().users];
+          UserList[UserList.findIndex(item => item.id === payload.id)] = payload;
+          ctx.setState({
+            ...ctx.getState(), users: UserList,
+          });
+        })
+      )
   }
 
   @Action(DeleteUser)
@@ -144,7 +148,7 @@ export class DataState {
 
   @Action(Login)
   Login({getState, patchState}: StateContext<DataStateModel>,
-        payload: Login):Observable<User> {
+        payload: Login): Observable<User> {
     return this.authentication.login(payload)
       .pipe(
         // filter(res => !!res),
@@ -157,7 +161,7 @@ export class DataState {
   }
 
   @Action(LoginGoogle)
-  loginGoogle(ctx: StateContext<DataStateModel>) :Observable<User>{
+  loginGoogle(ctx: StateContext<DataStateModel>): Observable<User> {
 
     return this.authentication.loginGoogle()
       .pipe(
@@ -173,6 +177,22 @@ export class DataState {
   GetLoggedUser({getState}: StateContext<DataStateModel>): User {
     return getState().loggedUser
   }
+
+  @Action(CheckLoggedUser)
+  checkLoggedUser(ctx: StateContext<DataStateModel>): any {
+    return this.authentication.checkLoggedUser()
+      .pipe(
+        // filter(res => !!res),
+        tap(
+          user => {
+            ctx.patchState({
+              loggedUser: user
+            })
+          }
+        )
+      )
+  }
+
 
   @Action(SetListCountry)
   SetListCountry({getState, patchState}: StateContext<DataStateModel>): any {

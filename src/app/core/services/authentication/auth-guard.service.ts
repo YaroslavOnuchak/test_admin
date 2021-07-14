@@ -32,7 +32,7 @@ export class AuthGuardService implements CanActivate {
           let user = users.filter((elem: User) =>
             elem.username === username && elem.password === password)[0];
           this.loginStatus = true;
-          // localStorage.setItem('logged_user', JSON.stringify(user[0]));
+          localStorage.setItem('logged_user', JSON.stringify(user));
           return user;
         }
       ));
@@ -41,6 +41,7 @@ export class AuthGuardService implements CanActivate {
   loginGoogle(): Observable<User> {
     return from(this.authSocialSer.signIn(GoogleLoginProvider.PROVIDER_ID))
       .pipe(mergeMap(socialUser => {
+        // console.log('',socialUser )
         return this.usersService.getUsers()
           .pipe(map(users => {
             let user = users.filter(
@@ -58,7 +59,7 @@ export class AuthGuardService implements CanActivate {
 
   }
 
-  canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
+  canActivate(route?: ActivatedRouteSnapshot): Observable<boolean> {
     return this.http.get(`${environment.apiUrl}/users`).pipe(
       map(
         res => {
@@ -66,7 +67,8 @@ export class AuthGuardService implements CanActivate {
             alert("no data");
             return false;
           } else {
-            if (this.loginStatus) {
+            const storage = localStorage.getItem("logged_user");
+            if (this.loginStatus || storage) {
               return true;
             }
             return false;
@@ -79,20 +81,18 @@ export class AuthGuardService implements CanActivate {
     );
   }
 
-  checkLoggedUser() {
+  checkLoggedUser() : Observable<any>{
     const storage = localStorage.getItem("logged_user");
-    console.log("user===> checkLoggedUser")
+    let user
     if (storage) {
-      console.log("user===> in")
-      // let user =JSON.parse(storage)
-      // return user
+      user =JSON.parse(storage)
       this.loginStatus = true;
       this.router.navigate(['/main-page']);
     } else {
-      console.log("user===> out")
       localStorage.removeItem("logged_user");
       this.router.navigateByUrl('/log').then()
     }
+    return of (user)
   }
 
 }

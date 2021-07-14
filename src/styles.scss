@@ -101,10 +101,18 @@ label._req::after {
 
 .btn.social {
   width: 100%;
+  padding: 10px 5px;
   border: 1px solid thistle;
-  display: flex;
-  align-items: center;
   box-shadow: 0 0 10px lavender;
+  text-align: center;
+
+  &.google-btn {
+    background: url("assets/img/google_logo.png");
+    background-position-x: 5%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-origin: content-box;
+  }
 
   img {
     width: 10%;

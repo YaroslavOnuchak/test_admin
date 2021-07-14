@@ -31,7 +31,6 @@ import {NgxsLoggerPluginModule} from '@ngxs/logger-plugin';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {AuthGuardService} from "./core/services/authentication/auth-guard.service";
 
-import {UserResolver} from "./resolver/user.resolver";
 import {GetUsersResolver} from "./resolver/get-users.resolver";
 import {SocialLoginModule, GoogleLoginProvider, SocialAuthServiceConfig} from "angularx-social-login";
 
@@ -74,7 +73,7 @@ import {SocialLoginModule, GoogleLoginProvider, SocialAuthServiceConfig} from "a
     SocialLoginModule
   ],
   providers: [
-    AuthGuardService, UserResolver, GetUsersResolver,
+    AuthGuardService, GetUsersResolver,
     {
       provide: "SocialAuthServiceConfig",
       useValue: {

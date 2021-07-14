@@ -24,8 +24,10 @@
           </div>
         </div>
         <button (click)="onSubmit($event)"
-                [disabled]="loading" class="btn btn-info simply-log-in">
-          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                [disabled]="loading"
+                class="btn btn-info simply-log-in">
+          <span *ngIf="loading"
+                class="spinner-border spinner-border-sm mr-1"></span>
           Login
         </button>
         <div *ngIf="error"
@@ -34,11 +36,8 @@
         <p class="horizontal-line-text">
           <span>or</span>
         </p>
-        <button class="btn social google-sign-in"
-                (click)="onSubmit($event)">
-          <img
-          [src]="'assets/img/google_logo.png'"
-          alt="google" /><span>With google</span></button>
+        <button class="btn social google-btn google-sign-in"
+                (click)="onSubmit($event)">With google</button>
       </form>
     </div>
   </div>

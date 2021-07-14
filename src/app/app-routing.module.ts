@@ -7,14 +7,9 @@ import {CreateUserComponent} from "./pages/create-user/create-user.component";
 
 import {AuthGuardService} from './core/services/authentication/auth-guard.service';
 
-import {UserResolver} from "./resolver/user.resolver";
 import {GetUsersResolver} from "./resolver/get-users.resolver";
 
 const routes: Routes = [
-  {
-    path: 'log',
-    component: LogInComponent
-  },
   {
     path: '',
     redirectTo: 'log',
@@ -23,10 +18,13 @@ const routes: Routes = [
     // canActivate: [AuthGuardService]
   },
   {
+    path: 'log',
+    component: LogInComponent
+  },
+  {
     path: 'main-page',
     component: MainPageComponent,
     canActivate: [AuthGuardService],
-    resolve: {loggedUser: UserResolver}
   },
   {
     path: 'create-user',
