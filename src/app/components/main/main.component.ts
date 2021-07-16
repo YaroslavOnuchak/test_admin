@@ -45,14 +45,14 @@ export class MainComponent implements OnInit {
     this.user$.subscribe((res?: User) => {
       if (res?.id !== 0) {
         // console.log(res)
-        this.toggl = true;
+        this.toggle = true;
       }
     })
   }
   singOut(): void {
     localStorage.removeItem("logged_user");
     this.router.navigateByUrl('/log').then()
-    this.toggl = false;
+    this.toggle = false;
   }
 
 }
