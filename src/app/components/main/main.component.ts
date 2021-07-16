@@ -44,7 +44,6 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
     this.user$.subscribe((res?: User) => {
       if (res?.id !== 0) {
-        // console.log(res)
         this.toggle = true;
       }
     })
