@@ -38,6 +38,7 @@ export class MainComponent implements OnInit {
         default: {
           break;
         }
+
       }
     });
   }
