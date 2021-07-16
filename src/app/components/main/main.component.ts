@@ -53,6 +53,8 @@ export class MainComponent implements OnInit {
   singOut(): void {
     localStorage.removeItem("logged_user");
     this.router.navigateByUrl('/log').then()
+
+
     this.toggle = false;
   }
 
