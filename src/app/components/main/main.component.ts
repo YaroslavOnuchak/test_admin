@@ -44,6 +44,7 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
     this.user$.subscribe((res?: User) => {
       if (res?.id !== 0) {
+        // console.log(res)
         this.toggle = true;
       }
     })
@@ -53,6 +54,11 @@ export class MainComponent implements OnInit {
     localStorage.removeItem("logged_user");
 
     this.router.navigateByUrl('/log').then()
+
+
+
+
+
 
 
     this.toggle = false;
